@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaomeis.sparrowbeauty.mapper.TbGoodsMapper">
+  <resultMap id="BaseResultMap" type="com.chaomeis.sparrowbeauty.entity.TbGoods">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="selling point" jdbcType="VARCHAR" property="sellingPoint" />
+    <result column="goods_price" jdbcType="VARCHAR" property="goodsPrice" />
+    <result column="goods_inventory" jdbcType="VARCHAR" property="goodsInventory" />
+    <result column="goods_status" jdbcType="INTEGER" property="goodsStatus" />
+    <result column="goods_poster" jdbcType="VARCHAR" property="goodsPoster" />
+    <result column="goods_carousel_image" jdbcType="VARCHAR" property="goodsCarouselImage" />
+    <result column="goods_detail_images" jdbcType="VARCHAR" property="goodsDetailImages" />
+    <result column="is_trial" jdbcType="INTEGER" property="isTrial" />
+    <result column="sku_type_ids" jdbcType="VARCHAR" property="skuTypeIds" />
+    <result column="default_sku_detail_ids" jdbcType="VARCHAR" property="defaultSkuDetailIds" />
+    <result column="simple_desc" jdbcType="VARCHAR" property="simpleDesc" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="cms_user_id" jdbcType="INTEGER" property="cmsUserId" />
+    <result column="cms_user_name" jdbcType="VARCHAR" property="cmsUserName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, goods_name, "selling point", goods_price, goods_inventory, goods_status, goods_poster, 
+    goods_carousel_image, goods_detail_images, is_trial, sku_type_ids, default_sku_detail_ids, 
+    simple_desc, create_time, update_time, cms_user_id, cms_user_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_goods
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_goods
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbGoods">
+    insert into tb_goods (id, goods_name, "selling point", 
+      goods_price, goods_inventory, goods_status, 
+      goods_poster, goods_carousel_image, goods_detail_images, 
+      is_trial, sku_type_ids, default_sku_detail_ids, 
+      simple_desc, create_time, update_time, 
+      cms_user_id, cms_user_name)
+    values (#{id,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, #{sellingPoint,jdbcType=VARCHAR}, 
+      #{goodsPrice,jdbcType=VARCHAR}, #{goodsInventory,jdbcType=VARCHAR}, #{goodsStatus,jdbcType=INTEGER}, 
+      #{goodsPoster,jdbcType=VARCHAR}, #{goodsCarouselImage,jdbcType=VARCHAR}, #{goodsDetailImages,jdbcType=VARCHAR}, 
+      #{isTrial,jdbcType=INTEGER}, #{skuTypeIds,jdbcType=VARCHAR}, #{defaultSkuDetailIds,jdbcType=VARCHAR}, 
+      #{simpleDesc,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{cmsUserId,jdbcType=INTEGER}, #{cmsUserName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbGoods">
+    insert into tb_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="goodsName != null">
+        goods_name,
+      </if>
+      <if test="sellingPoint != null">
+        "selling point",
+      </if>
+      <if test="goodsPrice != null">
+        goods_price,
+      </if>
+      <if test="goodsInventory != null">
+        goods_inventory,
+      </if>
+      <if test="goodsStatus != null">
+        goods_status,
+      </if>
+      <if test="goodsPoster != null">
+        goods_poster,
+      </if>
+      <if test="goodsCarouselImage != null">
+        goods_carousel_image,
+      </if>
+      <if test="goodsDetailImages != null">
+        goods_detail_images,
+      </if>
+      <if test="isTrial != null">
+        is_trial,
+      </if>
+      <if test="skuTypeIds != null">
+        sku_type_ids,
+      </if>
+      <if test="defaultSkuDetailIds != null">
+        default_sku_detail_ids,
+      </if>
+      <if test="simpleDesc != null">
+        simple_desc,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="cmsUserId != null">
+        cms_user_id,
+      </if>
+      <if test="cmsUserName != null">
+        cms_user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="sellingPoint != null">
+        #{sellingPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsInventory != null">
+        #{goodsInventory,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsStatus != null">
+        #{goodsStatus,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPoster != null">
+        #{goodsPoster,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCarouselImage != null">
+        #{goodsCarouselImage,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDetailImages != null">
+        #{goodsDetailImages,jdbcType=VARCHAR},
+      </if>
+      <if test="isTrial != null">
+        #{isTrial,jdbcType=INTEGER},
+      </if>
+      <if test="skuTypeIds != null">
+        #{skuTypeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultSkuDetailIds != null">
+        #{defaultSkuDetailIds,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleDesc != null">
+        #{simpleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cmsUserId != null">
+        #{cmsUserId,jdbcType=INTEGER},
+      </if>
+      <if test="cmsUserName != null">
+        #{cmsUserName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbGoods">
+    update tb_goods
+    <set>
+      <if test="goodsName != null">
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="sellingPoint != null">
+        "selling point" = #{sellingPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        goods_price = #{goodsPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsInventory != null">
+        goods_inventory = #{goodsInventory,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsStatus != null">
+        goods_status = #{goodsStatus,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPoster != null">
+        goods_poster = #{goodsPoster,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCarouselImage != null">
+        goods_carousel_image = #{goodsCarouselImage,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDetailImages != null">
+        goods_detail_images = #{goodsDetailImages,jdbcType=VARCHAR},
+      </if>
+      <if test="isTrial != null">
+        is_trial = #{isTrial,jdbcType=INTEGER},
+      </if>
+      <if test="skuTypeIds != null">
+        sku_type_ids = #{skuTypeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultSkuDetailIds != null">
+        default_sku_detail_ids = #{defaultSkuDetailIds,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleDesc != null">
+        simple_desc = #{simpleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cmsUserId != null">
+        cms_user_id = #{cmsUserId,jdbcType=INTEGER},
+      </if>
+      <if test="cmsUserName != null">
+        cms_user_name = #{cmsUserName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaomeis.sparrowbeauty.entity.TbGoods">
+    update tb_goods
+    set goods_name = #{goodsName,jdbcType=VARCHAR},
+      "selling point" = #{sellingPoint,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=VARCHAR},
+      goods_inventory = #{goodsInventory,jdbcType=VARCHAR},
+      goods_status = #{goodsStatus,jdbcType=INTEGER},
+      goods_poster = #{goodsPoster,jdbcType=VARCHAR},
+      goods_carousel_image = #{goodsCarouselImage,jdbcType=VARCHAR},
+      goods_detail_images = #{goodsDetailImages,jdbcType=VARCHAR},
+      is_trial = #{isTrial,jdbcType=INTEGER},
+      sku_type_ids = #{skuTypeIds,jdbcType=VARCHAR},
+      default_sku_detail_ids = #{defaultSkuDetailIds,jdbcType=VARCHAR},
+      simple_desc = #{simpleDesc,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      cms_user_id = #{cmsUserId,jdbcType=INTEGER},
+      cms_user_name = #{cmsUserName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

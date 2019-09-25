@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaomeis.sparrowbeauty.mapper.TbOrderMapper">
+  <resultMap id="BaseResultMap" type="com.chaomeis.sparrowbeauty.entity.TbOrder">
+    <id column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="order_name" jdbcType="VARCHAR" property="orderName" />
+    <result column="order_amount" jdbcType="VARCHAR" property="orderAmount" />
+    <result column="payment_amount" jdbcType="VARCHAR" property="paymentAmount" />
+    <result column="payment_channel" jdbcType="INTEGER" property="paymentChannel" />
+    <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
+    <result column="order_postage_amount" jdbcType="VARCHAR" property="orderPostageAmount" />
+    <result column="goods_amount" jdbcType="VARCHAR" property="goodsAmount" />
+    <result column="coupons_reduce_amount" jdbcType="VARCHAR" property="couponsReduceAmount" />
+    <result column="payment_time" jdbcType="TIMESTAMP" property="paymentTime" />
+    <result column="delivery_time" jdbcType="TIMESTAMP" property="deliveryTime" />
+    <result column="logistics_name" jdbcType="VARCHAR" property="logisticsName" />
+    <result column="logistics_code" jdbcType="VARCHAR" property="logisticsCode" />
+    <result column="api_user_id" jdbcType="INTEGER" property="apiUserId" />
+    <result column="api_user_message" jdbcType="VARCHAR" property="apiUserMessage" />
+    <result column="api_user_nick" jdbcType="VARCHAR" property="apiUserNick" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="phone_num" jdbcType="VARCHAR" property="phoneNum" />
+    <result column="poster_url" jdbcType="VARCHAR" property="posterUrl" />
+    <result column="goods_total_count" jdbcType="VARCHAR" property="goodsTotalCount" />
+    <result column="api_user_coupons_id" jdbcType="INTEGER" property="apiUserCouponsId" />
+    <result column="api_user_coupons_name" jdbcType="VARCHAR" property="apiUserCouponsName" />
+    <result column="api_user_address_id" jdbcType="INTEGER" property="apiUserAddressId" />
+    <result column="is_first_order" jdbcType="INTEGER" property="isFirstOrder" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    order_id, order_name, order_amount, payment_amount, payment_channel, order_status, 
+    order_postage_amount, goods_amount, coupons_reduce_amount, payment_time, delivery_time, 
+    logistics_name, logistics_code, api_user_id, api_user_message, api_user_nick, open_id, 
+    address, phone_num, poster_url, goods_total_count, api_user_coupons_id, api_user_coupons_name, 
+    api_user_address_id, is_first_order
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbOrder">
+    insert into tb_order (order_id, order_name, order_amount, 
+      payment_amount, payment_channel, order_status, 
+      order_postage_amount, goods_amount, coupons_reduce_amount, 
+      payment_time, delivery_time, logistics_name, 
+      logistics_code, api_user_id, api_user_message, 
+      api_user_nick, open_id, address, 
+      phone_num, poster_url, goods_total_count, 
+      api_user_coupons_id, api_user_coupons_name, api_user_address_id, 
+      is_first_order)
+    values (#{orderId,jdbcType=VARCHAR}, #{orderName,jdbcType=VARCHAR}, #{orderAmount,jdbcType=VARCHAR}, 
+      #{paymentAmount,jdbcType=VARCHAR}, #{paymentChannel,jdbcType=INTEGER}, #{orderStatus,jdbcType=INTEGER}, 
+      #{orderPostageAmount,jdbcType=VARCHAR}, #{goodsAmount,jdbcType=VARCHAR}, #{couponsReduceAmount,jdbcType=VARCHAR}, 
+      #{paymentTime,jdbcType=TIMESTAMP}, #{deliveryTime,jdbcType=TIMESTAMP}, #{logisticsName,jdbcType=VARCHAR}, 
+      #{logisticsCode,jdbcType=VARCHAR}, #{apiUserId,jdbcType=INTEGER}, #{apiUserMessage,jdbcType=VARCHAR}, 
+      #{apiUserNick,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{phoneNum,jdbcType=VARCHAR}, #{posterUrl,jdbcType=VARCHAR}, #{goodsTotalCount,jdbcType=VARCHAR}, 
+      #{apiUserCouponsId,jdbcType=INTEGER}, #{apiUserCouponsName,jdbcType=VARCHAR}, #{apiUserAddressId,jdbcType=INTEGER}, 
+      #{isFirstOrder,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbOrder">
+    insert into tb_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="orderName != null">
+        order_name,
+      </if>
+      <if test="orderAmount != null">
+        order_amount,
+      </if>
+      <if test="paymentAmount != null">
+        payment_amount,
+      </if>
+      <if test="paymentChannel != null">
+        payment_channel,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="orderPostageAmount != null">
+        order_postage_amount,
+      </if>
+      <if test="goodsAmount != null">
+        goods_amount,
+      </if>
+      <if test="couponsReduceAmount != null">
+        coupons_reduce_amount,
+      </if>
+      <if test="paymentTime != null">
+        payment_time,
+      </if>
+      <if test="deliveryTime != null">
+        delivery_time,
+      </if>
+      <if test="logisticsName != null">
+        logistics_name,
+      </if>
+      <if test="logisticsCode != null">
+        logistics_code,
+      </if>
+      <if test="apiUserId != null">
+        api_user_id,
+      </if>
+      <if test="apiUserMessage != null">
+        api_user_message,
+      </if>
+      <if test="apiUserNick != null">
+        api_user_nick,
+      </if>
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="phoneNum != null">
+        phone_num,
+      </if>
+      <if test="posterUrl != null">
+        poster_url,
+      </if>
+      <if test="goodsTotalCount != null">
+        goods_total_count,
+      </if>
+      <if test="apiUserCouponsId != null">
+        api_user_coupons_id,
+      </if>
+      <if test="apiUserCouponsName != null">
+        api_user_coupons_name,
+      </if>
+      <if test="apiUserAddressId != null">
+        api_user_address_id,
+      </if>
+      <if test="isFirstOrder != null">
+        is_first_order,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderName != null">
+        #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAmount != null">
+        #{orderAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentAmount != null">
+        #{paymentAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentChannel != null">
+        #{paymentChannel,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderPostageAmount != null">
+        #{orderPostageAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsAmount != null">
+        #{goodsAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="couponsReduceAmount != null">
+        #{couponsReduceAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentTime != null">
+        #{paymentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryTime != null">
+        #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logisticsName != null">
+        #{logisticsName,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsCode != null">
+        #{logisticsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="apiUserId != null">
+        #{apiUserId,jdbcType=INTEGER},
+      </if>
+      <if test="apiUserMessage != null">
+        #{apiUserMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="apiUserNick != null">
+        #{apiUserNick,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null">
+        #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="posterUrl != null">
+        #{posterUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTotalCount != null">
+        #{goodsTotalCount,jdbcType=VARCHAR},
+      </if>
+      <if test="apiUserCouponsId != null">
+        #{apiUserCouponsId,jdbcType=INTEGER},
+      </if>
+      <if test="apiUserCouponsName != null">
+        #{apiUserCouponsName,jdbcType=VARCHAR},
+      </if>
+      <if test="apiUserAddressId != null">
+        #{apiUserAddressId,jdbcType=INTEGER},
+      </if>
+      <if test="isFirstOrder != null">
+        #{isFirstOrder,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbOrder">
+    update tb_order
+    <set>
+      <if test="orderName != null">
+        order_name = #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAmount != null">
+        order_amount = #{orderAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentAmount != null">
+        payment_amount = #{paymentAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentChannel != null">
+        payment_channel = #{paymentChannel,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderPostageAmount != null">
+        order_postage_amount = #{orderPostageAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsAmount != null">
+        goods_amount = #{goodsAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="couponsReduceAmount != null">
+        coupons_reduce_amount = #{couponsReduceAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentTime != null">
+        payment_time = #{paymentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryTime != null">
+        delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logisticsName != null">
+        logistics_name = #{logisticsName,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsCode != null">
+        logistics_code = #{logisticsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="apiUserId != null">
+        api_user_id = #{apiUserId,jdbcType=INTEGER},
+      </if>
+      <if test="apiUserMessage != null">
+        api_user_message = #{apiUserMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="apiUserNick != null">
+        api_user_nick = #{apiUserNick,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null">
+        phone_num = #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="posterUrl != null">
+        poster_url = #{posterUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTotalCount != null">
+        goods_total_count = #{goodsTotalCount,jdbcType=VARCHAR},
+      </if>
+      <if test="apiUserCouponsId != null">
+        api_user_coupons_id = #{apiUserCouponsId,jdbcType=INTEGER},
+      </if>
+      <if test="apiUserCouponsName != null">
+        api_user_coupons_name = #{apiUserCouponsName,jdbcType=VARCHAR},
+      </if>
+      <if test="apiUserAddressId != null">
+        api_user_address_id = #{apiUserAddressId,jdbcType=INTEGER},
+      </if>
+      <if test="isFirstOrder != null">
+        is_first_order = #{isFirstOrder,jdbcType=INTEGER},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaomeis.sparrowbeauty.entity.TbOrder">
+    update tb_order
+    set order_name = #{orderName,jdbcType=VARCHAR},
+      order_amount = #{orderAmount,jdbcType=VARCHAR},
+      payment_amount = #{paymentAmount,jdbcType=VARCHAR},
+      payment_channel = #{paymentChannel,jdbcType=INTEGER},
+      order_status = #{orderStatus,jdbcType=INTEGER},
+      order_postage_amount = #{orderPostageAmount,jdbcType=VARCHAR},
+      goods_amount = #{goodsAmount,jdbcType=VARCHAR},
+      coupons_reduce_amount = #{couponsReduceAmount,jdbcType=VARCHAR},
+      payment_time = #{paymentTime,jdbcType=TIMESTAMP},
+      delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      logistics_name = #{logisticsName,jdbcType=VARCHAR},
+      logistics_code = #{logisticsCode,jdbcType=VARCHAR},
+      api_user_id = #{apiUserId,jdbcType=INTEGER},
+      api_user_message = #{apiUserMessage,jdbcType=VARCHAR},
+      api_user_nick = #{apiUserNick,jdbcType=VARCHAR},
+      open_id = #{openId,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      phone_num = #{phoneNum,jdbcType=VARCHAR},
+      poster_url = #{posterUrl,jdbcType=VARCHAR},
+      goods_total_count = #{goodsTotalCount,jdbcType=VARCHAR},
+      api_user_coupons_id = #{apiUserCouponsId,jdbcType=INTEGER},
+      api_user_coupons_name = #{apiUserCouponsName,jdbcType=VARCHAR},
+      api_user_address_id = #{apiUserAddressId,jdbcType=INTEGER},
+      is_first_order = #{isFirstOrder,jdbcType=INTEGER}
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

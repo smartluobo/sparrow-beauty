@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaomeis.sparrowbeauty.mapper.TbCartMapper">
+  <resultMap id="BaseResultMap" type="com.chaomeis.sparrowbeauty.entity.TbCart">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="oppen_id" jdbcType="VARCHAR" property="oppenId" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="show_price" jdbcType="DOUBLE" property="showPrice" />
+    <result column="sku_detail_ids" jdbcType="VARCHAR" property="skuDetailIds" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="goods_count" jdbcType="INTEGER" property="goodsCount" />
+    <result column="sku_detail_desc" jdbcType="VARCHAR" property="skuDetailDesc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, oppen_id, goods_id, show_price, sku_detail_ids, create_time, goods_count, sku_detail_desc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_cart
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_cart
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbCart">
+    insert into tb_cart (id, oppen_id, goods_id, 
+      show_price, sku_detail_ids, create_time, 
+      goods_count, sku_detail_desc)
+    values (#{id,jdbcType=INTEGER}, #{oppenId,jdbcType=VARCHAR}, #{goodsId,jdbcType=INTEGER}, 
+      #{showPrice,jdbcType=DOUBLE}, #{skuDetailIds,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{goodsCount,jdbcType=INTEGER}, #{skuDetailDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbCart">
+    insert into tb_cart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="oppenId != null">
+        oppen_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="showPrice != null">
+        show_price,
+      </if>
+      <if test="skuDetailIds != null">
+        sku_detail_ids,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="goodsCount != null">
+        goods_count,
+      </if>
+      <if test="skuDetailDesc != null">
+        sku_detail_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="oppenId != null">
+        #{oppenId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="showPrice != null">
+        #{showPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="skuDetailIds != null">
+        #{skuDetailIds,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsCount != null">
+        #{goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="skuDetailDesc != null">
+        #{skuDetailDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbCart">
+    update tb_cart
+    <set>
+      <if test="oppenId != null">
+        oppen_id = #{oppenId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="showPrice != null">
+        show_price = #{showPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="skuDetailIds != null">
+        sku_detail_ids = #{skuDetailIds,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsCount != null">
+        goods_count = #{goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="skuDetailDesc != null">
+        sku_detail_desc = #{skuDetailDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaomeis.sparrowbeauty.entity.TbCart">
+    update tb_cart
+    set oppen_id = #{oppenId,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      show_price = #{showPrice,jdbcType=DOUBLE},
+      sku_detail_ids = #{skuDetailIds,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      goods_count = #{goodsCount,jdbcType=INTEGER},
+      sku_detail_desc = #{skuDetailDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

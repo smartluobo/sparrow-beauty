@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaomeis.sparrowbeauty.mapper.TbOrderDetailMapper">
+  <resultMap id="BaseResultMap" type="com.chaomeis.sparrowbeauty.entity.TbOrderDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="sku_type_ids" jdbcType="VARCHAR" property="skuTypeIds" />
+    <result column="default_sku_detail_ids" jdbcType="VARCHAR" property="defaultSkuDetailIds" />
+    <result column="goods_num" jdbcType="INTEGER" property="goodsNum" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="goods_price" jdbcType="VARCHAR" property="goodsPrice" />
+    <result column="goods_total_amount" jdbcType="VARCHAR" property="goodsTotalAmount" />
+    <result column="sku_detail_desc" jdbcType="VARCHAR" property="skuDetailDesc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_id, goods_id, sku_type_ids, default_sku_detail_ids, goods_num, goods_name, 
+    goods_price, goods_total_amount, sku_detail_desc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_order_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_order_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbOrderDetail">
+    insert into tb_order_detail (id, order_id, goods_id, 
+      sku_type_ids, default_sku_detail_ids, goods_num, 
+      goods_name, goods_price, goods_total_amount, 
+      sku_detail_desc)
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{goodsId,jdbcType=INTEGER}, 
+      #{skuTypeIds,jdbcType=VARCHAR}, #{defaultSkuDetailIds,jdbcType=VARCHAR}, #{goodsNum,jdbcType=INTEGER}, 
+      #{goodsName,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=VARCHAR}, #{goodsTotalAmount,jdbcType=VARCHAR}, 
+      #{skuDetailDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbOrderDetail">
+    insert into tb_order_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="skuTypeIds != null">
+        sku_type_ids,
+      </if>
+      <if test="defaultSkuDetailIds != null">
+        default_sku_detail_ids,
+      </if>
+      <if test="goodsNum != null">
+        goods_num,
+      </if>
+      <if test="goodsName != null">
+        goods_name,
+      </if>
+      <if test="goodsPrice != null">
+        goods_price,
+      </if>
+      <if test="goodsTotalAmount != null">
+        goods_total_amount,
+      </if>
+      <if test="skuDetailDesc != null">
+        sku_detail_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="skuTypeIds != null">
+        #{skuTypeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultSkuDetailIds != null">
+        #{defaultSkuDetailIds,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNum != null">
+        #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTotalAmount != null">
+        #{goodsTotalAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="skuDetailDesc != null">
+        #{skuDetailDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbOrderDetail">
+    update tb_order_detail
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="skuTypeIds != null">
+        sku_type_ids = #{skuTypeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultSkuDetailIds != null">
+        default_sku_detail_ids = #{defaultSkuDetailIds,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNum != null">
+        goods_num = #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null">
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        goods_price = #{goodsPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTotalAmount != null">
+        goods_total_amount = #{goodsTotalAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="skuDetailDesc != null">
+        sku_detail_desc = #{skuDetailDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaomeis.sparrowbeauty.entity.TbOrderDetail">
+    update tb_order_detail
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      sku_type_ids = #{skuTypeIds,jdbcType=VARCHAR},
+      default_sku_detail_ids = #{defaultSkuDetailIds,jdbcType=VARCHAR},
+      goods_num = #{goodsNum,jdbcType=INTEGER},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=VARCHAR},
+      goods_total_amount = #{goodsTotalAmount,jdbcType=VARCHAR},
+      sku_detail_desc = #{skuDetailDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

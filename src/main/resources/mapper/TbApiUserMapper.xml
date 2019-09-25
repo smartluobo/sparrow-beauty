@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaomeis.sparrowbeauty.mapper.TbApiUserMapper">
+  <resultMap id="BaseResultMap" type="com.chaomeis.sparrowbeauty.entity.TbApiUser">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="wechat_num" jdbcType="VARCHAR" property="wechatNum" />
+    <result column="oppen_id" jdbcType="VARCHAR" property="oppenId" />
+    <result column="wechat_phone_num" jdbcType="VARCHAR" property="wechatPhoneNum" />
+    <result column="user_bind_phone_num" jdbcType="VARCHAR" property="userBindPhoneNum" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="user_head_image" jdbcType="VARCHAR" property="userHeadImage" />
+    <result column="referrer_oppen_id" jdbcType="VARCHAR" property="referrerOppenId" />
+    <result column="gift_receive_status" jdbcType="INTEGER" property="giftReceiveStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, nick_name, wechat_num, oppen_id, wechat_phone_num, user_bind_phone_num, create_time, 
+    update_time, user_head_image, referrer_oppen_id, gift_receive_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_api_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_api_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbApiUser">
+    insert into tb_api_user (id, nick_name, wechat_num, 
+      oppen_id, wechat_phone_num, user_bind_phone_num, 
+      create_time, update_time, user_head_image, 
+      referrer_oppen_id, gift_receive_status)
+    values (#{id,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, #{wechatNum,jdbcType=VARCHAR}, 
+      #{oppenId,jdbcType=VARCHAR}, #{wechatPhoneNum,jdbcType=VARCHAR}, #{userBindPhoneNum,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{userHeadImage,jdbcType=VARCHAR}, 
+      #{referrerOppenId,jdbcType=VARCHAR}, #{giftReceiveStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbApiUser">
+    insert into tb_api_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="wechatNum != null">
+        wechat_num,
+      </if>
+      <if test="oppenId != null">
+        oppen_id,
+      </if>
+      <if test="wechatPhoneNum != null">
+        wechat_phone_num,
+      </if>
+      <if test="userBindPhoneNum != null">
+        user_bind_phone_num,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="userHeadImage != null">
+        user_head_image,
+      </if>
+      <if test="referrerOppenId != null">
+        referrer_oppen_id,
+      </if>
+      <if test="giftReceiveStatus != null">
+        gift_receive_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatNum != null">
+        #{wechatNum,jdbcType=VARCHAR},
+      </if>
+      <if test="oppenId != null">
+        #{oppenId,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatPhoneNum != null">
+        #{wechatPhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="userBindPhoneNum != null">
+        #{userBindPhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userHeadImage != null">
+        #{userHeadImage,jdbcType=VARCHAR},
+      </if>
+      <if test="referrerOppenId != null">
+        #{referrerOppenId,jdbcType=VARCHAR},
+      </if>
+      <if test="giftReceiveStatus != null">
+        #{giftReceiveStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbApiUser">
+    update tb_api_user
+    <set>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatNum != null">
+        wechat_num = #{wechatNum,jdbcType=VARCHAR},
+      </if>
+      <if test="oppenId != null">
+        oppen_id = #{oppenId,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatPhoneNum != null">
+        wechat_phone_num = #{wechatPhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="userBindPhoneNum != null">
+        user_bind_phone_num = #{userBindPhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userHeadImage != null">
+        user_head_image = #{userHeadImage,jdbcType=VARCHAR},
+      </if>
+      <if test="referrerOppenId != null">
+        referrer_oppen_id = #{referrerOppenId,jdbcType=VARCHAR},
+      </if>
+      <if test="giftReceiveStatus != null">
+        gift_receive_status = #{giftReceiveStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaomeis.sparrowbeauty.entity.TbApiUser">
+    update tb_api_user
+    set nick_name = #{nickName,jdbcType=VARCHAR},
+      wechat_num = #{wechatNum,jdbcType=VARCHAR},
+      oppen_id = #{oppenId,jdbcType=VARCHAR},
+      wechat_phone_num = #{wechatPhoneNum,jdbcType=VARCHAR},
+      user_bind_phone_num = #{userBindPhoneNum,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      user_head_image = #{userHeadImage,jdbcType=VARCHAR},
+      referrer_oppen_id = #{referrerOppenId,jdbcType=VARCHAR},
+      gift_receive_status = #{giftReceiveStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
