@@ -2,7 +2,8 @@
 SQLyog Ultimate v12.09 (64 bit)
 MySQL - 5.6.44 : Database - sparrow-beauty
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -24,6 +25,7 @@ CREATE TABLE `tb_activity` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `activity_name` varchar(32) DEFAULT NULL COMMENT '活动名称',
   `activity_type` varchar(2) DEFAULT NULL COMMENT '活动类型 0 全场折扣 1 限时活动',
+
   `start_date` date DEFAULT NULL COMMENT '开始日期',
   `end_date` date DEFAULT NULL COMMENT '结束日期',
   `start_hour` int(11) DEFAULT NULL COMMENT '开始时间',
