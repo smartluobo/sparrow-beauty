@@ -29,6 +29,11 @@
         <appender-ref ref="STDOUT" />
     </logger>
 
+    <logger name="com.chaomeis.sparrowbeauty.mapper" level="debug" >
+<!--        <appender-ref ref="FILE" />-->
+        <appender-ref ref="STDOUT" />
+    </logger>
+
     <logger name="org.springframework" additivity="false" level="info">
         <appender-ref ref="FILE" />
         <appender-ref ref="STDOUT" />
