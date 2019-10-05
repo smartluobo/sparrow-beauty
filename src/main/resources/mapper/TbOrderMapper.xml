@@ -27,24 +27,34 @@
     <result column="api_user_coupons_name" jdbcType="VARCHAR" property="apiUserCouponsName" />
     <result column="api_user_address_id" jdbcType="INTEGER" property="apiUserAddressId" />
     <result column="is_first_order" jdbcType="INTEGER" property="isFirstOrder" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
+
   <sql id="Base_Column_List">
     order_id, order_name, order_amount, payment_amount, payment_channel, order_status, 
     order_postage_amount, goods_amount, coupons_reduce_amount, payment_time, delivery_time, 
     logistics_name, logistics_code, api_user_id, api_user_message, api_user_nick, open_id, 
     address, phone_num, poster_url, goods_total_count, api_user_coupons_id, api_user_coupons_name, 
-    api_user_address_id, is_first_order
+    api_user_address_id, is_first_order,create_time,update_time
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from tb_order
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    select <include refid="Base_Column_List" /> from tb_order where order_id = #{orderId,jdbcType=VARCHAR}
   </select>
+
+  <select id="findOrderByOpenId" resultMap="BaseResultMap" parameterType="string">
+    SELECT <include refid="Base_Column_List" /> FROM tb_order WHERE open_id = #{openId}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from tb_order
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    delete from tb_order where order_id = #{orderId,jdbcType=VARCHAR}
   </delete>
+
+  <update id="cancelOrder" parameterType="map">
+    UPDATE tb_order SET order_status = 5,update_time = now() WHERE order_id = #{orderId,jdbcType=VARCHAR} AND open_id = #{openId}
+  </update>
+
   <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbOrder">
     insert into tb_order (order_id, order_name, order_amount, 
       payment_amount, payment_channel, order_status, 
@@ -54,7 +64,7 @@
       api_user_nick, open_id, address, 
       phone_num, poster_url, goods_total_count, 
       api_user_coupons_id, api_user_coupons_name, api_user_address_id, 
-      is_first_order)
+      is_first_order,create_time,update_time)
     values (#{orderId,jdbcType=VARCHAR}, #{orderName,jdbcType=VARCHAR}, #{orderAmount,jdbcType=VARCHAR}, 
       #{paymentAmount,jdbcType=VARCHAR}, #{paymentChannel,jdbcType=INTEGER}, #{orderStatus,jdbcType=INTEGER}, 
       #{orderPostageAmount,jdbcType=VARCHAR}, #{goodsAmount,jdbcType=VARCHAR}, #{couponsReduceAmount,jdbcType=VARCHAR}, 
@@ -63,8 +73,9 @@
       #{apiUserNick,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{phoneNum,jdbcType=VARCHAR}, #{posterUrl,jdbcType=VARCHAR}, #{goodsTotalCount,jdbcType=VARCHAR}, 
       #{apiUserCouponsId,jdbcType=INTEGER}, #{apiUserCouponsName,jdbcType=VARCHAR}, #{apiUserAddressId,jdbcType=INTEGER}, 
-      #{isFirstOrder,jdbcType=INTEGER})
+      #{isFirstOrder,jdbcType=INTEGER},#{createTime},#{updateTime})
   </insert>
+
   <insert id="insertSelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbOrder">
     insert into tb_order
     <trim prefix="(" suffix=")" suffixOverrides=",">

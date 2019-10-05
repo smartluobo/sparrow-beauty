@@ -1,7 +1,9 @@
 package com.chaomeis.sparrowbeauty.mapper;
 
 import com.chaomeis.sparrowbeauty.entity.TbApiUser;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TbApiUserMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface TbApiUserMapper {
     int updateByPrimaryKeySelective(TbApiUser record);
 
     int updateByPrimaryKey(TbApiUser record);
+
+    TbApiUser tbApiUserMapper(String openId);
 }

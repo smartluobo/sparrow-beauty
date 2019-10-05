@@ -17,16 +17,19 @@
     id, order_id, goods_id, sku_type_ids, default_sku_detail_ids, goods_num, goods_name, 
     goods_price, goods_total_amount, sku_detail_desc
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from tb_order_detail
-    where id = #{id,jdbcType=INTEGER}
+    select <include refid="Base_Column_List" /> from tb_order_detail where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="findOrderDetailByOrderId" resultMap="BaseResultMap" parameterType="string">
+      SELECT <include refid="Base_Column_List" /> FROM tb_order_detail WHERE order_id = #{orderId}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_order_detail
-    where id = #{id,jdbcType=INTEGER}
+    delete from tb_order_detail where id = #{id,jdbcType=INTEGER}
   </delete>
+
   <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbOrderDetail">
     insert into tb_order_detail (id, order_id, goods_id, 
       sku_type_ids, default_sku_detail_ids, goods_num, 
