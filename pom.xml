@@ -133,7 +133,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.ibay.tea.TeaApplication</mainClass>
+					<mainClass>com.chaomeis.sparrowbeauty.SparrowBeautyApplication</mainClass>
 					<layout>ZIP</layout>
 					<includes>
 						<include>
