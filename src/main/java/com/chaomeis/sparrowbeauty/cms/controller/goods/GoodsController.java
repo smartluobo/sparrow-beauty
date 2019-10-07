@@ -7,6 +7,7 @@ import com.chaomeis.sparrowbeauty.common.PageRespDto;
 import com.chaomeis.sparrowbeauty.entity.TbGoods;
 import com.chaomeis.sparrowbeauty.response.ResultInfo;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @CrossOrigin
-@RequestMapping("/goods")
+@RequestMapping("cms/goods")
 public class GoodsController extends BaseController {
     @Resource
     private GoodsService goodsService;

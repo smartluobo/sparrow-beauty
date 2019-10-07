@@ -16,7 +16,7 @@ import javax.annotation.Resource;
  * 商品活动
  */
 @RestController
-@RequestMapping("/activity")
+@RequestMapping("cms/activity")
 public class GoodsActivityController extends BaseController {
     @Resource
     private GoodsActivityService goodsActivityService;
