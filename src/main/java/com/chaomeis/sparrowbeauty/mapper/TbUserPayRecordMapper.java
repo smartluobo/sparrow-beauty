@@ -1,7 +1,9 @@
 package com.chaomeis.sparrowbeauty.mapper;
 
 import com.chaomeis.sparrowbeauty.entity.TbUserPayRecord;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TbUserPayRecordMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface TbUserPayRecordMapper {
     int updateByPrimaryKeySelective(TbUserPayRecord record);
 
     int updateByPrimaryKey(TbUserPayRecord record);
+
+    TbUserPayRecord findPayRecordByOrderId(String orderId);
 }

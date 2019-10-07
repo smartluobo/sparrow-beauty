@@ -17,6 +17,7 @@ import javax.annotation.Resource;
  * 商品
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/goods")
 public class GoodsController extends BaseController {
     @Resource

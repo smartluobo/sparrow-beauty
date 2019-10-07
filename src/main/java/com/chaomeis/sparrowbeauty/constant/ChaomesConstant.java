@@ -1,4 +1,4 @@
 package com.chaomeis.sparrowbeauty.constant;
 
-public class test {
+public class ChaomesConstant {
 }

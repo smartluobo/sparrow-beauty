@@ -1,6 +1,10 @@
 package com.chaomeis.sparrowbeauty.entity;
 
+import com.chaomeis.sparrowbeauty.utils.DateUtil;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Date;
+import java.util.List;
 
 public class TbOrder {
     private String orderId;
@@ -52,6 +56,14 @@ public class TbOrder {
     private int apiUserAddressId;
 
     private int isFirstOrder;
+
+    private Date createTime;
+
+    private Date updateTime;
+
+    private String createDateStr;
+
+    private List<TbOrderDetail> orderDetails;
 
     public String getOrderId() {
         return orderId;
@@ -251,5 +263,41 @@ public class TbOrder {
 
     public void setIsFirstOrder(int isFirstOrder) {
         this.isFirstOrder = isFirstOrder;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        if (createTime != null){
+            this.createDateStr = DateUtil.viewDateFormat(createTime);
+        }
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+    public String getCreateDateStr() {
+        return createDateStr;
+    }
+
+    public void setCreateDateStr(String createDateStr) {
+        if (StringUtils.isNotEmpty(createDateStr)){
+            this.createDateStr = createDateStr;
+        }
+    }
+
+    public List<TbOrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<TbOrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }
