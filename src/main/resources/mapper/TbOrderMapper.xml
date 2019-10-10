@@ -39,6 +39,84 @@
     api_user_address_id, is_first_order,create_time,update_time
   </sql>
 
+  <sql id="Base_Filter_List">
+    <if test="orderId !=null">
+      and order_id= #{orderId,jdbcType=VARCHAR}
+    </if>
+    <if test="orderName != null">
+     and order_name = #{orderName,jdbcType=VARCHAR}
+    </if>
+    <if test="orderAmount != null">
+     and order_amount = #{orderAmount,jdbcType=VARCHAR}
+    </if>
+    <if test="paymentAmount != null">
+      and payment_amount = #{paymentAmount,jdbcType=VARCHAR}
+    </if>
+    <if test="paymentChannel != null">
+     and payment_channel = #{paymentChannel,jdbcType=INTEGER}
+    </if>
+    <if test="orderStatus != null">
+      and order_status = #{orderStatus,jdbcType=INTEGER}
+    </if>
+    <if test="orderPostageAmount != null">
+     and order_postage_amount = #{orderPostageAmount,jdbcType=VARCHAR}
+    </if>
+    <if test="goodsAmount != null">
+     and goods_amount = #{goodsAmount,jdbcType=VARCHAR}
+    </if>
+    <if test="couponsReduceAmount != null">
+      and coupons_reduce_amount = #{couponsReduceAmount,jdbcType=VARCHAR}
+    </if>
+    <if test="paymentTime != null">
+      and payment_time = #{paymentTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="deliveryTime != null">
+     and delivery_time = #{deliveryTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="logisticsName != null">
+     and logistics_name = #{logisticsName,jdbcType=VARCHAR}
+    </if>
+    <if test="logisticsCode != null">
+      and logistics_code = #{logisticsCode,jdbcType=VARCHAR}
+    </if>
+    <if test="apiUserId != null">
+     and api_user_id = #{apiUserId,jdbcType=INTEGER}
+    </if>
+    <if test="apiUserMessage != null">
+      and api_user_message = #{apiUserMessage,jdbcType=VARCHAR}
+    </if>
+    <if test="apiUserNick != null">
+      and api_user_nick = #{apiUserNick,jdbcType=VARCHAR}
+    </if>
+    <if test="openId != null">
+     and open_id = #{openId,jdbcType=VARCHAR}
+    </if>
+    <if test="address != null">
+     and address = #{address,jdbcType=VARCHAR}
+    </if>
+    <if test="phoneNum != null">
+     and phone_num = #{phoneNum,jdbcType=VARCHAR}
+    </if>
+    <if test="posterUrl != null">
+      and poster_url = #{posterUrl,jdbcType=VARCHAR}
+    </if>
+    <if test="goodsTotalCount != null">
+      and goods_total_count = #{goodsTotalCount,jdbcType=VARCHAR}
+    </if>
+    <if test="apiUserCouponsId != null">
+      and api_user_coupons_id = #{apiUserCouponsId,jdbcType=INTEGER}
+    </if>
+    <if test="apiUserCouponsName != null">
+      and api_user_coupons_name = #{apiUserCouponsName,jdbcType=VARCHAR}
+    </if>
+    <if test="apiUserAddressId != null">
+      and api_user_address_id = #{apiUserAddressId,jdbcType=INTEGER}
+    </if>
+    <if test="isFirstOrder != null">
+      and is_first_order = #{isFirstOrder,jdbcType=INTEGER}
+    </if>
+  </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" /> from tb_order where order_id = #{orderId,jdbcType=VARCHAR}
   </select>
@@ -339,4 +417,10 @@
       is_first_order = #{isFirstOrder,jdbcType=INTEGER}
     where order_id = #{orderId,jdbcType=VARCHAR}
   </update>
+
+  <select id="selectList" resultMap="BaseResultMap" parameterType="com.chaomeis.sparrowbeauty.entity.TbOrder">
+    select <include refid="Base_Column_List"/> from tb_order
+    where 1=1
+    <include refid="Base_Filter_List"/>
+  </select>
 </mapper>
