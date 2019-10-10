@@ -197,10 +197,6 @@ CREATE TABLE `tb_order_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `tb_order_detail` */
-
-/*Table structure for table `tb_user_pay_record` */
-
 DROP TABLE IF EXISTS `tb_user_pay_record`;
 
 CREATE TABLE `tb_user_pay_record` (
@@ -219,7 +215,115 @@ CREATE TABLE `tb_user_pay_record` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户支付记录表';
 
-/*Data for the table `tb_user_pay_record` */
+
+
+/* update 20191010*/
+CREATE TABLE `tb_carousel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `image_url` varchar(256) DEFAULT NULL COMMENT '图片地址',
+  `goto_url` varchar(256) DEFAULT NULL COMMENT '跳转地址',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tb_coupons` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `coupons_type` int(2) DEFAULT NULL COMMENT '1-折扣券 2-满减券 3-团购券',
+  `coupons_name` varchar(32) DEFAULT NULL,
+  `coupons_ratio` varchar(8) DEFAULT NULL,
+  `consume_amount` int(4) DEFAULT '0',
+  `reduce_amount` int(4) DEFAULT '0',
+  `consume_count` int(4) DEFAULT '0',
+  `give_count` int(4) DEFAULT '0',
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `coupons_poster` varchar(128) DEFAULT NULL COMMENT '优惠券海报图片',
+  `use_rules` varchar(128) DEFAULT NULL COMMENT '使用规则',
+  `use_scope` varchar(128) DEFAULT NULL COMMENT '使用范围',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tb_integral_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `open_id` varchar(64) DEFAULT NULL COMMENT '用户唯一标识',
+  `integral_source` int(2) DEFAULT NULL COMMENT '积分来源 0消费 1活动赠送',
+  `trading_id` varchar(64) DEFAULT NULL COMMENT '交易编号，消费类型下的订单边号',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `expire_time` datetime DEFAULT NULL COMMENT '过期时间',
+  `integral_amount` int(8) DEFAULT NULL COMMENT '积分数量',
+  `api_user_id` int(11) DEFAULT NULL COMMENT '用户系统id',
+  `integral_id` varchar(64) DEFAULT NULL COMMENT '积分记录id',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tb_sku_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `sku_type_id` int(11) DEFAULT NULL COMMENT '类型id',
+  `sku_detail_name` varchar(32) DEFAULT NULL COMMENT '名称',
+  `sku_detail_price` varchar(8) DEFAULT NULL COMMENT '价格',
+  `cms_view` varchar(32) DEFAULT NULL COMMENT 'cms显示名称',
+  `remark` varchar(64) DEFAULT NULL COMMENT '描述',
+  `cms_user_id` int(11) DEFAULT NULL COMMENT '创建者',
+  `cms_user_name` varchar(32) DEFAULT NULL COMMENT '创建者名称',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+  CREATE TABLE `tb_sku_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `sku_type_name` varchar(16) DEFAULT NULL COMMENT 'sku类型id',
+  `remark` varchar(32) DEFAULT NULL COMMENT '描述',
+  `cms_user_id` int(11) DEFAULT NULL COMMENT '创建者id',
+  `cms_user_name` varchar(32) DEFAULT NULL COMMENT '创建名称',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `cms_view` varchar(16) DEFAULT NULL COMMENT 'cms显示名称',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tb_suit` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `first_name` varchar(16) DEFAULT NULL COMMENT '一级名称',
+  `second_name` varchar(64) DEFAULT NULL COMMENT '二级名称',
+  `suit_price` varchar(16) DEFAULT NULL COMMENT '套餐价格',
+  `sku_detail_ids` varchar(32) DEFAULT NULL COMMENT '套餐拥有sku_detail id',
+  `sku_detail_descs` varchar(128) DEFAULT NULL COMMENT '套餐拥有sku_detail_desc，小程序显示',
+  `suit_cover` varchar(64) DEFAULT NULL COMMENT '套装封面，商品列表页展示',
+  `suit_detail_poster` varchar(1024) DEFAULT NULL COMMENT '套装明细海报，商品详情页显示 集合',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `cms_user_id` int(11) DEFAULT NULL COMMENT '创建者id',
+  `cms_user_name` varchar(16) DEFAULT NULL COMMENT '创建者名称',
+  `simple_desc` varchar(256) DEFAULT NULL COMMENT '套装简单描述',
+  `second_desc` varchar(512) DEFAULT NULL COMMENT '套装二级描述',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tb_user_coupons` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `open_id` varchar(128) DEFAULT NULL COMMENT '用户唯一表示',
+  `coupons_id` int(11) DEFAULT NULL COMMENT '优惠券id',
+  `coupons_name` varchar(32) DEFAULT NULL COMMENT '优惠券名称',
+  `receive_date` int(8) DEFAULT NULL COMMENT '领取日期',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `status` int(2) DEFAULT NULL COMMENT '状态 0未使用 1锁定中 2已经使用',
+  `coupons_poster` varchar(128) DEFAULT NULL COMMENT '优惠券海报',
+  `expire_date` datetime DEFAULT NULL COMMENT '过期时间',
+  `is_referrer` int(2) DEFAULT '0' COMMENT '是否是推荐券 0-不是 1-是',
+  `coupons_ratio` varchar(8) DEFAULT NULL COMMENT '折扣比例',
+  `coupons_type` int(2) DEFAULT NULL COMMENT '优惠券类型 1折扣券 2 满减券 3团购券 4 免费券 5 通用券 6 现金券',
+  `use_rules` varchar(128) DEFAULT NULL COMMENT '使用规则',
+  `use_scope` varchar(128) DEFAULT NULL COMMENT '使用范围',
+  `coupons_source` int(2) DEFAULT NULL COMMENT '优惠券来源 0 幸运抽奖 1 分享专属 2 新人大礼包 3系统派发',
+  `source_name` varchar(32) DEFAULT NULL COMMENT '来源名称 幸运抽奖 分享专属 新人大礼包 系统派发',
+  `activity_id` int(11) DEFAULT NULL COMMENT '活动id',
+  `use_way` int(2) DEFAULT '0' COMMENT '使用方式 0小程序专享 1门店专享',
+  `expire_type` int(2) DEFAULT '0' COMMENT '失效类型 0过期时间过期 1 仅限当日有效 2永久有效',
+  `cash_amount` varchar(16) DEFAULT '0' COMMENT '现金券 面值金额',
+  `api_user_id` int(11) DEFAULT NULL COMMENT '用户系统id',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4466 DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
