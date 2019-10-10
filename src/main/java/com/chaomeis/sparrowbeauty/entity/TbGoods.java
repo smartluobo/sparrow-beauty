@@ -1,6 +1,7 @@
 package com.chaomeis.sparrowbeauty.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class TbGoods {
     private int id;
@@ -36,6 +37,8 @@ public class TbGoods {
     private int cmsUserId;
 
     private String cmsUserName;
+
+    private List<TbSkuType> skuTypeList;
 
     public int getId() {
         return id;
@@ -171,5 +174,13 @@ public class TbGoods {
 
     public void setCmsUserName(String cmsUserName) {
         this.cmsUserName = cmsUserName == null ? null : cmsUserName.trim();
+    }
+
+    public List<TbSkuType> getSkuTypeList() {
+        return skuTypeList;
+    }
+
+    public void setSkuTypeList(List<TbSkuType> skuTypeList) {
+        this.skuTypeList = skuTypeList;
     }
 }

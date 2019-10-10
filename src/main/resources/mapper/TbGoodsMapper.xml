@@ -78,6 +78,7 @@
        and cms_user_name=#{cmsUserName,jdbcType=VARCHAR}
       </if>
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -86,17 +87,18 @@
   </select>
 
   <select id="selectList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from tb_goods
-    where 1=1
+    select <include refid="Base_Column_List" /> from tb_goods where 1=1
     <include refid="Base_Filter_List"/>
   </select>
 
+  <select id="findAll" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" /> FROM tb_goods
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_goods
-    where id = #{id,jdbcType=INTEGER}
+    delete from tb_goods where id = #{id,jdbcType=INTEGER}
   </delete>
+
   <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbGoods">
     insert into tb_goods (id, goods_name, selling_point,
       goods_price, goods_inventory, goods_status, 

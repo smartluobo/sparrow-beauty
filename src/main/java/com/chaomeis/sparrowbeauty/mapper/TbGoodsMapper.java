@@ -20,4 +20,7 @@ public interface TbGoodsMapper {
     int updateByPrimaryKeySelective(TbGoods record);
 
     int updateByPrimaryKey(TbGoods record);
+
+    List<TbGoods> findAll();
+
 }
