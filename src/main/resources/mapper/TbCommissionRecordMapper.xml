@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaomeis.sparrowbeauty.mapper.TbCommissionRecordMapper">
+  <resultMap id="BaseResultMap" type="com.chaomeis.sparrowbeauty.entity.TbCommissionRecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="trading_id" jdbcType="VARCHAR" property="tradingId" />
+    <result column="trading_amount" jdbcType="VARCHAR" property="tradingAmount" />
+    <result column="consumer_open_id" jdbcType="VARCHAR" property="consumerOpenId" />
+    <result column="commission_ratio" jdbcType="VARCHAR" property="commissionRatio" />
+    <result column="settlement_status" jdbcType="INTEGER" property="settlementStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="consumer_source" jdbcType="INTEGER" property="consumerSource" />
+    <result column="serial_no" jdbcType="VARCHAR" property="serialNo" />
+    <result column="api_user_id" jdbcType="INTEGER" property="apiUserId" />
+    <result column="commission_amount" jdbcType="VARCHAR" property="commissionAmount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, open_id, trading_id, trading_amount, consumer_open_id, commission_ratio, settlement_status, 
+    create_time, update_time, consumer_source, serial_no, api_user_id, commission_amount
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_commission_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_commission_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbCommissionRecord">
+    insert into tb_commission_record (id, open_id, trading_id, 
+      trading_amount, consumer_open_id, commission_ratio, 
+      settlement_status, create_time, update_time, 
+      consumer_source, serial_no, api_user_id, 
+      commission_amount)
+    values (#{id,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, #{tradingId,jdbcType=VARCHAR}, 
+      #{tradingAmount,jdbcType=VARCHAR}, #{consumerOpenId,jdbcType=VARCHAR}, #{commissionRatio,jdbcType=VARCHAR}, 
+      #{settlementStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{consumerSource,jdbcType=INTEGER}, #{serialNo,jdbcType=VARCHAR}, #{apiUserId,jdbcType=INTEGER}, 
+      #{commissionAmount,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbCommissionRecord">
+    insert into tb_commission_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="tradingId != null">
+        trading_id,
+      </if>
+      <if test="tradingAmount != null">
+        trading_amount,
+      </if>
+      <if test="consumerOpenId != null">
+        consumer_open_id,
+      </if>
+      <if test="commissionRatio != null">
+        commission_ratio,
+      </if>
+      <if test="settlementStatus != null">
+        settlement_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="consumerSource != null">
+        consumer_source,
+      </if>
+      <if test="serialNo != null">
+        serial_no,
+      </if>
+      <if test="apiUserId != null">
+        api_user_id,
+      </if>
+      <if test="commissionAmount != null">
+        commission_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingId != null">
+        #{tradingId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingAmount != null">
+        #{tradingAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="consumerOpenId != null">
+        #{consumerOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="commissionRatio != null">
+        #{commissionRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementStatus != null">
+        #{settlementStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consumerSource != null">
+        #{consumerSource,jdbcType=INTEGER},
+      </if>
+      <if test="serialNo != null">
+        #{serialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="apiUserId != null">
+        #{apiUserId,jdbcType=INTEGER},
+      </if>
+      <if test="commissionAmount != null">
+        #{commissionAmount,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbCommissionRecord">
+    update tb_commission_record
+    <set>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingId != null">
+        trading_id = #{tradingId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingAmount != null">
+        trading_amount = #{tradingAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="consumerOpenId != null">
+        consumer_open_id = #{consumerOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="commissionRatio != null">
+        commission_ratio = #{commissionRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementStatus != null">
+        settlement_status = #{settlementStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consumerSource != null">
+        consumer_source = #{consumerSource,jdbcType=INTEGER},
+      </if>
+      <if test="serialNo != null">
+        serial_no = #{serialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="apiUserId != null">
+        api_user_id = #{apiUserId,jdbcType=INTEGER},
+      </if>
+      <if test="commissionAmount != null">
+        commission_amount = #{commissionAmount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaomeis.sparrowbeauty.entity.TbCommissionRecord">
+    update tb_commission_record
+    set open_id = #{openId,jdbcType=VARCHAR},
+      trading_id = #{tradingId,jdbcType=VARCHAR},
+      trading_amount = #{tradingAmount,jdbcType=VARCHAR},
+      consumer_open_id = #{consumerOpenId,jdbcType=VARCHAR},
+      commission_ratio = #{commissionRatio,jdbcType=VARCHAR},
+      settlement_status = #{settlementStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      consumer_source = #{consumerSource,jdbcType=INTEGER},
+      serial_no = #{serialNo,jdbcType=VARCHAR},
+      api_user_id = #{apiUserId,jdbcType=INTEGER},
+      commission_amount = #{commissionAmount,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

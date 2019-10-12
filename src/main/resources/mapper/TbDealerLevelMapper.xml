@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaomeis.sparrowbeauty.mapper.TbDealerLevelMapper">
+  <resultMap id="BaseResultMap" type="com.chaomeis.sparrowbeauty.entity.TbDealerLevel">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="share_count" jdbcType="INTEGER" property="shareCount" />
+    <result column="sell_amount" jdbcType="INTEGER" property="sellAmount" />
+    <result column="logical_relation" jdbcType="INTEGER" property="logicalRelation" />
+    <result column="commission_ratio" jdbcType="VARCHAR" property="commissionRatio" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="cms_user_id" jdbcType="INTEGER" property="cmsUserId" />
+    <result column="cms_user_name" jdbcType="VARCHAR" property="cmsUserName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, share_count, sell_amount, logical_relation, commission_ratio, create_time, 
+    update_time, cms_user_id, cms_user_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_dealer_level
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_dealer_level
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbDealerLevel">
+    insert into tb_dealer_level (id, name, share_count, 
+      sell_amount, logical_relation, commission_ratio, 
+      create_time, update_time, cms_user_id, 
+      cms_user_name)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{shareCount,jdbcType=INTEGER}, 
+      #{sellAmount,jdbcType=INTEGER}, #{logicalRelation,jdbcType=INTEGER}, #{commissionRatio,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{cmsUserId,jdbcType=INTEGER}, 
+      #{cmsUserName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbDealerLevel">
+    insert into tb_dealer_level
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="shareCount != null">
+        share_count,
+      </if>
+      <if test="sellAmount != null">
+        sell_amount,
+      </if>
+      <if test="logicalRelation != null">
+        logical_relation,
+      </if>
+      <if test="commissionRatio != null">
+        commission_ratio,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="cmsUserId != null">
+        cms_user_id,
+      </if>
+      <if test="cmsUserName != null">
+        cms_user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="shareCount != null">
+        #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="sellAmount != null">
+        #{sellAmount,jdbcType=INTEGER},
+      </if>
+      <if test="logicalRelation != null">
+        #{logicalRelation,jdbcType=INTEGER},
+      </if>
+      <if test="commissionRatio != null">
+        #{commissionRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cmsUserId != null">
+        #{cmsUserId,jdbcType=INTEGER},
+      </if>
+      <if test="cmsUserName != null">
+        #{cmsUserName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbDealerLevel">
+    update tb_dealer_level
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="shareCount != null">
+        share_count = #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="sellAmount != null">
+        sell_amount = #{sellAmount,jdbcType=INTEGER},
+      </if>
+      <if test="logicalRelation != null">
+        logical_relation = #{logicalRelation,jdbcType=INTEGER},
+      </if>
+      <if test="commissionRatio != null">
+        commission_ratio = #{commissionRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cmsUserId != null">
+        cms_user_id = #{cmsUserId,jdbcType=INTEGER},
+      </if>
+      <if test="cmsUserName != null">
+        cms_user_name = #{cmsUserName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chaomeis.sparrowbeauty.entity.TbDealerLevel">
+    update tb_dealer_level
+    set name = #{name,jdbcType=VARCHAR},
+      share_count = #{shareCount,jdbcType=INTEGER},
+      sell_amount = #{sellAmount,jdbcType=INTEGER},
+      logical_relation = #{logicalRelation,jdbcType=INTEGER},
+      commission_ratio = #{commissionRatio,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      cms_user_id = #{cmsUserId,jdbcType=INTEGER},
+      cms_user_name = #{cmsUserName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
