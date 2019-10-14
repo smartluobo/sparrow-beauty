@@ -10,15 +10,17 @@
   <sql id="Base_Column_List">
     id, image_url, goto_url, create_time
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from tb_carousel
-    where id = #{id,jdbcType=INTEGER}
+    select <include refid="Base_Column_List" /> from tb_carousel where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="findAll" resultMap="BaseResultMap">
+    SELECT  <include refid="Base_Column_List" /> from tb_carousel
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_carousel
-    where id = #{id,jdbcType=INTEGER}
+    delete from tb_carousel where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbCarousel">
     insert into tb_carousel (id, image_url, goto_url, 
