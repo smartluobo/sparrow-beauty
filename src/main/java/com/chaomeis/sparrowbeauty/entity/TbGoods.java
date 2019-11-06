@@ -20,8 +20,11 @@ public class TbGoods {
 
     private String goodsCarouselImage;
 
+    private List<String> goodsCarouselImageList;
+
     private String goodsDetailImages;
 
+    private List<String> goodsDetailImagesList;
     private int isTrial;
 
     private String skuTypeIds;
@@ -182,5 +185,21 @@ public class TbGoods {
 
     public void setSkuTypeList(List<TbSkuType> skuTypeList) {
         this.skuTypeList = skuTypeList;
+    }
+
+    public List<String> getGoodsCarouselImageList() {
+        return goodsCarouselImageList;
+    }
+
+    public void setGoodsCarouselImageList(List<String> goodsCarouselImageList) {
+        this.goodsCarouselImageList = goodsCarouselImageList;
+    }
+
+    public List<String> getGoodsDetailImagesList() {
+        return goodsDetailImagesList;
+    }
+
+    public void setGoodsDetailImagesList(List<String> goodsDetailImagesList) {
+        this.goodsDetailImagesList = goodsDetailImagesList;
     }
 }
