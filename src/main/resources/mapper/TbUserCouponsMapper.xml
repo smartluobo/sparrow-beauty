@@ -13,6 +13,8 @@
     <result column="expire_date" jdbcType="TIMESTAMP" property="expireDate" />
     <result column="is_referrer" jdbcType="INTEGER" property="isReferrer" />
     <result column="coupons_ratio" jdbcType="VARCHAR" property="couponsRatio" />
+    <result column="consume_amount" jdbcType="VARCHAR" property="consumeAmount" />
+    <result column="reduce_amount" jdbcType="VARCHAR" property="reduceAmount" />
     <result column="coupons_type" jdbcType="INTEGER" property="couponsType" />
     <result column="use_rules" jdbcType="VARCHAR" property="useRules" />
     <result column="use_scope" jdbcType="VARCHAR" property="useScope" />
@@ -306,9 +308,9 @@
   <select id="selectUserCoupons" parameterType="com.chaomeis.sparrowbeauty.entity.TbUserCoupons" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from
+    from tb_user_coupons
     where id = #{id,jdbcType=INTEGER}
-    AND open_id =  #{open_id,jdbcType=VARCHAR}
+    AND open_id =  #{openId,jdbcType=VARCHAR}
     AND status =  0
   </select>
 
