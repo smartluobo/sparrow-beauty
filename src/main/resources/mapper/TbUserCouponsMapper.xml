@@ -26,13 +26,13 @@
   </resultMap>
   <sql id="Base_Column_List">
     id, open_id, coupons_id, coupons_name, receive_date, create_time, status, coupons_poster, 
-    expire_date, is_referrer, coupons_ratio, coupons_type, use_rules, use_scope, coupons_source, 
+    expire_date, is_referrer, coupons_ratio,consume_amount,reduce_amount, coupons_type, use_rules, use_scope, coupons_source,
     source_name, activity_id, use_way, expire_type, cash_amount, api_user_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb_user_coupons
+    from
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -43,7 +43,8 @@
     insert into tb_user_coupons (id, open_id, coupons_id, 
       coupons_name, receive_date, create_time, 
       status, coupons_poster, expire_date, 
-      is_referrer, coupons_ratio, coupons_type, 
+      is_referrer, coupons_ratio,consume_amount,
+       reduce_amount,coupons_type,
       use_rules, use_scope, coupons_source, 
       source_name, activity_id, use_way, 
       expire_type, cash_amount, api_user_id
@@ -51,7 +52,9 @@
     values (#{id,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, #{couponsId,jdbcType=INTEGER}, 
       #{couponsName,jdbcType=VARCHAR}, #{receiveDate,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{status,jdbcType=INTEGER}, #{couponsPoster,jdbcType=VARCHAR}, #{expireDate,jdbcType=TIMESTAMP}, 
-      #{isReferrer,jdbcType=INTEGER}, #{couponsRatio,jdbcType=VARCHAR}, #{couponsType,jdbcType=INTEGER}, 
+      #{isReferrer,jdbcType=INTEGER}, #{couponsRatio,jdbcType=VARCHAR},
+        #{consumeAmount,jdbcType=VARCHAR},#{reduceAmount,jdbcType=VARCHAR},
+       #{couponsType,jdbcType=INTEGER},
       #{useRules,jdbcType=VARCHAR}, #{useScope,jdbcType=VARCHAR}, #{couponsSource,jdbcType=INTEGER}, 
       #{sourceName,jdbcType=VARCHAR}, #{activityId,jdbcType=INTEGER}, #{useWay,jdbcType=INTEGER}, 
       #{expireType,jdbcType=INTEGER}, #{cashAmount,jdbcType=VARCHAR}, #{apiUserId,jdbcType=INTEGER}
@@ -92,6 +95,12 @@
       </if>
       <if test="couponsRatio != null">
         coupons_ratio,
+      </if>
+      <if test="consumeAmount != null">
+        consume_amount,
+      </if>
+      <if test="reduceAmount != null">
+        reduce_amount,
       </if>
       <if test="couponsType != null">
         coupons_type,
@@ -158,6 +167,12 @@
       <if test="couponsRatio != null">
         #{couponsRatio,jdbcType=VARCHAR},
       </if>
+      <if test="consumeAmount != null">
+        #{consumeAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="reduceAmount != null">
+        #{reduceAmount,jdbcType=VARCHAR},
+      </if>
       <if test="couponsType != null">
         #{couponsType,jdbcType=INTEGER},
       </if>
@@ -223,6 +238,12 @@
       <if test="couponsRatio != null">
         coupons_ratio = #{couponsRatio,jdbcType=VARCHAR},
       </if>
+      <if test="consumeAmount != null">
+        consume_amount = #{consumeAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="reduceAmount != null">
+        reduce_amount = #{reduceAmount,jdbcType=VARCHAR},
+      </if>
       <if test="couponsType != null">
         coupons_type = #{couponsType,jdbcType=INTEGER},
       </if>
@@ -268,6 +289,8 @@
       expire_date = #{expireDate,jdbcType=TIMESTAMP},
       is_referrer = #{isReferrer,jdbcType=INTEGER},
       coupons_ratio = #{couponsRatio,jdbcType=VARCHAR},
+      consume_amount = #{consumeAmount,jdbcType=VARCHAR},
+      reduce_amount = #{reduceAmount,jdbcType=VARCHAR},
       coupons_type = #{couponsType,jdbcType=INTEGER},
       use_rules = #{useRules,jdbcType=VARCHAR},
       use_scope = #{useScope,jdbcType=VARCHAR},
@@ -280,4 +303,13 @@
       api_user_id = #{apiUserId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectUserCoupons" parameterType="com.chaomeis.sparrowbeauty.entity.TbUserCoupons" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    where id = #{id,jdbcType=INTEGER}
+    AND open_id =  #{open_id,jdbcType=VARCHAR}
+    AND status =  0
+  </select>
+
 </mapper>

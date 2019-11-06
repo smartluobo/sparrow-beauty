@@ -7,6 +7,7 @@ public enum ResponseCodeDesc {
     SUCCESS("000000","成功"),
     SYSTEM_ERROR("100000","系统错误"),
     CANNOT_FIND_ERROR_CODE("000004","未能找到正确的错误类型"),
+    CANNOT_GOODS_NULL_CODE("000204","商品不存在"),
     ;
 
     private String code;

@@ -14,4 +14,6 @@ public interface TbActivityGoodsMapper {
     int updateByPrimaryKeySelective(TbActivityGoods record);
 
     int updateByPrimaryKey(TbActivityGoods record);
+
+    TbActivityGoods selectActivityGoods(TbActivityGoods record);
 }

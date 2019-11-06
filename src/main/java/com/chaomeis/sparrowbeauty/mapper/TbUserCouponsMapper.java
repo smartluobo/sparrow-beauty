@@ -14,4 +14,6 @@ public interface TbUserCouponsMapper {
     int updateByPrimaryKeySelective(TbUserCoupons record);
 
     int updateByPrimaryKey(TbUserCoupons record);
+
+    TbUserCoupons selectUserCoupons(TbUserCoupons record);
 }
