@@ -35,47 +35,46 @@ public class CalculateService {
      * @return 返回订单价格对象 返回对象待定义
      */
     public CalculateGoodsReturnVO calculateCartGoodsPrice(GoodsParamVO goodsParamVO){
-        // 商品总金额=(商品金额+sku价格)x数量
+        // 商品总支付金额
+        BigDecimal goodsPayAmount = new BigDecimal("0");
+        // 商品总金额
         BigDecimal goodsTotalAmount = new BigDecimal("0");
+        // 优惠券金额
+        BigDecimal goodsReduceAmount = new BigDecimal("0");
         GoodsVO goods = goodsParamVO.getGoods();
         TbGoods tbGoods = tbGoodsMapper.selectByPrimaryKey(goods.getGoodsId());
         String goodsPrice = tbGoods.getGoodsPrice();
         BigDecimal bidGoodsPrice = new BigDecimal(goodsPrice);
         BigDecimal goodsCount = new BigDecimal(goods.getGoodsCount()); // 商品数量
         // 商品原价
-        goodsTotalAmount = bidGoodsPrice.multiply(goodsCount);
-
+        goodsPayAmount = bidGoodsPrice.multiply(goodsCount);
+        goodsTotalAmount = goodsPayAmount;
         // 计算活动价格
         TbActivity tbActivity= tbActivityMapper.selectValidActivityy();
         if (null != tbActivity) {
             if ("0".equals(tbActivity.getActivityType())) { // 全场折扣
                 BigDecimal ratio = new BigDecimal(tbActivity.getActivityRatio());
-                goodsTotalAmount = goodsTotalAmount.multiply(ratio).multiply(goodsCount); // 折扣后价格
+                BigDecimal ratioyAmount = goodsPayAmount.multiply(ratio); // 折扣价格
+                goodsReduceAmount = goodsPayAmount.subtract(ratioyAmount); // 减免金额
+                goodsPayAmount = ratioyAmount; // 支付金额
             } else if ("1".equals(tbActivity.getActivityType())) { // 限时活动
                 // 限时活动时，查询商品是否在当前活动中
                 TbActivityGoods record = new TbActivityGoods();
                 record.setGoodsId(goods.getGoodsId());
                 record.setActivityId(tbActivity.getId());
                 TbActivityGoods tbActivityGoods = tbActivityGoodsMapper.selectActivityGoods(record);
-                if ("0".equals(tbActivityGoods.getPriceType())) { // 指定价格活动
-                    goodsTotalAmount =  new BigDecimal(tbActivityGoods.getActivitPrice());
-                } else if ("1".equals(tbActivityGoods.getPriceType())) { // 折扣价格活动
+                if (0 == tbActivityGoods.getPriceType()) { // 指定价格活动
+                    BigDecimal activitAmount =  new BigDecimal(tbActivityGoods.getActivitPrice()).multiply(goodsCount); // 活动价格
+                    goodsReduceAmount = goodsPayAmount.subtract(activitAmount); // 减免金额
+                    goodsPayAmount = activitAmount; // 支付金额
+                } else if (1 == tbActivityGoods.getPriceType()) { // 折扣价格活动
                     BigDecimal ratio = new BigDecimal(tbActivityGoods.getActivityRatio());
-                    goodsTotalAmount = goodsTotalAmount.multiply(ratio).multiply(goodsCount); // 折扣后价格
+                    BigDecimal ratioyAmount = goodsPayAmount.multiply(ratio); // 折扣价格
+                    goodsReduceAmount =  goodsPayAmount.subtract(ratioyAmount); // 减免金额
+                    goodsPayAmount = ratioyAmount; // 支付金额
                 }
             }
         }
-
-        // sku价格
-       if(!CollectionUtils.isEmpty(goods.getSkuDetailIdList())) {
-           for (int skuTypeId: goods.getSkuDetailIdList()) {
-               // 商品sku
-               TbSkuDetail skuList = tbSkuDetailMapper.selectByPrimaryKey(skuTypeId);
-               BigDecimal bigSkuDetailPrice = new BigDecimal(skuList.getSkuDetailPrice());
-               goodsTotalAmount = goodsTotalAmount.add(bigSkuDetailPrice); // 单件sku价格
-               goodsTotalAmount = goodsTotalAmount.multiply(goodsCount); // 商品数量
-           }
-       }
 
         // 代金券
         if (null != goodsParamVO.getUserCouponsId()) {
@@ -83,25 +82,39 @@ public class CalculateService {
             record.setOpenId(goodsParamVO.getOpenId());
             record.setId(goodsParamVO.getUserCouponsId());
             TbUserCoupons userCoupons = tbUserCouponsMapper.selectUserCoupons(record);
-            if ("1".equals(userCoupons.getCouponsType())) { // 折扣券
+            if (1 == userCoupons.getCouponsType()) { // 折扣券
                 BigDecimal ratio = new BigDecimal(userCoupons.getCouponsRatio());
-                goodsTotalAmount = goodsTotalAmount.multiply(ratio); // 折扣后价格
-            } else if ("2".equals(userCoupons.getCouponsType())) { // 满减券
+                BigDecimal ratioyAmount = goodsPayAmount.multiply(ratio); // 折扣后价格
+                goodsReduceAmount =  goodsPayAmount.subtract(ratioyAmount).add(goodsReduceAmount); // 减免金额
+                goodsPayAmount = ratioyAmount; // 支付金额
+            } else if (2 ==userCoupons.getCouponsType()) { // 满减券
                 BigDecimal consumeAmount = new BigDecimal(userCoupons.getConsumeAmount()); // 消费金额
-                int compareValue = goodsTotalAmount.compareTo(consumeAmount);
+                int compareValue = goodsPayAmount.compareTo(consumeAmount);
                 if (compareValue >= 0) { // 商品金额大于券消费金额满足活动
                     BigDecimal reduceAmount = new BigDecimal(userCoupons.getReduceAmount());
-                    goodsTotalAmount = goodsTotalAmount.subtract(reduceAmount);
+                    goodsPayAmount = goodsPayAmount.subtract(reduceAmount);
+                    goodsReduceAmount = reduceAmount.add(goodsReduceAmount);
                 }
             }
         }
 
+        // sku价格
+        if(!CollectionUtils.isEmpty(goods.getSkuDetailIdList())) {
+            for (int skuTypeId: goods.getSkuDetailIdList()) {
+                // 商品sku
+                TbSkuDetail skuList = tbSkuDetailMapper.selectByPrimaryKey(skuTypeId);
+                BigDecimal bigSkuDetailPrice = new BigDecimal(skuList.getSkuDetailPrice()).multiply(goodsCount);
+                goodsPayAmount = goodsPayAmount.add(bigSkuDetailPrice); // 支付金额
+                goodsTotalAmount = goodsTotalAmount.add(bigSkuDetailPrice); // 总价格
+            }
+        }
+
         CalculateGoodsReturnVO calculateReturn = new CalculateGoodsReturnVO();
-        calculateReturn.setGoodsTotalAmount(goodsTotalAmount.toString());
+        calculateReturn.setGoodsTotalAmount(goodsTotalAmount.toString()); // 总金额
+        calculateReturn.setGoodsPayAmount(goodsPayAmount.toString()); // 支付金额
+        calculateReturn.setGoodsReduceAmount(goodsReduceAmount.toString()); // 减免金额
         // 订单邮费
-
         // 商品金额
-
         return calculateReturn;
     }
     public CalculateReturnVo calculateCartOrderPrice(CartOrderParamVo cartOrderParamVo){

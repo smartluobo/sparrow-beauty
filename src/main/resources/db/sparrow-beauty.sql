@@ -124,7 +124,7 @@ DROP TABLE IF EXISTS `tb_goods`;
 CREATE TABLE `tb_goods` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `goods_name` varchar(128) DEFAULT NULL COMMENT '商品名称',
-  `selling point` varchar(128) DEFAULT NULL COMMENT '卖点介绍',
+  `selling_point` varchar(128) DEFAULT NULL COMMENT '卖点介绍',
   `goods_price` varchar(128) DEFAULT NULL COMMENT '商品价格',
   `goods_inventory` varchar(128) DEFAULT NULL COMMENT '商品库存',
   `goods_status` int(2) DEFAULT NULL COMMENT '商品状态 0 下架 1 上架',
