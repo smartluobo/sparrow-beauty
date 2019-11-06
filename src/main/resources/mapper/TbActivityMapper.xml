@@ -187,4 +187,10 @@
       cms_user_name = #{cmsUserName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectValidActivityy" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_activity WHERE
+    (DATE(NOW()) BETWEEN start_date AND end_date) AND (HOUR (NOW()) BETWEEN start_hour AND end_hour) LIMIT 1
+  </select>
 </mapper>

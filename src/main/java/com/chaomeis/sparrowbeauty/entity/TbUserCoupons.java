@@ -25,6 +25,10 @@ public class TbUserCoupons {
 
     private String couponsRatio;
 
+    private String consumeAmount; // 消费金额
+
+    private String reduceAmount; // 减免金额
+
     private Integer couponsType;
 
     private String useRules;
@@ -131,6 +135,22 @@ public class TbUserCoupons {
 
     public void setCouponsRatio(String couponsRatio) {
         this.couponsRatio = couponsRatio == null ? null : couponsRatio.trim();
+    }
+
+    public String getConsumeAmount() {
+        return consumeAmount;
+    }
+
+    public void setConsumeAmount(String consumeAmount) {
+        this.consumeAmount = consumeAmount;
+    }
+
+    public String getReduceAmount() {
+        return reduceAmount;
+    }
+
+    public void setReduceAmount(String reduceAmount) {
+        this.reduceAmount = reduceAmount;
     }
 
     public Integer getCouponsType() {
