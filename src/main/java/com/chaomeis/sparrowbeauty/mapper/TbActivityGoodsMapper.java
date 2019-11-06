@@ -1,7 +1,9 @@
 package com.chaomeis.sparrowbeauty.mapper;
 
 import com.chaomeis.sparrowbeauty.entity.TbActivityGoods;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TbActivityGoodsMapper {
     int deleteByPrimaryKey(Integer id);
 
