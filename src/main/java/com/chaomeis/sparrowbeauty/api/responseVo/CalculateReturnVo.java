@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 
 public class CalculateReturnVo {
     //订单总金额
-    private double orderTotalAmount;
+    private String orderTotalAmount;
     //订单支付金额
-    private double orderPayAmount;
+    private String orderPayAmount;
     //订单优惠金额
-    private double orderReduceAmount;
+    private String orderReduceAmount;
     //优惠策略名称
     private String couponsName;
     //0-无优惠 1 满五赠一系列 2 满减系列 3 优惠券 4新用户
@@ -20,34 +20,30 @@ public class CalculateReturnVo {
 
     private String phoneNum;
 
-    private double postFee;
+    private String postFee;
 
-    public double getOrderTotalAmount() {
+    public String getOrderTotalAmount() {
         return orderTotalAmount;
     }
 
-    public void setOrderTotalAmount(double orderTotalAmount) {
-        BigDecimal b = new BigDecimal(orderTotalAmount);
-
-        this.orderTotalAmount = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+    public void setOrderTotalAmount(String orderTotalAmount) {
+        this.orderTotalAmount = orderTotalAmount;
     }
 
-    public double getOrderPayAmount() {
+    public String getOrderPayAmount() {
         return orderPayAmount;
     }
 
-    public void setOrderPayAmount(double orderPayAmount) {
-        BigDecimal b = new BigDecimal(orderPayAmount);
-        this.orderPayAmount = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+    public void setOrderPayAmount(String orderPayAmount) {
+        this.orderPayAmount = orderPayAmount;
     }
 
-    public double getOrderReduceAmount() {
+    public String getOrderReduceAmount() {
         return orderReduceAmount;
     }
 
-    public void setOrderReduceAmount(double orderReduceAmount) {
-        BigDecimal b = new BigDecimal(orderReduceAmount);
-        this.orderReduceAmount = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+    public void setOrderReduceAmount(String orderReduceAmount) {
+        this.orderReduceAmount = orderReduceAmount;
     }
 
     public String getCouponsName() {
@@ -90,25 +86,12 @@ public class CalculateReturnVo {
         this.phoneNum = phoneNum;
     }
 
-    public double getPostFee() {
+    public String getPostFee() {
         return postFee;
     }
 
-    public void setPostFee(double postFee) {
+    public void setPostFee(String postFee) {
         this.postFee = postFee;
     }
 
-    @Override
-    public String toString() {
-        return "CalculateReturnVo{" +
-                "orderTotalAmount=" + orderTotalAmount +
-                ", orderPayAmount=" + orderPayAmount +
-                ", orderReduceAmount=" + orderReduceAmount +
-                ", couponsName='" + couponsName + '\'' +
-                ", couponsType=" + couponsType +
-                ", userCouponsId=" + userCouponsId +
-                ", userCouponsName='" + userCouponsName + '\'' +
-                ", phoneNum='" + phoneNum + '\'' +
-                '}';
-    }
 }

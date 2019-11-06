@@ -34,7 +34,7 @@ public class CalculateService {
      * @param goodsParamVO 创建订单的参数
      * @return 返回订单价格对象 返回对象待定义
      */
-    public CalculateGoodsReturnVO calculateCartGoodsPrice(GoodsParamVO goodsParamVO){
+    public CalculateReturnVo calculateCartGoodsPrice(GoodsParamVO goodsParamVO){
         // 商品总支付金额
         BigDecimal goodsPayAmount = new BigDecimal("0");
         // 商品总金额
@@ -109,10 +109,10 @@ public class CalculateService {
             }
         }
 
-        CalculateGoodsReturnVO calculateReturn = new CalculateGoodsReturnVO();
-        calculateReturn.setGoodsTotalAmount(goodsTotalAmount.toString()); // 总金额
-        calculateReturn.setGoodsPayAmount(goodsPayAmount.toString()); // 支付金额
-        calculateReturn.setGoodsReduceAmount(goodsReduceAmount.toString()); // 减免金额
+        CalculateReturnVo calculateReturn = new CalculateReturnVo();
+        calculateReturn.setOrderTotalAmount(goodsTotalAmount.toString()); // 总金额
+        calculateReturn.setOrderPayAmount(goodsPayAmount.toString()); // 支付金额
+        calculateReturn.setOrderReduceAmount(goodsReduceAmount.toString()); // 减免金额
         // 订单邮费
         // 商品金额
         return calculateReturn;
