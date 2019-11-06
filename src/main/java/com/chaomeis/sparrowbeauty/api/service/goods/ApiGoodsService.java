@@ -39,7 +39,6 @@ public class ApiGoodsService {
 
     public List<TbGoods> findGoodsList() {
         List<TbGoods> goodsList = tbGoodsMapper.findAll();
-        goodsImagePathSwap(goodsList);
         //todo 判断是否需要重新计算显示价格,全场折扣需要重新计算价格
         return goodsList;
     }
@@ -87,34 +86,35 @@ public class ApiGoodsService {
 
     public TbGoods findGoodsDetailById(Integer goodsId) {
         TbGoods tbGoods = tbGoodsMapper.selectByPrimaryKey(goodsId);
+        goodsImagePathSwap(tbGoods);
         buildSkuInfo(tbGoods);
         return tbGoods;
     }
 
-    public void goodsImagePathSwap(List<TbGoods> goodsList){
-        if (CollectionUtils.isEmpty(goodsList)){
+    public void goodsImagePathSwap(TbGoods tbGoods){
+        if (tbGoods == null){
             return;
         }
-        for (TbGoods tbGoods : goodsList) {
-            String goodsCarouselImage = tbGoods.getGoodsCarouselImage();
-            String goodsDetailImages = tbGoods.getGoodsDetailImages();
-            if (StringUtils.isNotEmpty(goodsCarouselImage)){
-                String[] split = goodsCarouselImage.split(",");
-                List<String> goodsCarouselImageList = new ArrayList<>();
-                for (String s : split) {
-                    goodsCarouselImageList.add(cmsSysProperties.getImageUrlPrefix()+s);
-                }
-                tbGoods.setGoodsCarouselImageList(goodsCarouselImageList);
-            }
 
-            if (StringUtils.isNotEmpty(goodsDetailImages)){
-                String[] split = goodsDetailImages.split(",");
-                List<String> goodsDetailImagesList = new ArrayList<>();
-                for (String s : split) {
-                    goodsDetailImagesList.add(cmsSysProperties.getImageUrlPrefix()+s);
-                }
-                tbGoods.setGoodsDetailImagesList(goodsDetailImagesList);
+        String goodsCarouselImage = tbGoods.getGoodsCarouselImage();
+        String goodsDetailImages = tbGoods.getGoodsDetailImages();
+        if (StringUtils.isNotEmpty(goodsCarouselImage)){
+            String[] split = goodsCarouselImage.split(",");
+            List<String> goodsCarouselImageList = new ArrayList<>();
+            for (String s : split) {
+                goodsCarouselImageList.add(cmsSysProperties.getImageUrlPrefix()+s);
             }
+            tbGoods.setGoodsCarouselImageList(goodsCarouselImageList);
         }
+
+        if (StringUtils.isNotEmpty(goodsDetailImages)){
+            String[] split = goodsDetailImages.split(",");
+            List<String> goodsDetailImagesList = new ArrayList<>();
+            for (String s : split) {
+                goodsDetailImagesList.add(cmsSysProperties.getImageUrlPrefix()+s);
+            }
+            tbGoods.setGoodsDetailImagesList(goodsDetailImagesList);
+        }
+
     }
 }
