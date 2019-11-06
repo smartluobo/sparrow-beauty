@@ -5,37 +5,37 @@ import java.util.List;
 
 public class TbGoods {
     private int id;
-
+    //商品名称
     private String goodsName;
-
+    //商品卖点
     private String sellingPoint;
-
+    //商品价格
     private String goodsPrice;
-
+    //商品库存
     private String goodsInventory;
-
+    //商品状态 0下架 1上架
     private int goodsStatus;
-
+    //商品封面
     private String goodsPoster;
-
+    //商品详情页轮播图片
     private String goodsCarouselImage;
-
+    //商品详情图片
     private String goodsDetailImages;
-
+    //是否未赠品
     private int isTrial;
-
+    //商品sku类型
     private String skuTypeIds;
-
+    //默认商品skuDetailId
     private String defaultSkuDetailIds;
-
+    //简单描述
     private String simpleDesc;
 
     private Date createTime;
 
     private Date updateTime;
-
+    //创建者id
     private int cmsUserId;
-
+    //创建者姓名
     private String cmsUserName;
 
     private List<TbSkuType> skuTypeList;
