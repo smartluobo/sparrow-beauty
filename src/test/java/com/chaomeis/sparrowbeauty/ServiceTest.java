@@ -1,6 +1,7 @@
 package com.chaomeis.sparrowbeauty;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chaomeis.sparrowbeauty.api.paramVo.CartOrderParamVo;
 import com.chaomeis.sparrowbeauty.api.paramVo.GoodsParamVO;
 import com.chaomeis.sparrowbeauty.api.paramVo.GoodsVO;
 import com.chaomeis.sparrowbeauty.api.responseVo.CalculateGoodsReturnVO;
@@ -32,4 +33,14 @@ public class ServiceTest extends BaseTest {
         System.out.println(JSONObject.toJSONString(returnVO));
     }
 
+    @Test
+    public void calculateCartOrderPrice () {
+        CartOrderParamVo cartOrderParamVo = new CartOrderParamVo();
+        String skuList = "1,2";
+        cartOrderParamVo.setOpenId("123456");
+        cartOrderParamVo.setCartItemIds(skuList);
+        cartOrderParamVo.setUserCouponsId(1);
+        CalculateReturnVo returnVO = calculateService.calculateCartOrderPrice(cartOrderParamVo);
+        System.out.println(JSONObject.toJSONString(returnVO));
+    }
 }

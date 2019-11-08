@@ -1,5 +1,7 @@
 package com.chaomeis.sparrowbeauty.api.paramVo;
 
+import java.util.List;
+
 public class CartOrderParamVo {
 
     private String openId;
@@ -76,16 +78,4 @@ public class CartOrderParamVo {
         this.buyerMessage = buyerMessage;
     }
 
-    @Override
-    public String toString() {
-        return "CartOrderParamVo{" +
-                "openId='" + openId + '\'' +
-                ", cartItemIds='" + cartItemIds + '\'' +
-                ", userCouponsId=" + userCouponsId +
-                ", addressId=" + addressId +
-                ", selfGet=" + selfGet +
-                ", storeId=" + storeId +
-                ", orderId='" + orderId + '\'' +
-                '}';
-    }
 }

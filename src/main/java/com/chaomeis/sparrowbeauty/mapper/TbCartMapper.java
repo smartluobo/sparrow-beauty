@@ -1,7 +1,9 @@
 package com.chaomeis.sparrowbeauty.mapper;
 
 import com.chaomeis.sparrowbeauty.entity.TbCart;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TbCartMapper {
     int deleteByPrimaryKey(Integer id);
 
