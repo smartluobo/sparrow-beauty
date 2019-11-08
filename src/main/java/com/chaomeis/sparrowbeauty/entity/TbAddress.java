@@ -2,7 +2,7 @@ package com.chaomeis.sparrowbeauty.entity;
 
 import java.util.Date;
 
-public class tbAddress {
+public class TbAddress {
     private Integer id;
 
     private String openId;
