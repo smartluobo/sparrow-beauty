@@ -49,7 +49,7 @@ public class ApiGoodsService {
         return suitList;
     }
 
-    private void buildSkuInfo(TbGoods tbGoods) {
+    private List<TbSkuType> buildSkuInfo(TbGoods tbGoods) {
         String skuTypeIds = tbGoods.getSkuTypeIds();
         if (StringUtils.isNotEmpty(skuTypeIds)){
             String defaultSkuDetailIds = tbGoods.getDefaultSkuDetailIds();
@@ -76,8 +76,9 @@ public class ApiGoodsService {
                     tbSkuType.setSkuDetailList(skuDetailList);
                 }
             }
-            tbGoods.setSkuTypeList(skuTypeList);
+            return skuTypeList;
         }
+        return  null;
     }
 
     public TbSuit findSuitDetailById(Integer suitId) {
@@ -116,5 +117,13 @@ public class ApiGoodsService {
             tbGoods.setGoodsDetailImagesList(goodsDetailImagesList);
         }
 
+    }
+
+    public List<TbSkuType> getSkuByGoodsId(Integer goodsId) {
+        TbGoods tbGoods = tbGoodsMapper.selectByPrimaryKey(goodsId);
+        if (tbGoods == null || StringUtils.isEmpty(tbGoods.getSkuTypeIds())){
+            return null;
+        }
+        return buildSkuInfo(tbGoods);
     }
 }

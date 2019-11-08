@@ -2,6 +2,7 @@ package com.chaomeis.sparrowbeauty.api.controller.goods;
 
 import com.chaomeis.sparrowbeauty.api.service.goods.ApiGoodsService;
 import com.chaomeis.sparrowbeauty.entity.TbGoods;
+import com.chaomeis.sparrowbeauty.entity.TbSkuType;
 import com.chaomeis.sparrowbeauty.entity.TbSuit;
 import com.chaomeis.sparrowbeauty.response.ResultInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -76,6 +77,22 @@ public class ApiGoodsController {
             ResultInfo resultInfo = ResultInfo.newSuccessResultInfo();
             TbSuit suitInfo = apiGoodsService.findSuitDetailById(Integer.valueOf(params.get("suitId")));
             resultInfo.setData(suitInfo);
+            return resultInfo;
+        }catch (Exception e){
+            LOGGER.error("findSuitList happen exception",e);
+            return ResultInfo.newExceptionResultInfo();
+        }
+    }
+
+    @RequestMapping("/getSkuByGoodsId")
+    public ResultInfo getSkuByGoodsId(@RequestBody Map<String,String> params){
+        try {
+            if (CollectionUtils.isEmpty(params) || StringUtils.isEmpty(params.get("goodsId"))){
+                return ResultInfo.newEmptyParamsResultInfo();
+            }
+            ResultInfo resultInfo = ResultInfo.newSuccessResultInfo();
+            List<TbSkuType> skuTypeList = apiGoodsService.getSkuByGoodsId(Integer.valueOf(params.get("goodsId")));
+            resultInfo.setData(skuTypeList);
             return resultInfo;
         }catch (Exception e){
             LOGGER.error("findSuitList happen exception",e);
