@@ -4,14 +4,18 @@ import com.chaomeis.sparrowbeauty.api.paramVo.CartOrderParamVo;
 import com.chaomeis.sparrowbeauty.api.service.address.ApiAddressService;
 import com.chaomeis.sparrowbeauty.entity.TbAddress;
 import com.chaomeis.sparrowbeauty.response.ResultInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户收货地址
@@ -50,21 +54,23 @@ public class ApiAddressController {
             LOGGER.error("createOrderByCart cartOrderParamVo is null");
             return ResultInfo.newEmptyParamsResultInfo();
         }
-        apiAddressService.updateAddress(address);
+        apiAddressService.updateUserAddress(address);
         return ResultInfo.newSuccessResultInfo();
     }
     /**
      * 删除
-     * @param addressId 地址信息
+     * @param params 地址信息 根据用户和地址id删除
      * @return
      */
     @RequestMapping("/deleteAddress")
-    public ResultInfo deleteAddress(Integer addressId){
-        if (addressId == null){
-            LOGGER.error("createOrderByCart cartOrderParamVo is null");
+    public ResultInfo deleteAddress(@RequestParam Map<String,String> params){
+
+        if (CollectionUtils.isEmpty(params) || StringUtils.isEmpty(params.get("addressId"))
+                || StringUtils.isEmpty(params.get("openId"))){
+            LOGGER.error("deleteAddress params is null");
             return ResultInfo.newEmptyParamsResultInfo();
         }
-        apiAddressService.deleteAddress(addressId);
+        apiAddressService.deleteAddress(params);
         return ResultInfo.newSuccessResultInfo();
     }
     /**

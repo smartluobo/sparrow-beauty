@@ -29,6 +29,12 @@
     delete from tb_address
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteUserAddress" parameterType="map">
+    delete from tb_address
+    where id = #{addressId,jdbcType=INTEGER}
+    and open_id  = #{openId,jdbcType=VARCHAR}
+  </delete>
+
   <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbAddress">
     insert into tb_address (id, open_id, consignee_name, 
       consignee_phone, province, city, 
@@ -173,6 +179,22 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateUserAddress" parameterType="com.chaomeis.sparrowbeauty.entity.TbAddress">
+    update tb_address
+    set
+      consignee_name = #{consigneeName,jdbcType=VARCHAR},
+      consignee_phone = #{consigneePhone,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      district = #{district,jdbcType=VARCHAR},
+      detailed_address = #{detailedAddress,jdbcType=VARCHAR},
+      shipping_address = #{shippingAddress,jdbcType=VARCHAR},
+      is_default = #{isDefault,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+    AND open_id = #{openId,jdbcType=VARCHAR}
   </update>
     <select id="selectUserAddressList" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
