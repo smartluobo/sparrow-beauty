@@ -24,6 +24,12 @@
     delete from tb_cart
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteUserCart" parameterType="map">
+    delete from tb_cart
+    where id = #{cartId,jdbcType=INTEGER}
+    and open_id =  #{openId,jdbcType=VARCHAR}
+  </delete>
+
   <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbCart">
     insert into tb_cart (id, oppen_id, goods_id, 
       show_price, sku_detail_ids, create_time, 
@@ -125,4 +131,22 @@
       sku_detail_desc = #{skuDetailDesc,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="updateUserCart" parameterType="com.chaomeis.sparrowbeauty.entity.TbCart">
+    update tb_cart
+    set
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      show_price = #{showPrice,jdbcType=DOUBLE},
+      sku_detail_ids = #{skuDetailIds,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      goods_count = #{goodsCount,jdbcType=INTEGER},
+      sku_detail_desc = #{skuDetailDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+    and oppen_id = #{oppenId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectUserCartList" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_cart
+    where open_id = #{openId,jdbcType=INTEGER}
+  </select>
 </mapper>
