@@ -20,4 +20,6 @@ public interface TbSkuTypeMapper {
     int updateByPrimaryKey(TbSkuType record);
 
     List<TbSkuType> findSkuTypeByIds(List<String> ids);
+
+    List<TbSkuType> findSkuTypeList(TbSkuType record);
 }

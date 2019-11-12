@@ -27,6 +27,16 @@
     </foreach>
   </select>
 
+  <select id="findSkuTypeList" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" /> FROM tb_sku_type WHERE 1=1
+      <if test="skuTypeName != null">
+          AND sku_type_name =  #{skuTypeName,jdbcType=VARCHAR}
+      </if>
+      <if test="id != null">
+        AND id =  #{id,jdbcType=INTEGER}
+      </if>
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tb_sku_type where id = #{id,jdbcType=INTEGER}
   </delete>
