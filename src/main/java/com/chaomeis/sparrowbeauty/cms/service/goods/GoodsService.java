@@ -2,21 +2,33 @@ package com.chaomeis.sparrowbeauty.cms.service.goods;
 
 import com.chaomeis.sparrowbeauty.common.PageReqVO;
 import com.chaomeis.sparrowbeauty.common.PageRespDto;
+import com.chaomeis.sparrowbeauty.config.CmsSysProperties;
 import com.chaomeis.sparrowbeauty.entity.TbGoods;
 import com.chaomeis.sparrowbeauty.entity.TbSkuDetail;
 import com.chaomeis.sparrowbeauty.entity.TbSkuType;
 import com.chaomeis.sparrowbeauty.mapper.TbGoodsMapper;
+import com.chaomeis.sparrowbeauty.mapper.TbSkuDetailMapper;
+import com.chaomeis.sparrowbeauty.mapper.TbSkuTypeMapper;
 import com.github.pagehelper.PageHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class GoodsService {
     @Resource
     private TbGoodsMapper tbGoodsMapper;
+    @Resource
+    private TbSkuTypeMapper tbSkuTypeMapper;
+    @Resource
+    private TbSkuDetailMapper tbSkuDetailMapper;
+    @Resource
+    private CmsSysProperties cmsSysProperties;
 
     public void createGoods(TbGoods goods) {
         List<String> goodsCarouselImageList = goods.getGoodsCarouselImageList(); // 轮播
@@ -39,8 +51,12 @@ public class GoodsService {
     }
 
     public TbGoods findGoods(int id) {
-       return tbGoodsMapper.selectByPrimaryKey(id);
+        TbGoods goods = tbGoodsMapper.selectByPrimaryKey(id);
+        this.goodsImagePathSwap(goods);
+        this.buildSkuInfo(goods);
+        return goods;
     }
+
     public void deleteGoods(int id) {
         tbGoodsMapper.deleteByPrimaryKey(id);
     }
@@ -107,4 +123,62 @@ public class GoodsService {
         return sb.toString();
     }
 
+    public void goodsImagePathSwap(TbGoods tbGoods){
+        if (tbGoods == null){
+            return;
+        }
+
+        String goodsCarouselImage = tbGoods.getGoodsCarouselImage();
+        String goodsDetailImages = tbGoods.getGoodsDetailImages();
+        if (StringUtils.isNotEmpty(goodsCarouselImage)){
+            String[] split = goodsCarouselImage.split(",");
+            List<String> goodsCarouselImageList = new ArrayList<>();
+            for (String s : split) {
+                goodsCarouselImageList.add(cmsSysProperties.getImageUrlPrefix()+s);
+            }
+            tbGoods.setGoodsCarouselImageList(goodsCarouselImageList);
+        }
+
+        if (StringUtils.isNotEmpty(goodsDetailImages)){
+            String[] split = goodsDetailImages.split(",");
+            List<String> goodsDetailImagesList = new ArrayList<>();
+            for (String s : split) {
+                goodsDetailImagesList.add(cmsSysProperties.getImageUrlPrefix()+s);
+            }
+            tbGoods.setGoodsDetailImagesList(goodsDetailImagesList);
+        }
+
+    }
+
+    private List<TbSkuType> buildSkuInfo(TbGoods tbGoods) {
+        String skuTypeIds = tbGoods.getSkuTypeIds();
+        if (StringUtils.isNotEmpty(skuTypeIds)){
+            String defaultSkuDetailIds = tbGoods.getDefaultSkuDetailIds();
+            List<String> defaultSkuDetailList = null;
+            if (StringUtils.isNotEmpty(defaultSkuDetailIds)){
+                defaultSkuDetailList = Arrays.asList(defaultSkuDetailIds.split(","));
+            }
+            List<TbSkuType> skuTypeList = tbSkuTypeMapper.findSkuTypeByIds(Arrays.asList(skuTypeIds.split(",")));
+            if (!CollectionUtils.isEmpty(skuTypeList)){
+                for (TbSkuType tbSkuType : skuTypeList) {
+                    List<TbSkuDetail> skuDetailList = tbSkuDetailMapper.findSkuDetailBySkuTypeId(tbSkuType.getId());
+                    if (!CollectionUtils.isEmpty(skuDetailList)){
+                        if (!CollectionUtils.isEmpty(defaultSkuDetailList)){
+                            for (TbSkuDetail tbSkuDetail : skuDetailList) {
+                                for (String s : defaultSkuDetailList) {
+                                    if (s.equals(tbSkuDetail.getId().toString())){
+                                        tbSkuDetail.setIsSelect(1);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    tbSkuType.setSkuDetailList(skuDetailList);
+                }
+            }
+            return skuTypeList;
+        }
+        return  null;
+    }
 }
