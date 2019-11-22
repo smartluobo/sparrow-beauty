@@ -9,7 +9,7 @@ public class TbApiUser {
 
     private String wechatNum;
 
-    private String oppenId;
+    private String openId;
 
     private String wechatPhoneNum;
 
@@ -21,9 +21,11 @@ public class TbApiUser {
 
     private String userHeadImage;
 
-    private String referrerOppenId;
+    private String referrerOpenId;
 
     private int giftReceiveStatus;
+    //是否是经销商 0 不是 1 是
+    private int isDealer;
 
     public int getId() {
         return id;
@@ -49,12 +51,12 @@ public class TbApiUser {
         this.wechatNum = wechatNum == null ? null : wechatNum.trim();
     }
 
-    public String getOppenId() {
-        return oppenId;
+    public String getOpenId() {
+        return openId;
     }
 
-    public void setOppenId(String oppenId) {
-        this.oppenId = oppenId == null ? null : oppenId.trim();
+    public void setOpenId(String openId) {
+        this.openId = openId == null ? null : openId.trim();
     }
 
     public String getWechatPhoneNum() {
@@ -97,12 +99,12 @@ public class TbApiUser {
         this.userHeadImage = userHeadImage == null ? null : userHeadImage.trim();
     }
 
-    public String getReferrerOppenId() {
-        return referrerOppenId;
+    public String getReferrerOpenId() {
+        return referrerOpenId;
     }
 
-    public void setReferrerOppenId(String referrerOppenId) {
-        this.referrerOppenId = referrerOppenId == null ? null : referrerOppenId.trim();
+    public void setReferrerOpenId(String referrerOpenId) {
+        this.referrerOpenId = referrerOpenId == null ? null : referrerOpenId.trim();
     }
 
     public int getGiftReceiveStatus() {
@@ -111,5 +113,13 @@ public class TbApiUser {
 
     public void setGiftReceiveStatus(int giftReceiveStatus) {
         this.giftReceiveStatus = giftReceiveStatus;
+    }
+
+    public int getIsDealer() {
+        return isDealer;
+    }
+
+    public void setIsDealer(int isDealer) {
+        this.isDealer = isDealer;
     }
 }

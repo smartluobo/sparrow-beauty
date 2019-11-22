@@ -127,4 +127,9 @@ public class ApiOrderService {
             //todo 释放订单锁定的优惠券
         }
     }
+
+    public void orderStatisticalByStatus(String openId) {
+        //todo 根据openId 统计当前用户各个状态的订单数量 需要自己创建返回对象所需的字段
+        return;
+    }
 }
