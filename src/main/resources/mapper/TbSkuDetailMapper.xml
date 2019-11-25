@@ -29,6 +29,11 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tb_sku_detail where id = #{id,jdbcType=INTEGER}
   </delete>
+
+  <delete id="deleteSkuTypeId" parameterType="java.lang.Integer">
+    delete from tb_sku_detail where sku_type_id = #{skuTypeId,jdbcType=INTEGER}
+  </delete>
+
   <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbSkuDetail">
     insert into tb_sku_detail (id, sku_type_id, sku_detail_name, 
       sku_detail_price, cms_view, remark, 

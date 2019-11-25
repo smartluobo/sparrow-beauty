@@ -44,6 +44,34 @@ public class CmsSkuService {
     public List<TbSkuType> findSkuTypeList(TbSkuType tbSkuType) {
         return tbSkuTypeMapper.findSkuTypeList(tbSkuType);
     }
+    /**
+     * 查询skuType明细
+     * @param skuTypeId
+     */
+    public TbSkuType findSkuTypeInfo(Integer skuTypeId) {
+        return tbSkuTypeMapper.selectByPrimaryKey(skuTypeId);
+    }
+    /**
+     * 查询名称是否被占用
+     * @param tbSkuType sku了下对象
+     * @return boolean true:占用 false:没占用
+  */
+    public boolean skuTypeNameOccupied(TbSkuType tbSkuType) {
+        TbSkuType fiandSkuType = new TbSkuType();
+        fiandSkuType.setSkuTypeName(tbSkuType.getSkuTypeName());
+        List<TbSkuType> list = tbSkuTypeMapper.findSkuTypeList(fiandSkuType);
+        if (list.size() > 1) {
+            return true;
+        }
+        if (list.size() == 1) {
+            for (TbSkuType skuType : list) {
+                if (!skuType.getId().equals(tbSkuType.getId())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     /**
      * 创建sku明细记录

@@ -42,13 +42,17 @@
   </delete>
 
   <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbSkuType">
-    insert into tb_sku_type (id, sku_type_name, remark, 
+    insert into tb_sku_type (id, sku_type_name, remark,
       cms_user_id, cms_user_name, create_time, 
       update_time, cms_view)
     values (#{id,jdbcType=INTEGER}, #{skuTypeName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
       #{cmsUserId,jdbcType=INTEGER}, #{cmsUserName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{cmsView,jdbcType=VARCHAR})
+    <selectKey keyProperty="id" resultType="java.lang.Integer">
+      select LAST_INSERT_ID() as id
+    </selectKey>
   </insert>
+
   <insert id="insertSelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbSkuType">
     insert into tb_sku_type
     <trim prefix="(" suffix=")" suffixOverrides=",">

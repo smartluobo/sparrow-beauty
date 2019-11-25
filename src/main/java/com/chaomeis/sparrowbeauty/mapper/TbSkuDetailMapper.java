@@ -9,6 +9,8 @@ import java.util.List;
 public interface TbSkuDetailMapper {
     int deleteByPrimaryKey(Integer id);
 
+    int deleteSkuTypeId(Integer skuTypeId);
+
     int insert(TbSkuDetail record);
 
     int insertSelective(TbSkuDetail record);
