@@ -122,7 +122,7 @@ public class ApiOrderController {
     /**
      * 根据用户openId查询用户的订单列表
      * @param params 查询订单列表的参数对象
-     * @return 返回用户的订单列表信息
+     * @return 返回用户的订单列表信息xx
      */
     @RequestMapping("/findOrderByOpenId")
     public ResultInfo findOrderByOpenId(@RequestBody Map<String,String> params){
