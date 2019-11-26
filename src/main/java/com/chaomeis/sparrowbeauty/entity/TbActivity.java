@@ -3,19 +3,19 @@ package com.chaomeis.sparrowbeauty.entity;
 import java.util.Date;
 
 public class TbActivity {
-    private int id;
+    private Integer id;
 
     private String activityName;
 
-    private String activityType;
+    private String activityType; // 0 全场折扣 1 限时活动
 
     private Date startDate;
 
     private Date endDate;
 
-    private int startHour;
+    private Integer startHour;
 
-    private int endHour;
+    private Integer endHour;
 
     private String activityPoster;
 
@@ -25,17 +25,10 @@ public class TbActivity {
 
     private String activityRatio;
 
-    private int cmsUserId;
+    private Integer cmsUserId;
 
     private String cmsUserName;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getActivityName() {
         return activityName;
@@ -69,21 +62,6 @@ public class TbActivity {
         this.endDate = endDate;
     }
 
-    public int getStartHour() {
-        return startHour;
-    }
-
-    public void setStartHour(int startHour) {
-        this.startHour = startHour;
-    }
-
-    public int getEndHour() {
-        return endHour;
-    }
-
-    public void setEndHour(int endHour) {
-        this.endHour = endHour;
-    }
 
     public String getActivityPoster() {
         return activityPoster;
@@ -117,11 +95,35 @@ public class TbActivity {
         this.activityRatio = activityRatio == null ? null : activityRatio.trim();
     }
 
-    public int getCmsUserId() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getStartHour() {
+        return startHour;
+    }
+
+    public void setStartHour(Integer startHour) {
+        this.startHour = startHour;
+    }
+
+    public Integer getEndHour() {
+        return endHour;
+    }
+
+    public void setEndHour(Integer endHour) {
+        this.endHour = endHour;
+    }
+
+    public Integer getCmsUserId() {
         return cmsUserId;
     }
 
-    public void setCmsUserId(int cmsUserId) {
+    public void setCmsUserId(Integer cmsUserId) {
         this.cmsUserId = cmsUserId;
     }
 

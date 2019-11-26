@@ -22,6 +22,17 @@
     id, activity_name, activity_type, start_date, end_date, start_hour, end_hour, activity_poster, 
     create_time, update_time, activity_ratio, cms_user_id, cms_user_name
   </sql>
+  <sql id="Base_Filter_List">
+    <if test="id != null">
+      and id=#{id,jdbcType=INTEGER}
+    </if>
+    <if test="activityName != null">
+      and activity_name=#{activityName,jdbcType=VARCHAR}
+    </if>
+    <if test="activityType != null">
+      and activity_type=#{activitytype,jdbcType=VARCHAR}
+    </if>
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -192,5 +203,9 @@
     <include refid="Base_Column_List" />
     from tb_activity WHERE
     (DATE(NOW()) BETWEEN start_date AND end_date) AND (HOUR (NOW()) BETWEEN start_hour AND end_hour) LIMIT 1
+  </select>
+  <select id="selectList" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> FROM tb_activity WHERE 1=1
+    <include refid="Base_Filter_List"/>
   </select>
 </mapper>
