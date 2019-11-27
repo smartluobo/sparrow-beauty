@@ -30,8 +30,6 @@ public class CmsSkuController {
     private CmsSkuService cmsSkuService;
     @Resource
     private TbSkuDetailMapper tbSkuDetailMapper;
-    @Resource
-    private TbSkuTypeMapper tbSkuTypeMapper;
 
     /**
      * 创建skutype类型
@@ -119,7 +117,7 @@ public class CmsSkuController {
      * @param skuTypeId
      * @return
      */
-    @RequestMapping(value = "/delteType")
+    @RequestMapping(value = "/deleteType")
     public ResultInfo deleteSkuType(@RequestParam Integer skuTypeId){
         if(null == skuTypeId) {
             return ResultInfo.newRepeatResultInfo("skuTypeId不能为空");

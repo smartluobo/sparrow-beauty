@@ -31,6 +31,20 @@ public class GoodsService {
     private CmsSysProperties cmsSysProperties;
 
     public void createGoods(TbGoods goods) {
+        this.goodParam(goods);
+        tbGoodsMapper.insert(goods);
+    }
+
+    public void updateGoods(TbGoods goods) {
+        this.goodParam(goods);
+        tbGoodsMapper.updateByPrimaryKeySelective(goods);
+    }
+
+    /**
+     * 商品参数处理
+     * @param goods
+     */
+    private void goodParam(TbGoods goods) {
         List<String> goodsCarouselImageList = goods.getGoodsCarouselImageList(); // 轮播
         if (!CollectionUtils.isEmpty(goods.getGoodsCarouselImageList())) { // 暂时取轮播的第一张作为商品海报
             goods.setGoodsPoster(goodsCarouselImageList.get(0)); // 海报
@@ -43,11 +57,6 @@ public class GoodsService {
         goods.setGoodsDetailImages(goodsDetailImages);
         goods.setSkuTypeIds(skuTypeIds);
         goods.setDefaultSkuDetailIds(defaultSkuDetailIds);
-        tbGoodsMapper.insert(goods);
-    }
-
-    public void updateGoods(TbGoods goods) {
-        tbGoodsMapper.updateByPrimaryKey(goods);
     }
 
     public TbGoods findGoods(int id) {
