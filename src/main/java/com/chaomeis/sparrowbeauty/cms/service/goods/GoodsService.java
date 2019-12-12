@@ -1,5 +1,6 @@
 package com.chaomeis.sparrowbeauty.cms.service.goods;
 
+import com.chaomeis.sparrowbeauty.cms.service.sku.CmsSkuService;
 import com.chaomeis.sparrowbeauty.common.PageReqVO;
 import com.chaomeis.sparrowbeauty.common.PageRespDto;
 import com.chaomeis.sparrowbeauty.config.CmsSysProperties;
@@ -29,6 +30,8 @@ public class GoodsService {
     private TbSkuDetailMapper tbSkuDetailMapper;
     @Resource
     private CmsSysProperties cmsSysProperties;
+    @Resource
+    private CmsSkuService cmsSkuService;
 
     public void createGoods(TbGoods goods) {
         this.goodParam(goods);
@@ -46,23 +49,20 @@ public class GoodsService {
      */
     private void goodParam(TbGoods goods) {
         List<String> goodsCarouselImageList = goods.getGoodsCarouselImageList(); // 轮播
-        if (!CollectionUtils.isEmpty(goods.getGoodsCarouselImageList())) { // 暂时取轮播的第一张作为商品海报
-            goods.setGoodsPoster(goodsCarouselImageList.get(0)); // 海报
-        }
+        String goodsPoster = this.imageUrl(goods.getGoodsPoster());
+        goods.setGoodsPoster(goodsPoster); // 海报
         String goodsCarouselImage = this.commaSpliceStr(goodsCarouselImageList); // 轮播处理
         String goodsDetailImages = this.commaSpliceStr(goods.getGoodsDetailImagesList()); // 商品详情
-        String skuTypeIds = this.skuTypeCommaSpliceIds(goods.getSkuTypeList()); // SKUtype处理
-        String defaultSkuDetailIds = this.skuDetailCommaSpliceIds(goods.getSkuTypeList()); // sku明细处理
         goods.setGoodsCarouselImage(goodsCarouselImage);
         goods.setGoodsDetailImages(goodsDetailImages);
-        goods.setSkuTypeIds(skuTypeIds);
-        goods.setDefaultSkuDetailIds(defaultSkuDetailIds);
+        this.skuCommaSpliceIds(goods.getSkuTypeList(), goods);// SKU明细和类型处理处理
     }
 
     public TbGoods findGoods(int id) {
         TbGoods goods = tbGoodsMapper.selectByPrimaryKey(id);
         this.goodsImagePathSwap(goods);
-        this.buildSkuInfo(goods);
+        List<TbSkuType> skuTypeList = this.buildSkuInfo(goods);
+        goods.setSkuTypeList(skuTypeList);
         return goods;
     }
 
@@ -73,6 +73,9 @@ public class GoodsService {
     public PageRespDto<TbGoods> findGoodsPageList(PageReqVO<TbGoods> page) {
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<TbGoods> goodsPage = tbGoodsMapper.selectList(page.getCondition());
+        for (TbGoods goods : goodsPage) {
+            this.goodsImagePathSwap(goods);
+        }
         PageRespDto<TbGoods> pageList = new PageRespDto(goodsPage);
         return pageList;
     }
@@ -88,6 +91,7 @@ public class GoodsService {
         }
         StringBuffer sb = new StringBuffer();
         for (String string : stringList) {
+            string = this.imageUrl(string);
             sb.append(string).append(",");
         }
         sb.deleteCharAt(sb.length() - 1);
@@ -112,31 +116,42 @@ public class GoodsService {
     }
 
     /**
+     * sku类型和明细处理，返回逗号拼接字符串id
      * skuDetail 返回逗号拼接字符串id
      * @param skuTypeList
      * @return
      */
-    public String skuDetailCommaSpliceIds (List<TbSkuType> skuTypeList) {
-        if (CollectionUtils.isEmpty(skuTypeList)) {
-            return "";
+    public void skuCommaSpliceIds (List<TbSkuType> skuTypeList, TbGoods goods) {
+        if(CollectionUtils.isEmpty(skuTypeList)) {
+            return;
         }
-        StringBuffer sb = new StringBuffer();
+        StringBuffer detailStr = new StringBuffer(); // sku明细
+        StringBuffer typeStr = new StringBuffer(); // sku类型
         for (TbSkuType skuType : skuTypeList) {
             if (!CollectionUtils.isEmpty(skuType.getSkuDetailList())) {
                 for (TbSkuDetail detail: skuType.getSkuDetailList()) {
-                    sb.append(detail.getId()).append(",");
+                    if(1 == detail.getIsSelect()) { // 选中的
+                        detailStr.append(detail.getId()).append(",");
+                        typeStr.append(skuType.getId()).append(",");
+                    }
                 }
             }
         }
-        sb.deleteCharAt(sb.length() - 1);
-        return sb.toString();
+        if (detailStr.length()>1) {
+            detailStr.deleteCharAt(detailStr.length() - 1);
+        }
+        if(typeStr.length()>1) {
+            typeStr.deleteCharAt(typeStr.length() - 1);
+        }
+        goods.setSkuTypeIds(typeStr.toString());
+        goods.setDefaultSkuDetailIds(detailStr.toString());
     }
 
     public void goodsImagePathSwap(TbGoods tbGoods){
         if (tbGoods == null){
             return;
         }
-
+        tbGoods.setGoodsPoster(cmsSysProperties.getImageUrlPrefix()+tbGoods.getGoodsPoster());
         String goodsCarouselImage = tbGoods.getGoodsCarouselImage();
         String goodsDetailImages = tbGoods.getGoodsDetailImages();
         if (StringUtils.isNotEmpty(goodsCarouselImage)){
@@ -161,33 +176,37 @@ public class GoodsService {
 
     private List<TbSkuType> buildSkuInfo(TbGoods tbGoods) {
         String skuTypeIds = tbGoods.getSkuTypeIds();
-        if (StringUtils.isNotEmpty(skuTypeIds)){
-            String defaultSkuDetailIds = tbGoods.getDefaultSkuDetailIds();
-            List<String> defaultSkuDetailList = null;
-            if (StringUtils.isNotEmpty(defaultSkuDetailIds)){
-                defaultSkuDetailList = Arrays.asList(defaultSkuDetailIds.split(","));
-            }
-            List<TbSkuType> skuTypeList = tbSkuTypeMapper.findSkuTypeByIds(Arrays.asList(skuTypeIds.split(",")));
-            if (!CollectionUtils.isEmpty(skuTypeList)){
-                for (TbSkuType tbSkuType : skuTypeList) {
-                    List<TbSkuDetail> skuDetailList = tbSkuDetailMapper.findSkuDetailBySkuTypeId(tbSkuType.getId());
-                    if (!CollectionUtils.isEmpty(skuDetailList)){
-                        if (!CollectionUtils.isEmpty(defaultSkuDetailList)){
-                            for (TbSkuDetail tbSkuDetail : skuDetailList) {
-                                for (String s : defaultSkuDetailList) {
-                                    if (s.equals(tbSkuDetail.getId().toString())){
-                                        tbSkuDetail.setIsSelect(1);
-                                        break;
-                                    }
+        String defaultSkuDetailIds = tbGoods.getDefaultSkuDetailIds();
+        List<String> defaultSkuDetailList = null;
+        if (StringUtils.isNotEmpty(defaultSkuDetailIds)){
+            defaultSkuDetailList = Arrays.asList(defaultSkuDetailIds.split(","));
+        }
+
+        List<TbSkuType> skuTypeList = cmsSkuService.findSkuTypeList(new TbSkuType());
+        //List<TbSkuType> skuTypeList = tbSkuTypeMapper.findSkuTypeByIds(Arrays.asList(skuTypeIds.split(",")));
+        if (!CollectionUtils.isEmpty(skuTypeList)){
+            for (TbSkuType tbSkuType : skuTypeList) {
+                List<TbSkuDetail> skuDetailList = tbSkuDetailMapper.findSkuDetailBySkuTypeId(tbSkuType.getId());
+                if (!CollectionUtils.isEmpty(skuDetailList)){
+                    if (!CollectionUtils.isEmpty(defaultSkuDetailList)){
+                        for (TbSkuDetail tbSkuDetail : skuDetailList) {
+                            for (String s : defaultSkuDetailList) {
+                                if (s.equals(tbSkuDetail.getId().toString())){
+                                    tbSkuDetail.setIsSelect(1);
+                                    break;
                                 }
                             }
                         }
                     }
-                    tbSkuType.setSkuDetailList(skuDetailList);
                 }
+                tbSkuType.setSkuDetailList(skuDetailList);
             }
-            return skuTypeList;
         }
-        return  null;
+        return skuTypeList;
+    }
+
+    public String imageUrl (String url) {
+        url = url.replaceAll(cmsSysProperties.getImageUrlPrefix(),"");
+        return url;
     }
 }
