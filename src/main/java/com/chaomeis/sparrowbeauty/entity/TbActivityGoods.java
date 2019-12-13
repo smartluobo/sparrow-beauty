@@ -5,7 +5,7 @@ import java.util.Date;
 public class TbActivityGoods {
     private int id;
 
-    private int activityId;
+    private Integer activityId;
 
     private String activityName;
 
@@ -35,11 +35,11 @@ public class TbActivityGoods {
         this.id = id;
     }
 
-    public int getActivityId() {
+    public Integer getActivityId() {
         return activityId;
     }
 
-    public void setActivityId(int activityId) {
+    public void setActivityId(Integer activityId) {
         this.activityId = activityId;
     }
 

@@ -19,6 +19,17 @@
     id, activity_id, activity_name, goods_id, goods_name, price_type, activit_price, 
     activity_ratio, create_time, update_time, cms_user_id, cms_user_name
   </sql>
+  <sql id="Base_Filter_List">
+    <if test="activityId != null">
+     and activity_id = #{activityId,jdbcType=TIMESTAMP},
+    </if>
+    <if test="goodsId != null">
+      and goods_id = #{goodsId,jdbcType=TIMESTAMP},
+    </if>
+    <if test="activityName != null">
+      and activity_name = #{activityName,jdbcType=TIMESTAMP},
+    </if>
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -28,6 +39,10 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tb_activity_goods
     where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteGoodsId" parameterType="java.lang.Integer">
+    delete from tb_activity_goods
+    where goods_id = #{goodId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbActivityGoods">
     insert into tb_activity_goods (id, activity_id, activity_name, 
@@ -181,5 +196,12 @@
     where activity_id = #{activityId,jdbcType=INTEGER}
     AND goods_id = #{goodsId,jdbcType=INTEGER}
     LIMIT 1
+  </select>
+  <select id="selectActivityGoodsList" parameterType="com.chaomeis.sparrowbeauty.entity.TbActivityGoods" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_activity_goods
+    where 1=1
+    <include refid="Base_Filter_List"/>
   </select>
 </mapper>

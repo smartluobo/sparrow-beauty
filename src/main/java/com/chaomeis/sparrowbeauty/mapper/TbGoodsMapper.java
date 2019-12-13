@@ -23,4 +23,10 @@ public interface TbGoodsMapper {
 
     List<TbGoods> findAll();
 
+    /**
+     * 查询参加活动的商品列表
+     * @param activityId 活动id
+     * @return
+     */
+    List<TbGoods> findActivityGoods(Integer activityId);
 }

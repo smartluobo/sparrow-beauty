@@ -1,6 +1,7 @@
 package com.chaomeis.sparrowbeauty.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class TbActivity {
     private Integer id;
@@ -28,7 +29,12 @@ public class TbActivity {
     private Integer cmsUserId;
 
     private String cmsUserName;
-
+    /*折扣比例*/
+    private String couponsRatio;
+    /*减免金额*/
+    private String reduceAmount;
+    /*活动对应的商品*/
+    private List<TbGoods> goodsList;
 
     public String getActivityName() {
         return activityName;
@@ -133,5 +139,29 @@ public class TbActivity {
 
     public void setCmsUserName(String cmsUserName) {
         this.cmsUserName = cmsUserName == null ? null : cmsUserName.trim();
+    }
+
+    public String getCouponsRatio() {
+        return couponsRatio;
+    }
+
+    public void setCouponsRatio(String couponsRatio) {
+        this.couponsRatio = couponsRatio;
+    }
+
+    public String getReduceAmount() {
+        return reduceAmount;
+    }
+
+    public void setReduceAmount(String reduceAmount) {
+        this.reduceAmount = reduceAmount;
+    }
+
+    public List<TbGoods> getGoodsList() {
+        return goodsList;
+    }
+
+    public void setGoodsList(List<TbGoods> goodsList) {
+        this.goodsList = goodsList;
     }
 }
