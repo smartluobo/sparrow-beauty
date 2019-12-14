@@ -21,13 +21,13 @@
   </sql>
   <sql id="Base_Filter_List">
     <if test="activityId != null">
-     and activity_id = #{activityId,jdbcType=TIMESTAMP},
+     and activity_id = #{activityId,jdbcType=TIMESTAMP}
     </if>
     <if test="goodsId != null">
-      and goods_id = #{goodsId,jdbcType=TIMESTAMP},
+      and goods_id = #{goodsId,jdbcType=TIMESTAMP}
     </if>
     <if test="activityName != null">
-      and activity_name = #{activityName,jdbcType=TIMESTAMP},
+      and activity_name = #{activityName,jdbcType=TIMESTAMP}
     </if>
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

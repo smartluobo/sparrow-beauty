@@ -41,19 +41,19 @@ public class CmsCouponsController extends BaseController {
         return ResultInfo.newSuccessResultInfo();
     }
     @RequestMapping(value = "/delete")
-    public ResultInfo deleteCoupons (Integer couponsId) {
-        if(null == couponsId) {
+    public ResultInfo deleteCoupons (Integer id) {
+        if(null == id) {
             return ResultInfo.newRepeatResultInfo("优惠券id");
         }
-        cmsCouponsService.deleteCoupons(couponsId);
+        cmsCouponsService.deleteCoupons(id);
         return ResultInfo.newSuccessResultInfo();
     }
     @RequestMapping(value = "/findInfo")
-    public ResultInfo findInfoCoupons (Integer couponsId) {
-        if(null == couponsId) {
+    public ResultInfo findInfoCoupons (Integer id) {
+        if(null == id) {
             return ResultInfo.newRepeatResultInfo("优惠券id");
         }
-        cmsCouponsService.findCouponsInfo(couponsId);
+        cmsCouponsService.findCouponsInfo(id);
         return ResultInfo.newSuccessResultInfo();
     }
     @RequestMapping(value = "/findPage")

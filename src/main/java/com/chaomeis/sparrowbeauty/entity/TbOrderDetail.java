@@ -1,7 +1,7 @@
 package com.chaomeis.sparrowbeauty.entity;
 
 public class TbOrderDetail {
-    private int id;
+    private Integer id;
 
     private String orderId;
 
@@ -21,11 +21,11 @@ public class TbOrderDetail {
 
     private String skuDetailDesc;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

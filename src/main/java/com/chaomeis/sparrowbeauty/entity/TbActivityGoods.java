@@ -9,7 +9,7 @@ public class TbActivityGoods {
 
     private String activityName;
 
-    private int goodsId;
+    private Integer goodsId;
 
     private String goodsName;
 
@@ -51,11 +51,11 @@ public class TbActivityGoods {
         this.activityName = activityName == null ? null : activityName.trim();
     }
 
-    public int getGoodsId() {
+    public Integer getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(int goodsId) {
+    public void setGoodsId(Integer goodsId) {
         this.goodsId = goodsId;
     }
 

@@ -29,6 +29,18 @@
     <result column="is_first_order" jdbcType="INTEGER" property="isFirstOrder" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <collection  property="orderDetails" ofType="com.chaomeis.sparrowbeauty.entity.TbOrderDetail">
+      <id column="id" jdbcType="INTEGER" property="id" />
+      <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+      <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+      <result column="sku_type_ids" jdbcType="VARCHAR" property="skuTypeIds" />
+      <result column="default_sku_detail_ids" jdbcType="VARCHAR" property="defaultSkuDetailIds" />
+      <result column="goods_num" jdbcType="INTEGER" property="goodsNum" />
+      <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+      <result column="goods_price" jdbcType="VARCHAR" property="goodsPrice" />
+      <result column="goods_total_amount" jdbcType="VARCHAR" property="goodsTotalAmount" />
+      <result column="sku_detail_desc" jdbcType="VARCHAR" property="skuDetailDesc" />
+    </collection >
   </resultMap>
 
   <sql id="Base_Column_List">
@@ -118,7 +130,10 @@
   </sql>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List" /> from tb_order where order_id = #{orderId,jdbcType=VARCHAR}
+    SELECT * FROM tb_order
+    LEFT JOIN tb_order_detail ON tb_order_detail.order_id = tb_order.order_id
+    where 1=1
+    AND tb_order.order_id = #{orderId,jdbcType=VARCHAR}
   </select>
 
   <select id="findOrderByOpenId" resultMap="BaseResultMap" parameterType="string">
@@ -419,7 +434,8 @@
   </update>
 
   <select id="selectList" resultMap="BaseResultMap" parameterType="com.chaomeis.sparrowbeauty.entity.TbOrder">
-    select <include refid="Base_Column_List"/> from tb_order
+    SELECT * FROM tb_order
+    LEFT JOIN tb_order_detail ON tb_order_detail.order_id = tb_order.order_id
     where 1=1
     <include refid="Base_Filter_List"/>
   </select>

@@ -2,6 +2,7 @@ package com.chaomeis.sparrowbeauty.cms.controller.activity;
 
 import com.chaomeis.sparrowbeauty.cms.service.activity.ActivityService;
 import com.chaomeis.sparrowbeauty.cms.service.activity.GoodsActivityService;
+import com.chaomeis.sparrowbeauty.common.BaseController;
 import com.chaomeis.sparrowbeauty.common.PageReqVO;
 import com.chaomeis.sparrowbeauty.common.PageRespDto;
 import com.chaomeis.sparrowbeauty.entity.TbActivity;
@@ -23,7 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("cms/activity")
-public class ActivityController {
+public class ActivityController extends BaseController {
     @Resource
     private ActivityService activityService;
     @Resource
@@ -59,7 +60,7 @@ public class ActivityController {
      */
     @RequestMapping(value = "/update")
     public ResultInfo updateActivity (@RequestBody TbActivity record) {
-        if(record.getId() <= 0) {
+        if(null == record.getId()) {
             return ResultInfo.newRepeatResultInfo("id不能为空");
         }
         activityService.updateActivity(record);

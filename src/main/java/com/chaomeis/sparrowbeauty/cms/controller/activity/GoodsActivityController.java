@@ -28,7 +28,7 @@ public class GoodsActivityController extends BaseController {
         if(0 == record.getActivityId()) {
             return ResultInfo.newRepeatResultInfo("活动id不能为空");
         }
-        if(0 == record.getGoodsId()) {
+        if(null == record.getGoodsId()) {
             return ResultInfo.newRepeatResultInfo("商品id不能为空");
         }
         goodsActivityService.createGoodsActivity(record);
