@@ -33,7 +33,7 @@ public class ApiAddressController {
      * @param address 地址信息
      * @return
      */
-    @RequestMapping("/createAddress")
+    @RequestMapping("/create")
     public ResultInfo createAddress(@RequestBody TbAddress address){
         if (address == null){
             LOGGER.error("createOrderByCart cartOrderParamVo is null");
@@ -48,7 +48,7 @@ public class ApiAddressController {
      * @param address 地址信息
      * @return
      */
-    @RequestMapping("/updateAddress")
+    @RequestMapping("/update")
     public ResultInfo updateAddress(@RequestBody TbAddress address){
         if (address == null){
             LOGGER.error("createOrderByCart cartOrderParamVo is null");
@@ -62,7 +62,7 @@ public class ApiAddressController {
      * @param params 地址信息 根据用户和地址id删除
      * @return
      */
-    @RequestMapping("/deleteAddress")
+    @RequestMapping("/delete")
     public ResultInfo deleteAddress(@RequestParam Map<String,String> params){
 
         if (CollectionUtils.isEmpty(params) || StringUtils.isEmpty(params.get("addressId"))
@@ -78,7 +78,7 @@ public class ApiAddressController {
      * @param openId 用户openId
      * @return 返回收货地址列表
      */
-    @RequestMapping("/findUserAddress")
+    @RequestMapping("/findList")
     public ResultInfo findUserAddress(String openId){
         if (openId == null){
             LOGGER.error("createOrderByCart cartOrderParamVo is null");

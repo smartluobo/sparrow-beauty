@@ -9,7 +9,7 @@ public class TbApiUser {
 
     private String wechatNum;
 
-    private String openId;
+    private String oppenId;
 
     private String wechatPhoneNum;
 
@@ -21,7 +21,7 @@ public class TbApiUser {
 
     private String userHeadImage;
 
-    private String referrerOpenId;
+    private String referrerOppenId;
 
     private int giftReceiveStatus;
     //是否是经销商 0 不是 1 是
@@ -51,12 +51,20 @@ public class TbApiUser {
         this.wechatNum = wechatNum == null ? null : wechatNum.trim();
     }
 
-    public String getOpenId() {
-        return openId;
+    public String getOppenId() {
+        return oppenId;
     }
 
-    public void setOpenId(String openId) {
-        this.openId = openId == null ? null : openId.trim();
+    public void setOppenId(String oppenId) {
+        this.oppenId = oppenId;
+    }
+
+    public String getReferrerOppenId() {
+        return referrerOppenId;
+    }
+
+    public void setReferrerOppenId(String referrerOppenId) {
+        this.referrerOppenId = referrerOppenId;
     }
 
     public String getWechatPhoneNum() {
@@ -97,14 +105,6 @@ public class TbApiUser {
 
     public void setUserHeadImage(String userHeadImage) {
         this.userHeadImage = userHeadImage == null ? null : userHeadImage.trim();
-    }
-
-    public String getReferrerOpenId() {
-        return referrerOpenId;
-    }
-
-    public void setReferrerOpenId(String referrerOpenId) {
-        this.referrerOpenId = referrerOpenId == null ? null : referrerOpenId.trim();
     }
 
     public int getGiftReceiveStatus() {

@@ -1,6 +1,7 @@
 package com.chaomeis.sparrowbeauty.api.controller.login;
 
 import com.chaomeis.sparrowbeauty.api.service.login.ApiLoginService;
+import com.chaomeis.sparrowbeauty.api.service.user.ApiUserService;
 import com.chaomeis.sparrowbeauty.response.ResultInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -20,7 +21,8 @@ public class ApiLoginController {
 
     @Resource
     private ApiLoginService apiLoginService;
-
+    @Resource
+    private ApiUserService apiUserService;
     @RequestMapping("/login")
     public ResultInfo login(@RequestBody Map<String,String> codeParam){
         LOGGER.info("api user login call.....");
@@ -35,13 +37,14 @@ public class ApiLoginController {
             }
             ResultInfo resultInfo = ResultInfo.newSuccessResultInfo();
             String oppenId = apiLoginService.login(code);
-            if (StringUtils.isNotEmpty(oppenId)){
+            String referrerOppenId = codeParam.get("referrerOppenId");
+            if (StringUtils.isEmpty(oppenId)){
                 // TODO: 2019/9/28 该openId 为微信用户openId 使用该openId组装一个user对象插入表，返回openId给前端
-                // apiUserService.saveApiUser(oppenId);
-
+                apiUserService.saveApiUser(oppenId, referrerOppenId);
+                resultInfo.setData(oppenId);
+                return resultInfo;
             }
-            resultInfo.setData(oppenId);
-            return resultInfo;
+            return ResultInfo.newFailResultInfo();
         }catch (Exception e){
             LOGGER.error("login happen exception code : {}",code,e);
             return ResultInfo.newExceptionResultInfo();

@@ -52,11 +52,19 @@ public class ApiUserController {
         String openId = params.get("openId");
         String nickName = params.get("nickName");
         String userHeadImage = params.get("userHeadImage");
+        String userBindPhoneNum =  params.get("userBindPhoneNum"); // 用户绑定电话号码
+        String wechatPhoneNum = params.get("wechatPhoneNum"); // 微信关联电话号码
         LOGGER.info("reportApiUserInfo current user openId : {}, nickName: {},userHeadImage : {}",openId,nickName,userHeadImage);
         try {
             ResultInfo resultInfo = ResultInfo.newSuccessResultInfo();
             // TODO: 2019/9/28 小程序上报用户的昵称和头像，根据openid更新数据库中的记录
-//            apiUserService.updateApiUserInfo(oppenId,nickName,userHeadImage);
+            TbApiUser record = new TbApiUser();
+            record.setOppenId(openId);
+            record.setNickName(nickName);
+            record.setUserHeadImage(userHeadImage);
+            record.setUserBindPhoneNum(userBindPhoneNum);
+            record.setWechatPhoneNum(wechatPhoneNum);
+           apiUserService.updateApiUserInfo(record);
             return resultInfo;
         }catch (Exception e){
             LOGGER.error("calculateGoodsOrderPrice GoodsOrderParamVo : {}",params,e);

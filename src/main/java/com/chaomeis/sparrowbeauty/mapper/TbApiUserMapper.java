@@ -15,6 +15,8 @@ public interface TbApiUserMapper {
 
     int updateByPrimaryKeySelective(TbApiUser record);
 
+    int updateOpenIdSelective(TbApiUser record);
+
     int updateByPrimaryKey(TbApiUser record);
 
     TbApiUser tbApiUserMapper(String openId);

@@ -21,4 +21,24 @@ public class ApiUserService {
         //todo 修改用户新人礼包领取状态
         return true;
     }
+
+    /**
+     * 保持用户信息
+     * @param oppenId
+     * @param referrerOppenId
+     */
+    public void saveApiUser (String oppenId, String referrerOppenId) {
+        TbApiUser record = new TbApiUser();
+        record.setOppenId(oppenId);
+        record.setReferrerOppenId(referrerOppenId);
+        TbApiUser apiUser = tbApiUserMapper.tbApiUserMapper(oppenId);
+        if (null == apiUser) {
+            tbApiUserMapper.insertSelective(record);
+        }
+    }
+
+    public void updateApiUserInfo (TbApiUser record) {
+        tbApiUserMapper.updateOpenIdSelective(record);
+    }
+
 }

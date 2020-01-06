@@ -53,8 +53,10 @@ public class CmsCouponsController extends BaseController {
         if(null == id) {
             return ResultInfo.newRepeatResultInfo("优惠券id");
         }
-        cmsCouponsService.findCouponsInfo(id);
-        return ResultInfo.newSuccessResultInfo();
+        TbCoupons coupons = cmsCouponsService.findCouponsInfo(id);
+        ResultInfo resultInfo = ResultInfo.newSuccessResultInfo();
+        resultInfo.setData(coupons);
+        return resultInfo;
     }
     @RequestMapping(value = "/findPage")
     public PageRespDto<TbCoupons> findCouponsPageList (@RequestBody PageReqVO<TbCoupons> page) {

@@ -113,6 +113,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbApiUser">
     update tb_api_user
     <set>
@@ -149,6 +150,41 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="updateOpenIdSelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbApiUser">
+    update tb_api_user
+    <set>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatNum != null">
+        wechat_num = #{wechatNum,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatPhoneNum != null">
+        wechat_phone_num = #{wechatPhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="userBindPhoneNum != null">
+        user_bind_phone_num = #{userBindPhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userHeadImage != null">
+        user_head_image = #{userHeadImage,jdbcType=VARCHAR},
+      </if>
+      <if test="referrerOppenId != null">
+        referrer_oppen_id = #{referrerOppenId,jdbcType=VARCHAR},
+      </if>
+      <if test="giftReceiveStatus != null">
+        gift_receive_status = #{giftReceiveStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where oppen_id = #{oppenId,jdbcType=INTEGER}
+  </update>
+
   <update id="updateByPrimaryKey" parameterType="com.chaomeis.sparrowbeauty.entity.TbApiUser">
     update tb_api_user
     set nick_name = #{nickName,jdbcType=VARCHAR},
