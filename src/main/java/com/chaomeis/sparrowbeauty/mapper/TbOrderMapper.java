@@ -25,4 +25,6 @@ public interface TbOrderMapper {
     void cancelOrder(@Param("openId") String openId, @Param("orderId") String orderId);
 
     List<TbOrder> selectList (TbOrder record);
+
+    TbOrder findOrderDetail(TbOrder record);
 }

@@ -31,6 +31,14 @@
     expire_date, is_referrer, coupons_ratio,consume_amount,reduce_amount, coupons_type, use_rules, use_scope, coupons_source,
     source_name, activity_id, use_way, expire_type, cash_amount, api_user_id
   </sql>
+  <sql id="Base_Filter_List">
+    <if test="status != null">
+      and status=#{status,jdbcType=INTEGER}
+    </if>
+    <if test="openId != null">
+      and open_id = #{openId,jdbcType=VARCHAR}
+    </if>
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -312,6 +320,14 @@
     where id = #{id,jdbcType=INTEGER}
     AND open_id =  #{openId,jdbcType=VARCHAR}
     AND status =  0
+  </select>
+
+  <select id="selectPageList" parameterType="com.chaomeis.sparrowbeauty.entity.TbUserCoupons" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_user_coupons
+    where 1=1
+    <include refid="Base_Filter_List"/>
   </select>
 
 </mapper>

@@ -6,9 +6,12 @@ import com.chaomeis.sparrowbeauty.api.service.calculate.CalculateService;
 import com.chaomeis.sparrowbeauty.api.service.order.ApiOrderService;
 import com.chaomeis.sparrowbeauty.api.service.pay.ApiPayService;
 import com.chaomeis.sparrowbeauty.api.service.user.ApiUserService;
+import com.chaomeis.sparrowbeauty.common.PageReqVO;
+import com.chaomeis.sparrowbeauty.common.PageRespDto;
 import com.chaomeis.sparrowbeauty.entity.TbApiUser;
 import com.chaomeis.sparrowbeauty.entity.TbOrder;
 import com.chaomeis.sparrowbeauty.entity.TbOrderDetail;
+import com.chaomeis.sparrowbeauty.entity.TbUserCoupons;
 import com.chaomeis.sparrowbeauty.response.ResultInfo;
 import com.chaomeis.sparrowbeauty.utils.DateUtil;
 import com.chaomeis.sparrowbeauty.wechat.WxUtil;
@@ -120,25 +123,40 @@ public class ApiOrderController {
     }
 
     /**
-     * 根据用户openId查询用户的订单列表
-     * @param params 查询订单列表的参数对象
-     * @return 返回用户的订单列表信息xx
+     * 查询订单明细接口
+     * @param tbOrder  查询订单明细接口参数对象
+     * @return  查询订单明细接口参数对象
      */
-    @RequestMapping("/findOrderByOpenId")
-    public ResultInfo findOrderByOpenId(@RequestBody Map<String,String> params){
-        if (params == null){
+    @RequestMapping("/findOrderDetail")
+    public ResultInfo findOrderDetail(@RequestBody TbOrder tbOrder){
+        if (tbOrder == null){
             return ResultInfo.newEmptyParamsResultInfo();
         }
-        String openId = params.get("openId");
-        try {
-            ResultInfo resultInfo = ResultInfo.newSuccessResultInfo();
-            List<TbOrder> orderList = apiOrderService.findOrderByOpenId(openId);
-            resultInfo.setData(orderList);
-            return resultInfo;
-        }catch (Exception e){
-            LOGGER.error("findOrderByOpenId happen exception ",e);
-            return ResultInfo.newExceptionResultInfo();
+        String orderId = tbOrder.getOrderId();
+        String openId = tbOrder.getOpenId();
+        if(StringUtils.isEmpty(orderId) || StringUtils.isEmpty(openId)) {
+            return ResultInfo.newRepeatResultInfo("订单Id或者openId不能为空!");
         }
+        TbOrder order = apiOrderService.findOrderDetail(tbOrder);
+        ResultInfo resultInfo = ResultInfo.newSuccessResultInfo();
+        resultInfo.setData(order);
+        return resultInfo;
+
+    }
+
+    /**
+     * 根据用户openId查询用户的订单列表
+     * @param page 查询订单列表的参数对象
+     * @return 返回用户的订单列表信息xx
+     */
+    @RequestMapping("/findPage")
+    public PageRespDto<TbOrder> findOrderPageList(@RequestBody PageReqVO<TbOrder> page){
+        TbOrder order = page.getCondition();
+        if (StringUtils.isEmpty(order.getOpenId())) {
+            // openId不能为空
+            return new PageRespDto(null);
+        }
+        return apiOrderService.findOrderPageList(page);
     }
 
     /**

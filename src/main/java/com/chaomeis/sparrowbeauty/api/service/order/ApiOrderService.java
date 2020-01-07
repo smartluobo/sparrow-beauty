@@ -4,6 +4,8 @@ import com.chaomeis.sparrowbeauty.api.paramVo.CartOrderParamVo;
 import com.chaomeis.sparrowbeauty.api.responseVo.CalculateReturnVo;
 import com.chaomeis.sparrowbeauty.api.service.calculate.CalculateService;
 import com.chaomeis.sparrowbeauty.api.service.pay.ApiPayService;
+import com.chaomeis.sparrowbeauty.common.PageReqVO;
+import com.chaomeis.sparrowbeauty.common.PageRespDto;
 import com.chaomeis.sparrowbeauty.config.WechatInfoProperties;
 import com.chaomeis.sparrowbeauty.entity.TbApiUser;
 import com.chaomeis.sparrowbeauty.entity.TbOrder;
@@ -14,6 +16,7 @@ import com.chaomeis.sparrowbeauty.mapper.TbOrderMapper;
 import com.chaomeis.sparrowbeauty.mapper.TbUserPayRecordMapper;
 import com.chaomeis.sparrowbeauty.utils.PriceCalculateUtil;
 import com.chaomeis.sparrowbeauty.utils.SerialGenerator;
+import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -110,9 +113,22 @@ public class ApiOrderService {
         return tbOrderDetailMapper.findOrderDetailByOrderId(orderId);
     }
 
-    public List<TbOrder> findOrderByOpenId(String openId) {
-        return tbOrderMapper.findOrderByOpenId(openId);
+    public PageRespDto<TbOrder> findOrderPageList(PageReqVO<TbOrder> page) {
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
+        List<TbOrder> orderPage = tbOrderMapper.selectList(page.getCondition());
+        PageRespDto<TbOrder> pageList = new PageRespDto(orderPage);
+        return pageList;
     }
+
+    /**
+     * 订单明细
+     * @param tbOrder 点单参数
+     * @return 订单信息
+     */
+    public TbOrder findOrderDetail(TbOrder tbOrder) {
+        return tbOrderMapper.findOrderDetail(tbOrder);
+    }
+
 
     public void cancelOrder(String openId, String orderId) {
         TbOrder tbOrder = tbOrderMapper.selectByPrimaryKey(orderId);

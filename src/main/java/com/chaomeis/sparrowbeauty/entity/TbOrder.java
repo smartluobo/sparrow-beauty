@@ -15,9 +15,9 @@ public class TbOrder {
 
     private String paymentAmount;
 
-    private int paymentChannel;
+    private Integer paymentChannel;
 
-    private int orderStatus;
+    private Integer orderStatus;
 
     private String orderPostageAmount;
 
@@ -33,7 +33,7 @@ public class TbOrder {
 
     private String logisticsCode;
 
-    private int apiUserId;
+    private Integer apiUserId;
 
     private String apiUserMessage;
 
@@ -49,13 +49,13 @@ public class TbOrder {
 
     private String goodsTotalCount;
 
-    private int apiUserCouponsId;
+    private Integer apiUserCouponsId;
 
     private String apiUserCouponsName;
 
-    private int apiUserAddressId;
+    private Integer apiUserAddressId;
 
-    private int isFirstOrder;
+    private Integer isFirstOrder;
 
     private Date createTime;
 
@@ -97,7 +97,7 @@ public class TbOrder {
         this.paymentAmount = paymentAmount == null ? null : paymentAmount.trim();
     }
 
-    public int getPaymentChannel() {
+    public Integer getPaymentChannel() {
         return paymentChannel;
     }
 
@@ -105,7 +105,7 @@ public class TbOrder {
         this.paymentChannel = paymentChannel;
     }
 
-    public int getOrderStatus() {
+    public Integer getOrderStatus() {
         return orderStatus;
     }
 
@@ -169,7 +169,7 @@ public class TbOrder {
         this.logisticsCode = logisticsCode == null ? null : logisticsCode.trim();
     }
 
-    public int getApiUserId() {
+    public Integer getApiUserId() {
         return apiUserId;
     }
 
@@ -233,7 +233,7 @@ public class TbOrder {
         this.goodsTotalCount = goodsTotalCount == null ? null : goodsTotalCount.trim();
     }
 
-    public int getApiUserCouponsId() {
+    public Integer getApiUserCouponsId() {
         return apiUserCouponsId;
     }
 
@@ -249,7 +249,7 @@ public class TbOrder {
         this.apiUserCouponsName = apiUserCouponsName == null ? null : apiUserCouponsName.trim();
     }
 
-    public int getApiUserAddressId() {
+    public Integer getApiUserAddressId() {
         return apiUserAddressId;
     }
 
@@ -257,7 +257,7 @@ public class TbOrder {
         this.apiUserAddressId = apiUserAddressId;
     }
 
-    public int getIsFirstOrder() {
+    public Integer getIsFirstOrder() {
         return isFirstOrder;
     }
 

@@ -439,4 +439,11 @@
     where 1=1
     <include refid="Base_Filter_List"/>
   </select>
+
+  <select id="findOrderDetail" resultMap="BaseResultMap" parameterType="com.chaomeis.sparrowbeauty.entity.TbOrder">
+    SELECT * FROM tb_order
+    LEFT JOIN tb_order_detail ON tb_order_detail.order_id = tb_order.order_id
+    where tb_order.order_id = #{orderId,jdbcType=VARCHAR}
+    AND tb_order.open_id = #{openId,jdbcType=VARCHAR}
+  </select>
 </mapper>
