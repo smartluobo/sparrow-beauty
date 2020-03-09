@@ -38,7 +38,7 @@ public class ApiLoginController {
             ResultInfo resultInfo = ResultInfo.newSuccessResultInfo();
             String oppenId = apiLoginService.login(code);
             String referrerOppenId = codeParam.get("referrerOppenId");
-            if (StringUtils.isEmpty(oppenId)){
+            if (!StringUtils.isEmpty(oppenId)){
                 // TODO: 2019/9/28 该openId 为微信用户openId 使用该openId组装一个user对象插入表，返回openId给前端
                 apiUserService.saveApiUser(oppenId, referrerOppenId);
                 resultInfo.setData(oppenId);

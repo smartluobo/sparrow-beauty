@@ -5,25 +5,25 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
     <result column="wechat_num" jdbcType="VARCHAR" property="wechatNum" />
-    <result column="oppen_id" jdbcType="VARCHAR" property="oppenId" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
     <result column="wechat_phone_num" jdbcType="VARCHAR" property="wechatPhoneNum" />
     <result column="user_bind_phone_num" jdbcType="VARCHAR" property="userBindPhoneNum" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="user_head_image" jdbcType="VARCHAR" property="userHeadImage" />
-    <result column="referrer_oppen_id" jdbcType="VARCHAR" property="referrerOppenId" />
+    <result column="referrer_open_id" jdbcType="VARCHAR" property="referrerOpenId" />
     <result column="gift_receive_status" jdbcType="INTEGER" property="giftReceiveStatus" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, nick_name, wechat_num, oppen_id, wechat_phone_num, user_bind_phone_num, create_time, 
-    update_time, user_head_image, referrer_oppen_id, gift_receive_status
+    id, nick_name, wechat_num, open_id, wechat_phone_num, user_bind_phone_num, create_time, 
+    update_time, user_head_image, referrer_open_id, gift_receive_status
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" /> from tb_api_user where id = #{id,jdbcType=INTEGER}
   </select>
 
   <select id="tbApiUserMapper" resultMap="BaseResultMap" parameterType="string">
-    SELECT <include refid="Base_Column_List" /> FROM tb_api_user WHERE oppen_id = #{openId}
+    SELECT <include refid="Base_Column_List" /> FROM tb_api_user WHERE open_id = #{openId}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -32,13 +32,13 @@
 
   <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbApiUser">
     insert into tb_api_user (id, nick_name, wechat_num, 
-      oppen_id, wechat_phone_num, user_bind_phone_num, 
+      open_id, wechat_phone_num, user_bind_phone_num, 
       create_time, update_time, user_head_image, 
-      referrer_oppen_id, gift_receive_status)
+      referrer_open_id, gift_receive_status)
     values (#{id,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, #{wechatNum,jdbcType=VARCHAR}, 
-      #{oppenId,jdbcType=VARCHAR}, #{wechatPhoneNum,jdbcType=VARCHAR}, #{userBindPhoneNum,jdbcType=VARCHAR}, 
+      #{openId,jdbcType=VARCHAR}, #{wechatPhoneNum,jdbcType=VARCHAR}, #{userBindPhoneNum,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{userHeadImage,jdbcType=VARCHAR}, 
-      #{referrerOppenId,jdbcType=VARCHAR}, #{giftReceiveStatus,jdbcType=INTEGER})
+      #{referrerOpenId,jdbcType=VARCHAR}, #{giftReceiveStatus,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbApiUser">
     insert into tb_api_user
@@ -52,8 +52,8 @@
       <if test="wechatNum != null">
         wechat_num,
       </if>
-      <if test="oppenId != null">
-        oppen_id,
+      <if test="openId != null">
+        open_id,
       </if>
       <if test="wechatPhoneNum != null">
         wechat_phone_num,
@@ -70,8 +70,8 @@
       <if test="userHeadImage != null">
         user_head_image,
       </if>
-      <if test="referrerOppenId != null">
-        referrer_oppen_id,
+      <if test="referrerOpenId != null">
+        referrer_open_id,
       </if>
       <if test="giftReceiveStatus != null">
         gift_receive_status,
@@ -87,8 +87,8 @@
       <if test="wechatNum != null">
         #{wechatNum,jdbcType=VARCHAR},
       </if>
-      <if test="oppenId != null">
-        #{oppenId,jdbcType=VARCHAR},
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
       </if>
       <if test="wechatPhoneNum != null">
         #{wechatPhoneNum,jdbcType=VARCHAR},
@@ -105,8 +105,8 @@
       <if test="userHeadImage != null">
         #{userHeadImage,jdbcType=VARCHAR},
       </if>
-      <if test="referrerOppenId != null">
-        #{referrerOppenId,jdbcType=VARCHAR},
+      <if test="referrerOpenId != null">
+        #{referrerOpenId,jdbcType=VARCHAR},
       </if>
       <if test="giftReceiveStatus != null">
         #{giftReceiveStatus,jdbcType=INTEGER},
@@ -123,8 +123,8 @@
       <if test="wechatNum != null">
         wechat_num = #{wechatNum,jdbcType=VARCHAR},
       </if>
-      <if test="oppenId != null">
-        oppen_id = #{oppenId,jdbcType=VARCHAR},
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
       </if>
       <if test="wechatPhoneNum != null">
         wechat_phone_num = #{wechatPhoneNum,jdbcType=VARCHAR},
@@ -141,8 +141,8 @@
       <if test="userHeadImage != null">
         user_head_image = #{userHeadImage,jdbcType=VARCHAR},
       </if>
-      <if test="referrerOppenId != null">
-        referrer_oppen_id = #{referrerOppenId,jdbcType=VARCHAR},
+      <if test="referrerOpenId != null">
+        referrer_open_id = #{referrerOpenId,jdbcType=VARCHAR},
       </if>
       <if test="giftReceiveStatus != null">
         gift_receive_status = #{giftReceiveStatus,jdbcType=INTEGER},
@@ -175,27 +175,27 @@
       <if test="userHeadImage != null">
         user_head_image = #{userHeadImage,jdbcType=VARCHAR},
       </if>
-      <if test="referrerOppenId != null">
-        referrer_oppen_id = #{referrerOppenId,jdbcType=VARCHAR},
+      <if test="referrerOpenId != null">
+        referrer_open_id = #{referrerOpenId,jdbcType=VARCHAR},
       </if>
       <if test="giftReceiveStatus != null">
         gift_receive_status = #{giftReceiveStatus,jdbcType=INTEGER},
       </if>
     </set>
-    where oppen_id = #{oppenId,jdbcType=INTEGER}
+    where open_id = #{openId,jdbcType=INTEGER}
   </update>
 
   <update id="updateByPrimaryKey" parameterType="com.chaomeis.sparrowbeauty.entity.TbApiUser">
     update tb_api_user
     set nick_name = #{nickName,jdbcType=VARCHAR},
       wechat_num = #{wechatNum,jdbcType=VARCHAR},
-      oppen_id = #{oppenId,jdbcType=VARCHAR},
+      open_id = #{openId,jdbcType=VARCHAR},
       wechat_phone_num = #{wechatPhoneNum,jdbcType=VARCHAR},
       user_bind_phone_num = #{userBindPhoneNum,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       user_head_image = #{userHeadImage,jdbcType=VARCHAR},
-      referrer_oppen_id = #{referrerOppenId,jdbcType=VARCHAR},
+      referrer_open_id = #{referrerOpenId,jdbcType=VARCHAR},
       gift_receive_status = #{giftReceiveStatus,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

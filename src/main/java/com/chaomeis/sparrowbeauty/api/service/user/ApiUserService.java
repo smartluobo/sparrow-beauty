@@ -29,8 +29,8 @@ public class ApiUserService {
      */
     public void saveApiUser (String oppenId, String referrerOppenId) {
         TbApiUser record = new TbApiUser();
-        record.setOppenId(oppenId);
-        record.setReferrerOppenId(referrerOppenId);
+        record.setOpenId(oppenId);
+        record.setReferrerOpenId(referrerOppenId);
         TbApiUser apiUser = tbApiUserMapper.tbApiUserMapper(oppenId);
         if (null == apiUser) {
             tbApiUserMapper.insertSelective(record);

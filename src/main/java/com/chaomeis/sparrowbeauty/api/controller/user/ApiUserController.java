@@ -9,7 +9,6 @@ import com.chaomeis.sparrowbeauty.entity.TbApiUser;
 import com.chaomeis.sparrowbeauty.response.ResultInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,7 +58,7 @@ public class ApiUserController {
             ResultInfo resultInfo = ResultInfo.newSuccessResultInfo();
             // TODO: 2019/9/28 小程序上报用户的昵称和头像，根据openid更新数据库中的记录
             TbApiUser record = new TbApiUser();
-            record.setOppenId(openId);
+            record.setOpenId(openId);
             record.setNickName(nickName);
             record.setUserHeadImage(userHeadImage);
             record.setUserBindPhoneNum(userBindPhoneNum);
