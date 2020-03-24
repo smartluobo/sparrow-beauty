@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
@@ -54,6 +55,32 @@ public class CmsLoginController {
             request.getSession().removeAttribute("user");
             LOGGER.info("login success ....");
             return resultInfo;
+        }catch (Exception e){
+            LOGGER.error("cms user login out happen Exception",e);
+            return ResultInfo.newExceptionResultInfo();
+        }
+    }
+
+    @PostMapping(value = "/isLogin")
+    @ResponseBody
+    public ResultInfo isLogin(HttpServletRequest request){
+        try {
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null){
+                for (Cookie cookie : cookies) {
+                    LOGGER.info("cookie : {}",cookie);
+                }
+            }
+
+            ResultInfo resultInfo = ResultInfo.newSuccessResultInfo();
+            Object user = request.getSession().getAttribute("user");
+            if (user == null){
+                return ResultInfo.newNoLoginResultInfo();
+            }else {
+                resultInfo.setData(user);
+                LOGGER.info("request ready login...");
+                return resultInfo;
+            }
         }catch (Exception e){
             LOGGER.error("cms user login out happen Exception",e);
             return ResultInfo.newExceptionResultInfo();
