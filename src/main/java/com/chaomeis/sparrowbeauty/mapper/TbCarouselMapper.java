@@ -11,14 +11,12 @@ public interface TbCarouselMapper {
 
     int insert(TbCarousel record);
 
-    int insertSelective(TbCarousel record);
-
     TbCarousel selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(TbCarousel record);
 
     int updateByPrimaryKey(TbCarousel record);
 
     List<TbCarousel> findAll();
+
+    List<TbCarousel> selectList();
 
 }

@@ -1,7 +1,10 @@
 package com.chaomeis.sparrowbeauty.entity;
 
+import lombok.Data;
+
 import java.util.Date;
 
+@Data
 public class TbCarousel {
     private Integer id;
 
@@ -11,35 +14,7 @@ public class TbCarousel {
 
     private Date createTime;
 
-    public Integer getId() {
-        return id;
-    }
+    private Date updateTime;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl == null ? null : imageUrl.trim();
-    }
-
-    public String getGotoUrl() {
-        return gotoUrl;
-    }
-
-    public void setGotoUrl(String gotoUrl) {
-        this.gotoUrl = gotoUrl == null ? null : gotoUrl.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
 }

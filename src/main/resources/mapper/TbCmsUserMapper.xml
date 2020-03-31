@@ -7,10 +7,11 @@
     <result column="login_name" jdbcType="VARCHAR" property="loginName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="menu_ids" property="menuIds" />
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, user_name, login_name, password, create_time
+    id, user_name, login_name, password, create_time,menu_ids
   </sql>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -26,9 +27,9 @@
   </delete>
 
   <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbCmsUser">
-    insert into tb_cms_user (id, user_name, login_name, 
+    insert into tb_cms_user (id, user_name, login_name,
       password, create_time)
-    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR},
       #{password,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbCmsUser">
