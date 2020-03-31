@@ -11,13 +11,9 @@ public interface TbGoodsMapper {
 
     int insert(TbGoods record);
 
-    int insertSelective(TbGoods record);
-
     TbGoods selectByPrimaryKey(Integer id);
 
     List<TbGoods> selectList(TbGoods record);
-
-    int updateByPrimaryKeySelective(TbGoods record);
 
     int updateByPrimaryKey(TbGoods record);
 

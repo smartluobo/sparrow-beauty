@@ -15,8 +15,8 @@ import java.io.IOException;
 @Component
 @ServletComponentScan
 @WebFilter(filterName = "test", urlPatterns = {"/cms/**"})
-public class CrossFilter implements Filter{
-    private static final Logger LOGGER = LoggerFactory.getLogger(CrossFilter.class);
+public class ZCrossFilter implements Filter{
+    private static final Logger LOGGER = LoggerFactory.getLogger(ZCrossFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -29,7 +29,7 @@ public class CrossFilter implements Filter{
 
         String origin = req.getHeader("Origin");
         if (origin == null ){
-            resp.setHeader("Access-Control-Allow-Origin", "http://www.eecup.cn:8668");
+            resp.setHeader("Access-Control-Allow-Origin", "http://47.106.172.126:8668");
         }
 
         resp.setHeader("Access-Control-Allow-Origin", origin);            // 允许指定域访问跨域资源
@@ -41,6 +41,7 @@ public class CrossFilter implements Filter{
             resp.setHeader("Access-Control-Max-Age", "86400");            // 浏览器缓存预检请求结果时间,单位:秒
             resp.setHeader("Access-Control-Allow-Methods", allowMethod);  // 允许浏览器在预检请求成功之后发送的实际请求方法名
             resp.setHeader("Access-Control-Allow-Headers", allowHeaders); // 允许浏览器发送的请求消息头
+            String header = resp.getHeader("Access-Control-Allow-Origin");
             return;
         }
 
@@ -50,6 +51,14 @@ public class CrossFilter implements Filter{
     @Override
     public void destroy() {
 
+    }
+
+    private void setHeaders( HttpServletResponse response){
+        LOGGER.error("CrossFilter setHeaders is called..............");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS, TRACES");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "*");
     }
 
 }

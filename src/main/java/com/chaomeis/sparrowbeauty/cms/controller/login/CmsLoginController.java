@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@CrossOrigin
 @RequestMapping("cms/login")
 public class CmsLoginController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CmsLoginController.class);
@@ -22,8 +22,8 @@ public class CmsLoginController {
 
     @RequestMapping(value = "/login")
     @ResponseBody
-    public ResultInfo login(HttpServletRequest request, @RequestBody TbCmsUser tbCmsUser){
-
+    public ResultInfo login(HttpServletRequest request, HttpServletResponse response, @RequestBody TbCmsUser tbCmsUser){
+        response.setHeader("Access-Control-Allow-Origin",request.getHeader("Origin"));
         if (tbCmsUser == null){
             LOGGER.error("login user info is null");
             return ResultInfo.newEmptyParamsResultInfo();
@@ -49,7 +49,8 @@ public class CmsLoginController {
 
     @RequestMapping(value = "/loginOut")
     @ResponseBody
-    public ResultInfo login(HttpServletRequest request){
+    public ResultInfo login(HttpServletRequest request,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin",request.getHeader("Origin"));
         try {
             ResultInfo resultInfo = ResultInfo.newSuccessResultInfo();
             request.getSession().removeAttribute("user");
@@ -63,7 +64,8 @@ public class CmsLoginController {
 
     @PostMapping(value = "/isLogin")
     @ResponseBody
-    public ResultInfo isLogin(HttpServletRequest request){
+    public ResultInfo isLogin(HttpServletRequest request,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin",request.getHeader("Origin"));
         try {
             Cookie[] cookies = request.getCookies();
             if (cookies != null){

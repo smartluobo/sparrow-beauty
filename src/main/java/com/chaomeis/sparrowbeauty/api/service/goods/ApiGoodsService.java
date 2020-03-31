@@ -97,16 +97,8 @@ public class ApiGoodsService {
             return;
         }
 
-        String goodsCarouselImage = tbGoods.getGoodsCarouselImage();
         String goodsDetailImages = tbGoods.getGoodsDetailImages();
-        if (StringUtils.isNotEmpty(goodsCarouselImage)){
-            String[] split = goodsCarouselImage.split(",");
-            List<String> goodsCarouselImageList = new ArrayList<>();
-            for (String s : split) {
-                goodsCarouselImageList.add(cmsSysProperties.getImageUrlPrefix()+s);
-            }
-            tbGoods.setGoodsCarouselImageList(goodsCarouselImageList);
-        }
+
 
         if (StringUtils.isNotEmpty(goodsDetailImages)){
             String[] split = goodsDetailImages.split(",");

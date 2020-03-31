@@ -40,7 +40,7 @@ public class GoodsService {
 
     public void updateGoods(TbGoods goods) {
         this.goodParam(goods);
-        tbGoodsMapper.updateByPrimaryKeySelective(goods);
+        tbGoodsMapper.updateByPrimaryKey(goods);
     }
 
     /**
@@ -48,13 +48,6 @@ public class GoodsService {
      * @param goods
      */
     private void goodParam(TbGoods goods) {
-        List<String> goodsCarouselImageList = goods.getGoodsCarouselImageList(); // 轮播
-        String goodsPoster = this.imageUrl(goods.getGoodsPoster());
-        goods.setGoodsPoster(goodsPoster); // 海报
-        String goodsCarouselImage = this.commaSpliceStr(goodsCarouselImageList); // 轮播处理
-        String goodsDetailImages = this.commaSpliceStr(goods.getGoodsDetailImagesList()); // 商品详情
-        goods.setGoodsCarouselImage(goodsCarouselImage);
-        goods.setGoodsDetailImages(goodsDetailImages);
         this.skuCommaSpliceIds(goods.getSkuTypeList(), goods);// SKU明细和类型处理处理
     }
 
@@ -72,9 +65,17 @@ public class GoodsService {
 
     public PageRespDto<TbGoods> findGoodsPageList(PageReqVO<TbGoods> page) {
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
-        List<TbGoods> goodsPage = tbGoodsMapper.selectList(page.getCondition());
+        TbGoods tbGoods = page.getCondition();
+        if (tbGoods != null){
+            if (StringUtils.isNotEmpty(tbGoods.getGoodsName())){
+                String goodsName = tbGoods.getGoodsName().toUpperCase();
+                goodsName = "%"+goodsName+"%";
+                tbGoods.setGoodsName(goodsName);
+            }
+        }
+        List<TbGoods> goodsPage = tbGoodsMapper.selectList(tbGoods);
         for (TbGoods goods : goodsPage) {
-            this.goodsImagePathSwap(goods);
+           this.goodsImagePathSwap(goods);
         }
         PageRespDto<TbGoods> pageList = new PageRespDto(goodsPage);
         return pageList;
@@ -151,27 +152,6 @@ public class GoodsService {
         if (tbGoods == null){
             return;
         }
-        tbGoods.setGoodsPoster(cmsSysProperties.getImageUrlPrefix()+tbGoods.getGoodsPoster());
-        String goodsCarouselImage = tbGoods.getGoodsCarouselImage();
-        String goodsDetailImages = tbGoods.getGoodsDetailImages();
-        if (StringUtils.isNotEmpty(goodsCarouselImage)){
-            String[] split = goodsCarouselImage.split(",");
-            List<String> goodsCarouselImageList = new ArrayList<>();
-            for (String s : split) {
-                goodsCarouselImageList.add(cmsSysProperties.getImageUrlPrefix()+s);
-            }
-            tbGoods.setGoodsCarouselImageList(goodsCarouselImageList);
-        }
-
-        if (StringUtils.isNotEmpty(goodsDetailImages)){
-            String[] split = goodsDetailImages.split(",");
-            List<String> goodsDetailImagesList = new ArrayList<>();
-            for (String s : split) {
-                goodsDetailImagesList.add(cmsSysProperties.getImageUrlPrefix()+s);
-            }
-            tbGoods.setGoodsDetailImagesList(goodsDetailImagesList);
-        }
-
     }
 
     private List<TbSkuType> buildSkuInfo(TbGoods tbGoods) {
