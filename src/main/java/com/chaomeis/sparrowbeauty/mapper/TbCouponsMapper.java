@@ -10,13 +10,11 @@ public interface TbCouponsMapper {
 
     int insert(TbCoupons record);
 
-    int insertSelective(TbCoupons record);
-
     TbCoupons selectByPrimaryKey(Integer id);
 
-    List<TbCoupons> selectCouponsList(TbCoupons record);
-
-    int updateByPrimaryKeySelective(TbCoupons record);
-
     int updateByPrimaryKey(TbCoupons record);
+
+    List<TbCoupons> findAll();
+
+    List<TbCoupons> selectCouponsList(TbCoupons tbCoupons);
 }

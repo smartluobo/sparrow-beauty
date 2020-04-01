@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 优惠券
@@ -25,7 +27,8 @@ public class CmsCouponsController extends BaseController {
     private CmsCouponsService cmsCouponsService;
 
     @RequestMapping(value = "/create")
-    public ResultInfo createCoupons (@RequestBody TbCoupons coupons) {
+    public ResultInfo createCoupons (HttpServletRequest request, HttpServletResponse response, @RequestBody TbCoupons coupons) {
+        response.setHeader("Access-Control-Allow-Origin",request.getHeader("Origin"));
         if(StringUtils.isBlank(coupons.getCouponsName())) {
             return ResultInfo.newRepeatResultInfo("优惠券名称");
         }
@@ -41,15 +44,17 @@ public class CmsCouponsController extends BaseController {
         return ResultInfo.newSuccessResultInfo();
     }
     @RequestMapping(value = "/delete")
-    public ResultInfo deleteCoupons (Integer id) {
+    public ResultInfo deleteCoupons (HttpServletRequest request, HttpServletResponse response,Integer id) {
+        response.setHeader("Access-Control-Allow-Origin",request.getHeader("Origin"));
         if(null == id) {
             return ResultInfo.newRepeatResultInfo("优惠券id");
         }
         cmsCouponsService.deleteCoupons(id);
         return ResultInfo.newSuccessResultInfo();
     }
-    @RequestMapping(value = "/findInfo")
-    public ResultInfo findInfoCoupons (Integer id) {
+    @RequestMapping(value = "/findById")
+    public ResultInfo findInfoCoupons (HttpServletRequest request, HttpServletResponse response, Integer id) {
+        response.setHeader("Access-Control-Allow-Origin",request.getHeader("Origin"));
         if(null == id) {
             return ResultInfo.newRepeatResultInfo("优惠券id");
         }
@@ -59,7 +64,8 @@ public class CmsCouponsController extends BaseController {
         return resultInfo;
     }
     @RequestMapping(value = "/findPage")
-    public PageRespDto<TbCoupons> findCouponsPageList (@RequestBody PageReqVO<TbCoupons> page) {
+    public PageRespDto<TbCoupons> findCouponsPageList (HttpServletRequest request, HttpServletResponse response, @RequestBody PageReqVO<TbCoupons> page) {
+        response.setHeader("Access-Control-Allow-Origin",request.getHeader("Origin"));
         return cmsCouponsService.findCouponsPageList(page);
     }
 }
