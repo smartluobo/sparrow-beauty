@@ -1,4 +1,4 @@
-package com.chaomeis.sparrowbeauty.cms.filter;
+package com.chaomeis.sparrowbeauty.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

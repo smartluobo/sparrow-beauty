@@ -36,7 +36,8 @@ public class CmsCouponsController extends BaseController {
         return ResultInfo.newSuccessResultInfo();
     }
     @RequestMapping(value = "/update")
-    public ResultInfo updateCoupons (@RequestBody TbCoupons coupons) {
+    public ResultInfo updateCoupons (HttpServletRequest request, HttpServletResponse response,@RequestBody TbCoupons coupons) {
+        response.setHeader("Access-Control-Allow-Origin",request.getHeader("Origin"));
         if(null == coupons.getId()) {
             return ResultInfo.newRepeatResultInfo("优惠券id");
         }

@@ -19,5 +19,5 @@ public interface TbApiUserMapper {
 
     int updateByPrimaryKey(TbApiUser record);
 
-    TbApiUser tbApiUserMapper(String openId);
+    TbApiUser selectByOpenId(String openId);
 }

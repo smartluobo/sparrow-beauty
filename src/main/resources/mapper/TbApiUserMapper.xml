@@ -15,14 +15,14 @@
     <result column="gift_receive_status" jdbcType="INTEGER" property="giftReceiveStatus" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, nick_name, wechat_num, open_id, wechat_phone_num, user_bind_phone_num, create_time, 
+    id, nick_name, wechat_num, open_id, wechat_phone_num, user_bind_phone_num, create_time,
     update_time, user_head_image, referrer_open_id, gift_receive_status
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" /> from tb_api_user where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <select id="tbApiUserMapper" resultMap="BaseResultMap" parameterType="string">
+  <select id="selectByOpenId" resultMap="BaseResultMap" parameterType="string">
     SELECT <include refid="Base_Column_List" /> FROM tb_api_user WHERE open_id = #{openId}
   </select>
 
@@ -31,13 +31,13 @@
   </delete>
 
   <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbApiUser">
-    insert into tb_api_user (id, nick_name, wechat_num, 
-      open_id, wechat_phone_num, user_bind_phone_num, 
-      create_time, update_time, user_head_image, 
+    insert into tb_api_user (nick_name, wechat_num,
+      open_id, wechat_phone_num, user_bind_phone_num,
+      create_time, update_time, user_head_image,
       referrer_open_id, gift_receive_status)
-    values (#{id,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, #{wechatNum,jdbcType=VARCHAR}, 
-      #{openId,jdbcType=VARCHAR}, #{wechatPhoneNum,jdbcType=VARCHAR}, #{userBindPhoneNum,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{userHeadImage,jdbcType=VARCHAR}, 
+    values (#{nickName,jdbcType=VARCHAR}, #{wechatNum,jdbcType=VARCHAR},
+      #{openId,jdbcType=VARCHAR}, #{wechatPhoneNum,jdbcType=VARCHAR}, #{userBindPhoneNum,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{userHeadImage,jdbcType=VARCHAR},
       #{referrerOpenId,jdbcType=VARCHAR}, #{giftReceiveStatus,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbApiUser">

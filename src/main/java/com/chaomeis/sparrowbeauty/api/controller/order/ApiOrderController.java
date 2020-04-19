@@ -1,6 +1,7 @@
 package com.chaomeis.sparrowbeauty.api.controller.order;
 
 import com.chaomeis.sparrowbeauty.api.paramVo.CartOrderParamVo;
+import com.chaomeis.sparrowbeauty.api.paramVo.GoodsParamVO;
 import com.chaomeis.sparrowbeauty.api.responseVo.CalculateReturnVo;
 import com.chaomeis.sparrowbeauty.api.service.calculate.CalculateService;
 import com.chaomeis.sparrowbeauty.api.service.order.ApiOrderService;
@@ -11,13 +12,11 @@ import com.chaomeis.sparrowbeauty.common.PageRespDto;
 import com.chaomeis.sparrowbeauty.entity.TbApiUser;
 import com.chaomeis.sparrowbeauty.entity.TbOrder;
 import com.chaomeis.sparrowbeauty.entity.TbOrderDetail;
-import com.chaomeis.sparrowbeauty.entity.TbUserCoupons;
 import com.chaomeis.sparrowbeauty.response.ResultInfo;
 import com.chaomeis.sparrowbeauty.utils.DateUtil;
 import com.chaomeis.sparrowbeauty.wechat.WxUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,9 +28,8 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/order")
+@Slf4j
 public class ApiOrderController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ApiOrderController.class);
 
     @Resource
     private ApiOrderService apiOrderService;
@@ -47,13 +45,52 @@ public class ApiOrderController {
 
     /**
      * 创建订单接口
+     * @param goodsParamVO 商品详情页直接购买订单信息
+     * @return 返回支付加密字符串 小程序前端调起支付页面
+     */
+    @RequestMapping("createOrderByGoodsId")
+    public ResultInfo createOrderByGoodsId(@RequestBody GoodsParamVO goodsParamVO){
+        if (goodsParamVO == null){
+            log.error("createOrderByGoodsId goodsParamVO is null");
+            return ResultInfo.newEmptyParamsResultInfo();
+        }
+
+        String openId = goodsParamVO.getOpenId();
+        int userCouponsId = goodsParamVO.getUserCouponsId();
+        int addressId = goodsParamVO.getAddressId();
+
+        try {
+            log.info("createOrderByCart params openId : {}, cartItemIds : {}, userCouponsId: {} ,addressId :{} ",
+                    openId,userCouponsId,addressId);
+            ResultInfo resultInfo = ResultInfo.newSuccessResultInfo();
+
+            boolean flag = apiOrderService.checkGoodsOrderParameter(goodsParamVO);
+            if (!flag){
+                return ResultInfo.newParameterErrorResultInfo();
+            }
+            Map<String, Object> payMap = apiOrderService.createOrderByGoodsId(goodsParamVO);
+            if (payMap.size() == 0){
+                return resultInfo;
+            }else {
+                resultInfo.setData(payMap);
+                return resultInfo;
+            }
+        }catch (Exception e){
+            log.error("createOrderByCart happen exception openId : {},  userCouponsId: {} ,addressId :{} selfGet : {}",
+                    openId,userCouponsId,addressId,e);
+            return ResultInfo.newExceptionResultInfo();
+        }
+    }
+
+    /**
+     * 创建订单接口
      * @param cartOrderParamVo 创建订单参数对象
      * @return 返回支付加密字符串 小程序前端调起支付页面
      */
     @RequestMapping("createOrderByCart")
     public ResultInfo createOrderByCart(@RequestBody CartOrderParamVo cartOrderParamVo){
         if (cartOrderParamVo == null){
-            LOGGER.error("createOrderByCart cartOrderParamVo is null");
+            log.error("createOrderByCart cartOrderParamVo is null");
             return ResultInfo.newEmptyParamsResultInfo();
         }
         //判断是否有订单id 如果有订单id 直接调用订单支付接口不用创建订单
@@ -65,14 +102,14 @@ public class ApiOrderController {
             resultInfo.setData(resultMap);
             return resultInfo;
         }
-        LOGGER.info("createOrderByCart cartOrderParamVo : {}",cartOrderParamVo);
+        log.info("createOrderByCart cartOrderParamVo : {}",cartOrderParamVo);
         String openId = cartOrderParamVo.getOpenId();
         String cartItemIds = cartOrderParamVo.getCartItemIds();
         int userCouponsId = cartOrderParamVo.getUserCouponsId();
         int addressId = cartOrderParamVo.getAddressId();
 
         try {
-            LOGGER.info("createOrderByCart params openId : {}, cartItemIds : {}, userCouponsId: {} ,addressId :{} ",
+            log.info("createOrderByCart params openId : {}, cartItemIds : {}, userCouponsId: {} ,addressId :{} ",
                     openId,cartItemIds,userCouponsId,addressId);
             ResultInfo resultInfo = ResultInfo.newSuccessResultInfo();
 
@@ -91,7 +128,7 @@ public class ApiOrderController {
                 return resultInfo;
             }
         }catch (Exception e){
-            LOGGER.error("createOrderByCart happen exception openId : {}, cartItemIds : {}, userCouponsId: {} ,addressId :{} selfGet : {}",
+            log.error("createOrderByCart happen exception openId : {}, cartItemIds : {}, userCouponsId: {} ,addressId :{} selfGet : {}",
                     openId,cartItemIds,userCouponsId,addressId,e);
             return ResultInfo.newExceptionResultInfo();
         }
@@ -117,7 +154,7 @@ public class ApiOrderController {
             resultInfo.setData(orderInfo);
             return resultInfo;
         }catch (Exception e){
-            LOGGER.error("findOrderDetailById happen exception orderId ; {}",orderId,e);
+            log.error("findOrderDetailById happen exception orderId ; {}",orderId,e);
             return ResultInfo.newExceptionResultInfo();
         }
     }
@@ -171,14 +208,14 @@ public class ApiOrderController {
             return ResultInfo.newEmptyParamsResultInfo();
         }
         try {
-            LOGGER.info("calculateCartOrderPrice CartOrderParamVo : {}",paramVo);
+            log.info("calculateCartOrderPrice CartOrderParamVo : {}",paramVo);
             ResultInfo resultInfo = ResultInfo.newSuccessResultInfo();
             CalculateReturnVo calculateReturnVo = calculateService.calculateCartOrderPrice(paramVo);
-            LOGGER.info(" call cart calculate price calculateReturnVo : {}",calculateReturnVo);
+            log.info(" call cart calculate price calculateReturnVo : {}",calculateReturnVo);
             resultInfo.setData(calculateReturnVo);
             return resultInfo;
         }catch (Exception e){
-            LOGGER.error("calculateCartOrderPrice happen exception",e);
+            log.error("calculateCartOrderPrice happen exception",e);
             return ResultInfo.newExceptionResultInfo();
         }
 
@@ -191,23 +228,23 @@ public class ApiOrderController {
      */
     @RequestMapping("/payUpdateOrder")
     public String payUpdateOrder(HttpServletRequest request){
-        LOGGER.info("wechat callback.......");
+        log.info("wechat callback.......");
         String lastXml;
         try {
             boolean flag = apiPayService.payCallbackHandle(request);
             if (flag){
                 //处理成功
                 lastXml = WxUtil.returnXML("SUCCESS");
-                LOGGER.info("wechat pay call back update success *******");
+                log.info("wechat pay call back update success *******");
             }else{
                 //处理失败
                 lastXml =  WxUtil.returnXML("FAIL");
             }
-            LOGGER.info("wechat pay callback return info : {}" + lastXml);
+            log.info("wechat pay callback return info : {}" + lastXml);
             return lastXml;
         } catch (Exception e) {
             lastXml =  WxUtil.returnXML("FAIL");
-            LOGGER.info("wechat pay callback return info : {} happen exception" + lastXml,e);
+            log.info("wechat pay callback return info : {} happen exception" + lastXml,e);
             return lastXml;
         }
     }
@@ -224,13 +261,13 @@ public class ApiOrderController {
         }
         String openId = params.get("openId");
         String orderId = params.get("orderId");
-        LOGGER.info("current user openId : {} cancel order orderId : {}",openId,orderId);
+        log.info("current user openId : {} cancel order orderId : {}",openId,orderId);
         try {
             ResultInfo resultInfo = ResultInfo.newSuccessResultInfo();
             apiOrderService.cancelOrder(openId,orderId);
             return resultInfo;
         }catch (Exception e){
-            LOGGER.error("calculateGoodsOrderPrice GoodsOrderParamVo : {}",params,e);
+            log.error("calculateGoodsOrderPrice GoodsOrderParamVo : {}",params,e);
             return ResultInfo.newExceptionResultInfo();
         }
     }

@@ -1,30 +1,22 @@
 package com.chaomeis.sparrowbeauty.api.service.calculate;
 
-import com.chaomeis.sparrowbeauty.api.paramVo.GoodsVO;
 import com.chaomeis.sparrowbeauty.api.paramVo.CartOrderParamVo;
 import com.chaomeis.sparrowbeauty.api.paramVo.GoodsParamVO;
-import com.chaomeis.sparrowbeauty.api.responseVo.CalculateGoodsReturnVO;
 import com.chaomeis.sparrowbeauty.api.responseVo.CalculateReturnVo;
 import com.chaomeis.sparrowbeauty.entity.*;
 import com.chaomeis.sparrowbeauty.mapper.*;
-import com.chaomeis.sparrowbeauty.utils.NumberUtil;
-import com.sun.org.apache.regexp.internal.RE;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class CalculateService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(CalculateService.class);
     @Resource
     private TbGoodsMapper tbGoodsMapper;
     @Resource
@@ -42,35 +34,34 @@ public class CalculateService {
      * @param goodsParamVO 创建订单的参数
      * @return 返回订单价格对象
      */
-    public CalculateReturnVo calculateCartGoodsPrice(GoodsParamVO goodsParamVO){
+    public CalculateReturnVo calculateCartGoodsPrice(GoodsParamVO goodsParamVO,TbGoods goods){
         // 商品总支付金额
         BigDecimal goodsPayAmount = new BigDecimal("0");
         // 商品总金额
         BigDecimal goodsTotalAmount = new BigDecimal("0");
         // 优惠券金额
         BigDecimal goodsReduceAmount = new BigDecimal("0");
-        GoodsVO goods = goodsParamVO.getGoods();
-        TbGoods tbGoods = tbGoodsMapper.selectByPrimaryKey(goods.getGoodsId());
+        TbGoods tbGoods = tbGoodsMapper.selectByPrimaryKey(goodsParamVO.getGoodsId());
         String goodsPrice = tbGoods.getGoodsPrice();
         BigDecimal bidGoodsPrice = new BigDecimal(goodsPrice);
-        BigDecimal goodsCount = new BigDecimal(goods.getGoodsCount()); // 商品数量
+        BigDecimal goodsCount = new BigDecimal(goodsParamVO.getGoodsCount()); // 商品数量
         // 商品原价
         BigDecimal originalPrice = bidGoodsPrice.multiply(goodsCount);
         // 活动优惠价格
-        BigDecimal activityPrice = this.calculateActivityPrice(goodsParamVO.getGoods().getGoodsId(), goodsParamVO.getGoods().getGoodsCount());
+        BigDecimal activityPrice = this.calculateActivityPrice(goodsParamVO.getGoodsId(), goodsParamVO.getGoodsCount());
         // 券优惠价格c
         BigDecimal couponsPrice = this.calculateCouponsPrice(originalPrice, goodsParamVO.getUserCouponsId(), goodsParamVO.getOpenId());
         // sku价格
         BigDecimal skuPrice = new BigDecimal("0");
-        if(!CollectionUtils.isEmpty(goods.getSkuDetailIdList())) {
-            BigDecimal bigSkuDetailPrice= new BigDecimal ("0");
-            for (int skuTypeId: goods.getSkuDetailIdList()) {
-                // sku价格
-                bigSkuDetailPrice = calculateSkuprice(skuTypeId);
-                bigSkuDetailPrice = bigSkuDetailPrice.add(bigSkuDetailPrice);
-            }
-            skuPrice = bigSkuDetailPrice;
-        }
+//        if(!CollectionUtils.isEmpty(goods.getSkuDetailIdList())) {
+//            BigDecimal bigSkuDetailPrice= new BigDecimal ("0");
+//            for (int skuTypeId: goods.getSkuDetailIdList()) {
+//                // sku价格
+//                bigSkuDetailPrice = calculateSkuprice(skuTypeId);
+//                bigSkuDetailPrice = bigSkuDetailPrice.add(bigSkuDetailPrice);
+//            }
+//            skuPrice = bigSkuDetailPrice;
+//        }
         // 支付价格
         goodsPayAmount = originalPrice.subtract(activityPrice).subtract(couponsPrice).add(skuPrice);
         // 总金额

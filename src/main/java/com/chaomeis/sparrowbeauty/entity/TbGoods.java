@@ -51,4 +51,6 @@ public class TbGoods {
     private int buyLimit;
 
     private int receiveFlag;
+
+    private List<TbSkuDetail> skuDetailIdList;
 }

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaomeis.sparrowbeauty.mapper.TbCmsApiUserMapper">
+    <resultMap id="BaseResultMap" type="com.chaomeis.sparrowbeauty.entity.TbCmsApiUser">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="wechat_num" jdbcType="VARCHAR" property="wechatNum"/>
+        <result column="open_id" jdbcType="VARCHAR" property="openId"/>
+        <result column="wechat_phone_num" jdbcType="VARCHAR" property="wechatPhoneNum"/>
+        <result column="user_bind_phone_num" jdbcType="VARCHAR" property="userBindPhoneNum"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="user_head_image" jdbcType="VARCHAR" property="userHeadImage"/>
+        <result column="referrer_open_id" jdbcType="VARCHAR" property="referrerOpenId"/>
+        <result column="gift_receive_status" jdbcType="INTEGER" property="giftReceiveStatus"/>
+        <result column="is_dealer" jdbcType="INTEGER" property="isDealer"/>
+        <result column="dealer_level_id" jdbcType="INTEGER" property="dealerLevelId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, nick_name, wechat_num, open_id, wechat_phone_num, user_bind_phone_num, create_time,
+        update_time, user_head_image, referrer_open_id, gift_receive_status, is_dealer, dealer_level_id
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_api_user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap" parameterType="com.chaomeis.sparrowbeauty.entity.TbCmsApiUser" >
+        select
+        <include refid="Base_Column_List"/>
+        from tb_api_user
+        where 1=1
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from tb_api_user
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbCmsApiUser">
+        insert into tb_api_user (nick_name,
+                                 wechat_num,
+                                 open_id,
+                                 wechat_phone_num,
+                                 user_bind_phone_num,
+                                 create_time,
+                                 update_time,
+                                 user_head_image,
+                                 referrer_open_id,
+                                 gift_receive_status,
+                                 is_dealer,
+                                 dealer_level_id)
+        values (
+                #{nickName,jdbcType=VARCHAR},
+                #{wechatNum,jdbcType=VARCHAR},
+                #{openId,jdbcType=VARCHAR},
+                #{wechatPhoneNum,jdbcType=VARCHAR},
+                #{userBindPhoneNum,jdbcType=VARCHAR},
+                #{createTime,jdbcType=TIMESTAMP},
+                #{updateTime,jdbcType=TIMESTAMP},
+                #{userHeadImage,jdbcType=VARCHAR},
+                #{referrerOpenId,jdbcType=VARCHAR},
+                #{giftReceiveStatus,jdbcType=INTEGER},
+                #{isDealer,jdbcType=INTEGER},
+                #{dealerLevelId,jdbcType=INTEGER})
+    </insert>
+
+
+    <update id="updateByPrimaryKey" parameterType="com.chaomeis.sparrowbeauty.entity.TbCmsApiUser">
+        update tb_api_user
+        set nick_name           = #{nickName,jdbcType=VARCHAR},
+            wechat_num          = #{wechatNum,jdbcType=VARCHAR},
+            open_id             = #{openId,jdbcType=VARCHAR},
+            wechat_phone_num    = #{wechatPhoneNum,jdbcType=VARCHAR},
+            user_bind_phone_num = #{userBindPhoneNum,jdbcType=VARCHAR},
+            update_time         = #{updateTime,jdbcType=TIMESTAMP},
+            user_head_image     = #{userHeadImage,jdbcType=VARCHAR},
+            referrer_open_id    = #{referrerOpenId,jdbcType=VARCHAR},
+            gift_receive_status = #{giftReceiveStatus,jdbcType=INTEGER},
+            is_dealer           = #{isDealer,jdbcType=INTEGER},
+            dealer_level_id     = #{dealerLevelId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

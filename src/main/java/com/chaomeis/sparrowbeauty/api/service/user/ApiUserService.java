@@ -13,7 +13,7 @@ public class ApiUserService {
     private TbApiUserMapper tbApiUserMapper;
 
     public TbApiUser findApiUserByOpenId(String openId){
-        return tbApiUserMapper.tbApiUserMapper(openId);
+        return tbApiUserMapper.selectByOpenId(openId);
     }
 
     public boolean receiveNewUserGift(TbApiUser userInfo) {
@@ -31,9 +31,9 @@ public class ApiUserService {
         TbApiUser record = new TbApiUser();
         record.setOpenId(oppenId);
         record.setReferrerOpenId(referrerOppenId);
-        TbApiUser apiUser = tbApiUserMapper.tbApiUserMapper(oppenId);
+        TbApiUser apiUser = tbApiUserMapper.selectByOpenId(oppenId);
         if (null == apiUser) {
-            tbApiUserMapper.insertSelective(record);
+            tbApiUserMapper.insert(record);
         }
     }
 

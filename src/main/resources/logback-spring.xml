@@ -29,7 +29,7 @@
         <appender-ref ref="STDOUT" />
     </logger>
 
-    <logger name="com.chaomeis.sparrowbeauty.mapper" level="debug" >
+    <logger name="com.chaomeis.sparrowbeauty.mapper" level="info" >
 <!--        <appender-ref ref="FILE" />-->
         <appender-ref ref="STDOUT" />
     </logger>
@@ -39,7 +39,7 @@
         <appender-ref ref="STDOUT" />
     </logger>
 
-    <root level="INFO">
+    <root level="info">
         <appender-ref ref="FILE" />
         <appender-ref ref="STDOUT" />
     </root>

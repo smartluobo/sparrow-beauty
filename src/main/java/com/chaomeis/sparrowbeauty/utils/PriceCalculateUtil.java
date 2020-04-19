@@ -27,6 +27,11 @@ public class PriceCalculateUtil {
         return multiply.doubleValue();
     }
 
+    public static double multiply(String price, int count) {
+        BigDecimal multiply = new BigDecimal(price).multiply(new BigDecimal(count));
+        return multiply.doubleValue();
+    }
+
     public static int intOrderTbPrice(BigDecimal payment) {
 
         return payment.multiply(new BigDecimal("100")).intValue();
@@ -42,6 +47,14 @@ public class PriceCalculateUtil {
 
     public static double add(double specialReduceAmount, double cartPrice) {
         return new BigDecimal(String.valueOf(specialReduceAmount)).add(new BigDecimal(String.valueOf(cartPrice))).doubleValue();
+    }
+
+    public static double add(double price1, int price2) {
+        return new BigDecimal(String.valueOf(price1)).add(new BigDecimal(String.valueOf(price2))).doubleValue();
+    }
+
+    public static double add(double price1, String price2) {
+        return new BigDecimal(String.valueOf(price1)).add(new BigDecimal(price2)).doubleValue();
     }
 
     public static double add(String amount1, String amount2) {

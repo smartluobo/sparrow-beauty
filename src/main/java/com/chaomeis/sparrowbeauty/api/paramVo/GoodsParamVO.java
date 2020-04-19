@@ -1,49 +1,32 @@
 package com.chaomeis.sparrowbeauty.api.paramVo;
 
+
+import lombok.Data;
+
 import java.util.List;
 
 /**
  * 生成订单
  */
+@Data
 public class GoodsParamVO {
     // 订单id
     private String orderId;
     // 微信用户id
     private String openId;
-    // 商品集合
-    private GoodsVO goods;
     // 优惠券id
-    private Integer userCouponsId;
+    private int userCouponsId;
 
-    public String getOrderId() {
-        return orderId;
-    }
+    private int addressId;
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
+    private String buyerMessage;
 
-    public String getOpenId() {
-        return openId;
-    }
+    private int goodsId;
 
-    public void setOpenId(String openId) {
-        this.openId = openId;
-    }
+    private List<Integer> skuDetailIdList;
 
-    public GoodsVO getGoods() {
-        return goods;
-    }
+    private  int logisticsId;
 
-    public void setGoods(GoodsVO goods) {
-        this.goods = goods;
-    }
+    private int goodsCount;
 
-    public Integer getUserCouponsId() {
-        return userCouponsId;
-    }
-
-    public void setUserCouponsId(Integer userCouponsId) {
-        this.userCouponsId = userCouponsId;
-    }
 }

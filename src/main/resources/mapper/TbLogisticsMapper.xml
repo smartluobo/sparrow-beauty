@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaomeis.sparrowbeauty.mapper.TbLogisticsMapper">
+
+    <resultMap id="BaseResultMap" type="com.chaomeis.sparrowbeauty.entity.TbLogistics">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="logistics_name" jdbcType="VARCHAR" property="logisticsName" />
+        <result column="logistics_price" jdbcType="INTEGER" property="logisticsPrice" />
+        <result column="logistics_api_url" jdbcType="VARCHAR" property="logisticsApiUrl" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, logistics_name, logistics_price, logistics_api_url,create_time,update_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from tb_logistics where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT  <include refid="Base_Column_List" /> from tb_logistics
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT  <include refid="Base_Column_List" /> from tb_logistics
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="int">
+        delete from tb_logistics where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.chaomeis.sparrowbeauty.entity.TbCarousel">
+        insert into tb_logistics (id, image_url, goto_url,create_time)
+        values (#{id,jdbcType=INTEGER}, #{imageUrl,jdbcType=VARCHAR}, #{gotoUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+
+
+    <update id="updateByPrimaryKey" parameterType="com.chaomeis.sparrowbeauty.entity.TbCarousel">
+        update tb_logistics
+        set image_url = #{imageUrl,jdbcType=VARCHAR},
+            goto_url = #{gotoUrl,jdbcType=VARCHAR},
+            update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
