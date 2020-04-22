@@ -11,11 +11,7 @@ public interface TbOrderDetailMapper {
 
     int insert(TbOrderDetail record);
 
-    int insertSelective(TbOrderDetail record);
-
     TbOrderDetail selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(TbOrderDetail record);
 
     int updateByPrimaryKey(TbOrderDetail record);
 

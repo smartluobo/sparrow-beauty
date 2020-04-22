@@ -11,11 +11,7 @@ public interface TbUserCouponsMapper {
 
     int insert(TbUserCoupons record);
 
-    int insertSelective(TbUserCoupons record);
-
     TbUserCoupons selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(TbUserCoupons record);
 
     int updateByPrimaryKey(TbUserCoupons record);
 

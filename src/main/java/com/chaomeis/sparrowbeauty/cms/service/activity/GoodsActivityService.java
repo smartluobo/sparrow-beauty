@@ -12,6 +12,6 @@ public class GoodsActivityService {
     private TbActivityGoodsMapper tbActivityGoodsMapper;
 
     public void createGoodsActivity (TbActivityGoods record) {
-        tbActivityGoodsMapper.insertSelective(record);
+        tbActivityGoodsMapper.insert(record);
     }
 }

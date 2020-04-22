@@ -9,11 +9,7 @@ public interface TbUserPayRecordMapper {
 
     int insert(TbUserPayRecord record);
 
-    int insertSelective(TbUserPayRecord record);
-
     TbUserPayRecord selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(TbUserPayRecord record);
 
     int updateByPrimaryKey(TbUserPayRecord record);
 

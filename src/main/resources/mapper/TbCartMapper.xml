@@ -38,88 +38,8 @@
       #{showPrice,jdbcType=DOUBLE}, #{skuDetailIds,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{goodsCount,jdbcType=INTEGER}, #{skuDetailDesc,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbCart">
-    insert into tb_cart
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="oppenId != null">
-        oppen_id,
-      </if>
-      <if test="goodsId != null">
-        goods_id,
-      </if>
-      <if test="showPrice != null">
-        show_price,
-      </if>
-      <if test="skuDetailIds != null">
-        sku_detail_ids,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="goodsCount != null">
-        goods_count,
-      </if>
-      <if test="skuDetailDesc != null">
-        sku_detail_desc,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="oppenId != null">
-        #{oppenId,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsId != null">
-        #{goodsId,jdbcType=INTEGER},
-      </if>
-      <if test="showPrice != null">
-        #{showPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="skuDetailIds != null">
-        #{skuDetailIds,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="goodsCount != null">
-        #{goodsCount,jdbcType=INTEGER},
-      </if>
-      <if test="skuDetailDesc != null">
-        #{skuDetailDesc,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.chaomeis.sparrowbeauty.entity.TbCart">
-    update tb_cart
-    <set>
-      <if test="oppenId != null">
-        oppen_id = #{oppenId,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsId != null">
-        goods_id = #{goodsId,jdbcType=INTEGER},
-      </if>
-      <if test="showPrice != null">
-        show_price = #{showPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="skuDetailIds != null">
-        sku_detail_ids = #{skuDetailIds,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="goodsCount != null">
-        goods_count = #{goodsCount,jdbcType=INTEGER},
-      </if>
-      <if test="skuDetailDesc != null">
-        sku_detail_desc = #{skuDetailDesc,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
+
   <update id="updateByPrimaryKey" parameterType="com.chaomeis.sparrowbeauty.entity.TbCart">
     update tb_cart
     set oppen_id = #{oppenId,jdbcType=VARCHAR},
@@ -131,6 +51,7 @@
       sku_detail_desc = #{skuDetailDesc,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
   <update id="updateUserCart" parameterType="com.chaomeis.sparrowbeauty.entity.TbCart">
     update tb_cart
     set

@@ -7,11 +7,7 @@ public interface TbDealerLevelMapper {
 
     int insert(TbDealerLevel record);
 
-    int insertSelective(TbDealerLevel record);
-
     TbDealerLevel selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(TbDealerLevel record);
 
     int updateByPrimaryKey(TbDealerLevel record);
 }

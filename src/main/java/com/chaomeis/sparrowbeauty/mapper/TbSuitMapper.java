@@ -11,11 +11,7 @@ public interface TbSuitMapper {
 
     int insert(TbSuit record);
 
-    int insertSelective(TbSuit record);
-
     TbSuit selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(TbSuit record);
 
     int updateByPrimaryKey(TbSuit record);
 

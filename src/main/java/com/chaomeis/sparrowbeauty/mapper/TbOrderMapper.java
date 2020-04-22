@@ -12,11 +12,7 @@ public interface TbOrderMapper {
 
     int insert(TbOrder record);
 
-    int insertSelective(TbOrder record);
-
     TbOrder selectByPrimaryKey(String orderId);
-
-    int updateByPrimaryKeySelective(TbOrder record);
 
     int updateByPrimaryKey(TbOrder record);
 

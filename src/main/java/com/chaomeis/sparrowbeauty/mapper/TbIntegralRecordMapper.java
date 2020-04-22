@@ -9,11 +9,7 @@ public interface TbIntegralRecordMapper {
 
     int insert(TbIntegralRecord record);
 
-    int insertSelective(TbIntegralRecord record);
-
     TbIntegralRecord selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(TbIntegralRecord record);
 
     int updateByPrimaryKey(TbIntegralRecord record);
 }

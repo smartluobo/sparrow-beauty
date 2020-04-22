@@ -7,11 +7,7 @@ public interface TbCommissionRecordMapper {
 
     int insert(TbCommissionRecord record);
 
-    int insertSelective(TbCommissionRecord record);
-
     TbCommissionRecord selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(TbCommissionRecord record);
 
     int updateByPrimaryKey(TbCommissionRecord record);
 }

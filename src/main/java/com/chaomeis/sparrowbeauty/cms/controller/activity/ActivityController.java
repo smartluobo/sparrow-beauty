@@ -96,7 +96,7 @@ public class ActivityController extends BaseController {
                         if (activitPrice.compareTo(new BigDecimal("0")) <= 0) {
                             activitPrice = new BigDecimal("0");
                         }
-                        record.setActivitPrice(activitPrice.toString());
+                        record.setActivityPrice(activitPrice.toString());
                     }
                     tbActivityGoodsMapper.deleteGoodsId(goods.getId()); // 删除商品对应的活动一个商品只能存在一个活动中
                     goodsActivityService.createGoodsActivity(record);

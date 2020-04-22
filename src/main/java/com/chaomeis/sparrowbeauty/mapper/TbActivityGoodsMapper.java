@@ -13,11 +13,7 @@ public interface TbActivityGoodsMapper {
 
     int insert(TbActivityGoods record);
 
-    int insertSelective(TbActivityGoods record);
-
     TbActivityGoods selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(TbActivityGoods record);
 
     int updateByPrimaryKey(TbActivityGoods record);
 

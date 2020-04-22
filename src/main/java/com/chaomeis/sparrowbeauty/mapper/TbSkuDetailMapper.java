@@ -13,11 +13,7 @@ public interface TbSkuDetailMapper {
 
     int insert(TbSkuDetail record);
 
-    int insertSelective(TbSkuDetail record);
-
     TbSkuDetail selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(TbSkuDetail record);
 
     int updateByPrimaryKey(TbSkuDetail record);
 

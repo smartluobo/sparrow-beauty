@@ -14,11 +14,7 @@ public interface TbCartMapper {
 
     int insert(TbCart record);
 
-    int insertSelective(TbCart record);
-
     TbCart selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(TbCart record);
 
     int updateByPrimaryKey(TbCart record);
 

@@ -11,11 +11,7 @@ public interface TbSkuTypeMapper {
 
     int insert(TbSkuType record);
 
-    int insertSelective(TbSkuType record);
-
     TbSkuType selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(TbSkuType record);
 
     int updateByPrimaryKey(TbSkuType record);
 

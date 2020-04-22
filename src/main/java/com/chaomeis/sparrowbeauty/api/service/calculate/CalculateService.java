@@ -5,8 +5,6 @@ import com.chaomeis.sparrowbeauty.api.paramVo.GoodsParamVO;
 import com.chaomeis.sparrowbeauty.api.responseVo.CalculateReturnVo;
 import com.chaomeis.sparrowbeauty.entity.*;
 import com.chaomeis.sparrowbeauty.mapper.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -158,12 +156,12 @@ public class CalculateService {
             // 商品总金额
             BigDecimal totalAmount = bidGoodsPrice.multiply(count);
             // 计算活动价格
-            TbActivity tbActivity= tbActivityMapper.selectValidActivityy();
+            TbActivity tbActivity= tbActivityMapper.selectValidActivity();
             if (null != tbActivity) {
                 if ("0".equals(tbActivity.getActivityType())) { // 全场折扣
                     BigDecimal ratio = new BigDecimal(tbActivity.getActivityRatio());
-                    BigDecimal ratioyAmount = totalAmount.multiply(ratio); // 折扣价格
-                    activityReduceAmount = totalAmount.subtract(ratioyAmount); // 减免金额
+                    BigDecimal ratioAmount = totalAmount.multiply(ratio); // 折扣价格
+                    activityReduceAmount = totalAmount.subtract(ratioAmount); // 减免金额
                 } else if ("1".equals(tbActivity.getActivityType())) { // 限时活动
                     // 限时活动时，查询商品是否在当前活动中
                     TbActivityGoods record = new TbActivityGoods();
@@ -171,8 +169,8 @@ public class CalculateService {
                     record.setActivityId(tbActivity.getId());
                     TbActivityGoods tbActivityGoods = tbActivityGoodsMapper.selectActivityGoods(record);
                     if (0 == tbActivityGoods.getPriceType()) { // 指定价格活动
-                        BigDecimal activitAmount =  new BigDecimal(tbActivityGoods.getActivitPrice()).multiply(count); // 活动价格
-                        activityReduceAmount = totalAmount.subtract(activitAmount); // 减免金额
+                        BigDecimal activityAmount =  new BigDecimal(tbActivityGoods.getActivityPrice()).multiply(count); // 活动价格
+                        activityReduceAmount = totalAmount.subtract(activityAmount); // 减免金额
                     } else if (1 == tbActivityGoods.getPriceType()) { // 折扣价格活动
                         BigDecimal ratio = new BigDecimal(tbActivityGoods.getActivityRatio());
                         BigDecimal ratioyAmount = totalAmount.multiply(ratio); // 折扣价格

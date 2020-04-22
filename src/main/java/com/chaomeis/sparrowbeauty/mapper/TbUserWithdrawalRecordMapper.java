@@ -7,11 +7,7 @@ public interface TbUserWithdrawalRecordMapper {
 
     int insert(TbUserWithdrawalRecord record);
 
-    int insertSelective(TbUserWithdrawalRecord record);
-
     TbUserWithdrawalRecord selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(TbUserWithdrawalRecord record);
 
     int updateByPrimaryKey(TbUserWithdrawalRecord record);
 }

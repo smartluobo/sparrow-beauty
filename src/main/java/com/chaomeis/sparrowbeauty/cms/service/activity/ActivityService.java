@@ -23,14 +23,14 @@ public class ActivityService {
      * @param record
      */
     public void createActivity (TbActivity record) {
-        tbActivityMapper.insertSelective(record);
+        tbActivityMapper.insert(record);
     }
     /**
      * 更新活动
      * @param record
      */
     public void updateActivity (TbActivity record) {
-        tbActivityMapper.updateByPrimaryKeySelective(record);
+        tbActivityMapper.updateByPrimaryKey(record);
     }
     /**
      * 删除活动

@@ -7,11 +7,7 @@ public interface TbUserAccountMapper {
 
     int insert(TbUserAccount record);
 
-    int insertSelective(TbUserAccount record);
-
     TbUserAccount selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(TbUserAccount record);
 
     int updateByPrimaryKey(TbUserAccount record);
 }

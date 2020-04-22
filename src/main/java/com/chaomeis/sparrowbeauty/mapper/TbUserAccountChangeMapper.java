@@ -1,6 +1,7 @@
 package com.chaomeis.sparrowbeauty.mapper;
 
 import com.chaomeis.sparrowbeauty.entity.TbUserAccountChange;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,13 +13,9 @@ public interface TbUserAccountChangeMapper {
 
     int insert(TbUserAccountChange record);
 
-    int insertSelective(TbUserAccountChange record);
-
     TbUserAccountChange selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(TbUserAccountChange record);
 
     int updateByPrimaryKey(TbUserAccountChange record);
 
-    List<TbUserAccountChange> getUserAccountRecord(String openId,String direction);
+    List<TbUserAccountChange> getUserAccountRecord(@Param("openId") String openId, @Param("direction") String direction);
 }

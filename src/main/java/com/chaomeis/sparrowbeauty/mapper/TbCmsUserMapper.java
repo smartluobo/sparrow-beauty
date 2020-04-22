@@ -9,11 +9,7 @@ public interface TbCmsUserMapper {
 
     int insert(TbCmsUser record);
 
-    int insertSelective(TbCmsUser record);
-
     TbCmsUser selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(TbCmsUser record);
 
     int updateByPrimaryKey(TbCmsUser record);
 

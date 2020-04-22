@@ -9,11 +9,7 @@ public interface TbApiUserMapper {
 
     int insert(TbApiUser record);
 
-    int insertSelective(TbApiUser record);
-
     TbApiUser selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(TbApiUser record);
 
     int updateOpenIdSelective(TbApiUser record);
 
